@@ -1,13 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package mvc.control;
 
-/**
- *
- * @author CAUPT - ALUNOS
- */
+//Importação dos models
+import mvc.model.Academia;
+import mvc.model.AcademiaDAORAM;
+import mvc.model.Pessoa;
+import mvc.model.PessoaDAORAM;
+
+//Importação das views
+import mvc.view.GUI;
+
 public class Main {
     
 }
