@@ -11,6 +11,7 @@ import mvc.model.PessoaDAO;
 import mvc.view.GUI;
 
 public class Main {
+    GUI gui = new GUI();
     AcademiaDAO academiaDAO = new AcademiaDAO();
     Scanner s = new Scanner(System.in);
     
