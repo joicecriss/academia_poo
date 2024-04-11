@@ -1,6 +1,9 @@
 package mvc.model;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.Date;
+import java.util.Objects;
 /*
 CRUD de ACADEMIA.
 Informações importantes: id, nome, endereço, dataCriacao, dataModificacao.
@@ -10,20 +13,23 @@ public class Academia {
     private long id;
     private String nome;
     private String endereco;
+    private String cnpj;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
-    private static int aux = 0;
-
+    private static long aux = 0;
+    public static LocalDate diaAtual = LocalDate.now();
+    
     public Academia() {
         this.id = ++Academia.aux;
+        this.dataCriacao = diaAtual;
     }
     
     public long getId() {
-        return id;
+        return this.id;
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {
@@ -31,19 +37,27 @@ public class Academia {
     }
 
     public String getEndereco() {
-        return endereco;
+        return this.endereco;
     }
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+    
+    public String getCnpj() {
+        return this.cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
 
     public LocalDate getDataCriacao() {
-        return dataCriacao;
+        return this.dataCriacao;
     }
 
     public LocalDate getDataModificacao() {
-        return dataModificacao;
+        return this.dataModificacao;
     }
 
     public void setDataModificacao(LocalDate dataModificacao) {
@@ -53,10 +67,11 @@ public class Academia {
     @Override
     public String toString() {
         return  "\n------------------------------" +
-                "\n|Academia:" + 
+                "\n| Academia:" + 
                 "\n| ID: " + id + 
                 "\n| Nome: " + nome + 
                 "\n| Endereco: " + endereco + 
+                "\n| CNPJ: " + cnpj + 
                 "\n| Data de Criacao: " + dataCriacao + 
                 "\n| Data de Modificacao: " + dataModificacao +
                 "\n------------------------------";
@@ -65,7 +80,7 @@ public class Academia {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.cnpj);
         return hash;
     }
 
@@ -81,8 +96,6 @@ public class Academia {
             return false;
         }
         final Academia other = (Academia) obj;
-        return this.id == other.id;
-    }
-
-    
+        return Objects.equals(this.cnpj, other.cnpj);
+    }    
 }
