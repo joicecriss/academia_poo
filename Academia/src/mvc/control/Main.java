@@ -17,19 +17,58 @@ public class Main {
     
     public Main() {
 
-        int op;
+        int opcao;
         do {
-
-            op = this.opAcademia();
+            opcao = gui.menuBoasVindas();
+            switch (opcao) {
+                case 1:
+                    System.out.println("\n- Digite o email: ");
+                    String email = s.nextLine();
+                    System.out.println("\n- Digite a senha:");
+                    String senha = s.nextLine();
+                    break;
+                case 2:
+                    int opPessoa = gui.opPessoa();
+                    switch (opPessoa) {
+                        case 1:
+                            gui.criaPessoa();
+                            gui.opPessoa();
+                            break;
+                        case 2:
+                            
+                            break;
+                        case 3:
+                            
+                            break;
+                        case 4:
+                            
+                            break;
+                        case 5:
+                            gui.menuBoasVindas();
+                            break;
+                        default:
+                            System.out.println("\n Digite um número válido");
+                    }
+                    break;
+                case 3:
+                    System.out.println("\n Até a próxima!!");
+                default:
+                    System.out.println("\n Digite um número válido!");
+            }
+        } while(opcao != 3);
+        
+        /*int op;
+        do {
+            op = gui.opAcademia();
             switch (op) {
                 case 1:
-                    Academia a = criaAcademia();
+                    Academia a = gui.criaAcademia();
 
                     boolean jogadorFoiInserido = academiaDAO.adiciona(a);
                     if (jogadorFoiInserido) {
-                        System.out.println("Academia inserida com sucesso!");
+                        System.out.println("\n Academia inserida com sucesso!");
                     } else {
-                        System.out.println("Academia não inserida!");
+                        System.out.println("\n Academia não inserida!");
 
                     }
 
@@ -38,25 +77,25 @@ public class Main {
                     academiaDAO.mostrarTodos();
                     break;
                 case 3:
-                    System.out.println("Academia procurada: ");
+                    System.out.println("\n Academia procurada: ");
                     String procurada = s.nextLine();
-                    System.out.println("Novo nome:");
+                    System.out.println("\n Novo nome:");
                     String novoNome = s.nextLine();
                     if (academiaDAO.alterarNome(procurada, novoNome)) {
-                        System.out.println("Academia alterada");
+                        System.out.println("\n Academia alterada");
                     } else {
-                        System.out.println("Academia não encontrada!");
+                        System.out.println("\n Academia não encontrada!");
                     }
 
                     break;
                 case 4:
-                    System.out.println("Academia procurada:");
+                    System.out.println("\n Academia procurada:");
                     String nomeExclusao = s.nextLine();
 
                     if (academiaDAO.remover(nomeExclusao)) {
-                        System.out.println("Academia excluída!");
+                        System.out.println("\n Academia excluída!");
                     } else {
-                        System.out.println("Academia não excluída!");
+                        System.out.println("\n Academia não excluída!");
                     }
 
                     break;
@@ -67,34 +106,7 @@ public class Main {
                     break;
 
             }
-        } while (op != 5);
-
-    }
-    
-    private Academia criaAcademia() {
-        Academia a = new Academia();
-        
-        System.out.println("CNPJ: ");
-        String CNPJ = s.nextLine();
-        a.setCnpj(CNPJ);
-        System.out.println("Nome: ");
-        String nome = s.nextLine();
-        a.setNome(nome);
-        System.out.println("Endereço: ");
-        String endereco = s.nextLine();
-        a.setEndereco(endereco);
-        return a;
-    }
-    
-    private int opAcademia() {
-
-        System.out.println("1 - Cadastrar");
-        System.out.println("2 - Mostrar todas Academias");
-        System.out.println("3 - Alterar o nome da Academia");
-        System.out.println("4 - Excluir pelo id");
-        System.out.println("5 - Sair");
-        System.out.print("Qual sua opcao? R: ");
-        return Integer.parseInt(s.nextLine());
+        } while (op != 5); */          
 
     }
     
