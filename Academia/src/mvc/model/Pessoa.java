@@ -1,6 +1,7 @@
 package mvc.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /*
@@ -18,12 +19,14 @@ public class Pessoa {
     private String senha;
     private String tipoUsuario;
     private String cpf;
-    private LocalDate dataCriacao;
-    private LocalDate dataModificacao;
+    private LocalDateTime dataCriacao;
+    private LocalDateTime dataModificacao;
 
     
     public Pessoa() {
         id = Pessoa.aux++;
+        dataCriacao = Util.getDiaAtual();
+        dataModificacao = Util.getDiaAtual();
     }
     
     public long getId() {
@@ -86,15 +89,15 @@ public class Pessoa {
         this.cpf = cpf;
     }
 
-    public LocalDate getDataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
-    public LocalDate getDataModificacao() {
+    public LocalDateTime getDataModificacao() {
         return dataModificacao;
     }
 
-    public void setDataModificacao(LocalDate dataModificacao) {
+    public void setDataModificacao(LocalDateTime dataModificacao) {
         this.dataModificacao = dataModificacao;
     }
 

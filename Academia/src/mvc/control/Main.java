@@ -26,6 +26,8 @@ public class Main {
                     String email = s.nextLine();
                     System.out.println("\n- Digite a senha:");
                     String senha = s.nextLine();
+                    
+                    //if(email ==  && senha)
                     break;
                 case 2:
                     int opPessoa = gui.opPessoa();
