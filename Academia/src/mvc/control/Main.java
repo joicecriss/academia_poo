@@ -13,6 +13,7 @@ import mvc.view.GUI;
 public class Main {
     GUI gui = new GUI();
     AcademiaDAO academiaDAO = new AcademiaDAO();
+    PessoaDAO pessoaDAO = new PessoaDAO();
     Scanner s = new Scanner(System.in);
     
     public Main() {
@@ -22,12 +23,24 @@ public class Main {
             opcao = gui.menuBoasVindas();
             switch (opcao) {
                 case 1:
-                    System.out.println("\n- Digite o email: ");
-                    String email = s.nextLine();
-                    System.out.println("\n- Digite a senha:");
-                    String senha = s.nextLine();
+                    int login = 0;
+                    while(login != 1) {
+                        System.out.println("\n- Digite o email: ");
+                        String email = s.nextLine();
+                        System.out.println("\n- Digite a senha:");
+                        String senha = s.nextLine();
+                        
+                        if(!pessoaDAO.buscaPorLogin(email).equals(email)) {
+                            System.out.println("Email errado, digite novamente!");
+                        } else if (!pessoaDAO.buscaPorSenha(senha).equals(senha)) {
+                            System.out.println("Senha errada, digite novamente!");
+                        } else {
+                            login = 1;
+                            System.out.println("Login feito");
+                            //gui.opPessoa();
+                        }
+                    }                    
                     
-                    //if(email ==  && senha)
                     break;
                 case 2:
                     int opPessoa = gui.opPessoa();

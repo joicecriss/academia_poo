@@ -52,4 +52,22 @@ public class PessoaDAO {
 
     }
     
+    public String buscaPorLogin(String login) {
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getLogin().equals(login)) {
+                return p.getLogin();
+            }
+        }
+        return "erro";
+    }
+    
+    public String buscaPorSenha(String senha) {
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getSenha().equals(senha)) {
+                return p.getSenha();
+            }
+        }
+        return "erro";
+    }
+    
 }
