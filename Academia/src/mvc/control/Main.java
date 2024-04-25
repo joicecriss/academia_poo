@@ -18,9 +18,11 @@ public class Main {
     
     public Main() {
 
-        int opcao;
+        int opcao = 0;
+
         do {
-            opcao = gui.menuBoasVindas();
+            gui.menuBoasVindas();
+            opcao = Integer.parseInt(s.nextLine());
             switch (opcao) {
                 case 1:
                     int login = 0;
@@ -37,7 +39,7 @@ public class Main {
                         } else {
                             login = 1;
                             System.out.println("Login feito");
-                            //gui.opPessoa();
+                            gui.opPessoa();
                         }
                     }                    
                     

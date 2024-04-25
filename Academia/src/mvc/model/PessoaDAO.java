@@ -12,6 +12,7 @@ public class PessoaDAO {
         p1.setSenha("joice123");
         p1.setTipoUsuario("Administrador");
         p1.setCpf("702.524.266-73");
+        adiciona(p1);
         
         Pessoa p2 = new Pessoa();
         p2.setNome("Matheus Henrique");
@@ -21,6 +22,7 @@ public class PessoaDAO {
         p2.setSenha("matheus123");
         p2.setTipoUsuario("Administrador");
         p2.setCpf("000.000.000-00");
+        adiciona(p2);
     }
     
     public boolean adiciona(Pessoa p) {

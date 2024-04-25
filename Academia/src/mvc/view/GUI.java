@@ -11,7 +11,7 @@ public class GUI {
     Scanner scanner = new Scanner(System.in);
     StringBuilder builder = new StringBuilder("");
     
-     public int menuBoasVindas() {
+     public void menuBoasVindas() {
         builder.append("\n----------------------------");
         builder.append("\n|   BEM VINDO A ACADEMIA   |");
         builder.append("\n|                          |");
@@ -22,7 +22,7 @@ public class GUI {
         builder.append("\n----------------------------");
         builder.append("\n\nQual sua opção? R: ");
         System.out.print(builder.toString());
-        return Integer.parseInt(scanner.nextLine());
+        //return Integer.parseInt(scanner.nextLine());
     }
      
     public int opPessoa() {
