@@ -17,24 +17,24 @@ public class Pessoa {
     private LocalDate nascimento;
     private String login;
     private String senha;
-    private String tipoUsuario;
+    private int tipoUsuario;
     private String cpf;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
     
     public Pessoa() {
-        id = Pessoa.aux++;
-        dataCriacao = Util.getDiaAtual();
-        dataModificacao = Util.getDiaAtual();
+        this.id = Pessoa.aux++;
+        this.dataCriacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDiaAtual();
     }
     
     public long getId() {
-        return id;
+        return this.id;
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {
@@ -42,7 +42,7 @@ public class Pessoa {
     }
 
     public String getSexo() {
-        return sexo;
+        return this.sexo;
     }
 
     public void setSexo(String sexo) {
@@ -50,7 +50,7 @@ public class Pessoa {
     }
 
     public LocalDate getNascimento() {
-        return nascimento;
+        return this.nascimento;
     }
 
     public void setNascimento(LocalDate nascimento) {
@@ -58,7 +58,7 @@ public class Pessoa {
     }
 
     public String getLogin() {
-        return login;
+        return this.login;
     }
 
     public void setLogin(String login) {
@@ -66,23 +66,23 @@ public class Pessoa {
     }
 
     public String getSenha() {
-        return senha;
+        return this.senha;
     }
 
     public void setSenha(String senha) {
         this.senha = senha;
     }
 
-    public String getTipoUsuario() {
-        return tipoUsuario;
+    public int getTipoUsuario() {
+        return this.tipoUsuario;
     }
 
-    public void setTipoUsuario(String tipoUsuario) {
+    public void setTipoUsuario(int tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 
     public String getCpf() {
-        return cpf;
+        return this.cpf;
     }
 
     public void setCpf(String cpf) {
@@ -90,15 +90,28 @@ public class Pessoa {
     }
 
     public LocalDateTime getDataCriacao() {
-        return dataCriacao;
+        return this.dataCriacao;
     }
 
     public LocalDateTime getDataModificacao() {
-        return dataModificacao;
+        return this.dataModificacao;
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
         this.dataModificacao = dataModificacao;
+    }
+    
+    public String tipoUsuario(int tipo) {
+        switch (tipo) {
+            case 1:
+                return "Aluno";
+            case 2:
+                return "Professor";
+            case 3:
+                return "Administrador";
+            default:
+                return "Usuário sem tipo.";
+        }
     }
 
     @Override
@@ -125,6 +138,17 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", nascimento=" + nascimento + ", login=" + login + ", tipoUsuario=" + tipoUsuario + ", cpf=" + cpf + '}';
+        return  "\n---------------------------------" +
+                "\n| Pessoa:" + 
+                "\n| ID: " + this.id + 
+                "\n| Nome: " + this.nome + 
+                "\n| Sexo: " + this.sexo + 
+                "\n| Nascimento: " + this.nascimento + 
+                "\n| Email: " + this.login +
+                "\n| Tipo de Usuário: " + tipoUsuario(this.tipoUsuario) +
+                "\n| CPF: " + this.cpf +
+                "\n| Data de Criacao: " + this.dataCriacao + 
+                "\n| Data de Modificacao: " + this.dataModificacao +
+                "\n---------------------------------";
     }
 }

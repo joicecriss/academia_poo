@@ -10,7 +10,7 @@ public class PessoaDAO {
         //p1.setNascimento(LocalDate.MIN);
         p1.setLogin("joice1509oliveira@gmail.com");
         p1.setSenha("joice123");
-        p1.setTipoUsuario("Administrador");
+        p1.setTipoUsuario(3);
         p1.setCpf("702.524.266-73");
         adiciona(p1);
         
@@ -20,7 +20,7 @@ public class PessoaDAO {
         //p2.setNascimento(LocalDate.MIN);
         p2.setLogin("matheus@gmail.com");
         p2.setSenha("matheus123");
-        p2.setTipoUsuario("Administrador");
+        p2.setTipoUsuario(3);
         p2.setCpf("000.000.000-00");
         adiciona(p2);
     }
@@ -52,6 +52,16 @@ public class PessoaDAO {
         }
         return -1;
 
+    }
+    
+    public Pessoa buscaPessoaLogin(String email, String senha) {
+         for (Pessoa p : pessoas) {
+            if (p != null && p.getLogin().equals(email) &&
+                    p.getSenha().equals(senha)) {
+                return p;
+            }
+        }
+        return null;
     }
     
     public String buscaPorLogin(String login) {

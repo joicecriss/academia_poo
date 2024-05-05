@@ -8,6 +8,7 @@ import mvc.model.Academia;
 import mvc.model.AcademiaDAO;
 import mvc.model.Pessoa;
 import mvc.model.PessoaDAO;
+import mvc.model.Util;
 
 //ImportaÃ§Ã£o das views
 import mvc.view.GUI;
@@ -22,59 +23,79 @@ public class Main {
     public Main() {
         int opcao = 0;
 
-        do {
+        while(opcao != 3) {
             opcao = gui.menuBoasVindas();
             switch (opcao) {
                 case 1:
                     int login = 0;
                     while(login != 1) {
-                        String email = JOptionPane.showInputDialog(frame, "Digite o e-mail: ");
-                        String senha = JOptionPane.showInputDialog(frame, "Digite a senha: ");
+                        String email = JOptionPane.showInputDialog(frame, "Digite seu e-mail: ");
+                        String senha = JOptionPane.showInputDialog(frame, "Digite sua senha: ");
+                        Pessoa logada = pessoaDAO.buscaPessoaLogin(email, senha);
                         
-                        if(!pessoaDAO.buscaPorLogin(email).equals(email)) {
-                            JOptionPane.showMessageDialog(frame, "E-mail errado, digite novamente!");
-                        } else if (!pessoaDAO.buscaPorSenha(senha).equals(senha)) {
-                            JOptionPane.showMessageDialog(frame, "Senha errada, digite novamente!");
-                        } else {
+                        if (logada != null) {
+                            System.out.println("Você está¡ logado!");
+                            Util.setPessoaLogada(logada);
+                            System.out.println("Usuário Logado: " + Util.getPessoaLogada().toString());
                             login = 1;
-                            JOptionPane.showMessageDialog(frame, "Login feito!");
-                            System.out.println("Login feito!");
-                            gui.opPessoa();
+                            this.menuPrincipal();
+                        } else {
+                            System.out.println("Login Inválido. Tente novamente!");
                         }
-                    }                    
+                    }
                     
                     break;
                 case 2:
-                    int opPessoa = gui.opPessoa();
-                    switch (opPessoa) {
-                        case 1:
-                            gui.criaPessoa();
-                            gui.opPessoa();
-                            break;
-                        case 2:
-                            
-                            break;
-                        case 3:
-                            
-                            break;
-                        case 4:
-                            
-                            break;
-                        case 5:
-                            gui.menuBoasVindas();
-                            break;
-                        default:
-                            System.out.println("\n Digite um nÃºmero vÃ¡lido");
+                    Pessoa criar = gui.criaPessoa();
+                    if (pessoaDAO.adiciona(criar)) {
+                        System.out.println("Cadastro efetuado com sucesso!");
+                    } else {
+                        System.out.println("Cadastro falhou, tente novamente!");
                     }
                     break;
                 case 3:
-                    System.out.println("\n AtÃ© a prÃ³xima!!");
+                    System.out.println("\n Até a próxima!!");
                 default:
-                    System.out.println("\n Digite um nÃºmero vÃ¡lido!");
+                    System.out.println("\n Digite um número válido!");
             }
-        } while(opcao != 3);
-        
-        /*int op;
+        };        
+
+    }
+    
+    public static void main(String[] args) {
+        Main main = new Main();
+    }
+    
+    public void menuPrincipal() {
+        int opcaoPrincipal = 10;
+
+        while (opcaoPrincipal != 0) {
+            opcaoPrincipal = gui.menuPrincipal();
+            switch (opcaoPrincipal) {
+                case 1:
+                    System.out.println("1 - Perfil");
+                    break;
+                case 2:
+                    this.menuAcademia();
+                    break;
+                case 3:
+                    System.out.println("3- Exercícios");
+                    break;
+                case 4:
+                    System.out.println("4- Aplicações dos Exercícios");
+                case 0:
+                    System.out.println("sair");
+                    break;
+                default:
+                    System.out.println("Digite uma opção válida");
+                    break;
+            }
+
+        }
+    }
+    
+    public void menuAcademia() {
+        int op;
         do {
             op = gui.opAcademia();
             switch (op) {
@@ -123,11 +144,6 @@ public class Main {
                     break;
 
             }
-        } while (op != 5); */          
-
-    }
-    
-    public static void main(String[] args) {
-        Main main = new Main();
+        } while (op != 5);
     }
 }

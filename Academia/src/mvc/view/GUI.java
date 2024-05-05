@@ -6,10 +6,12 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import mvc.model.Academia;
 import mvc.model.Pessoa;
+import mvc.model.Util;
 
 public class GUI {
     Scanner scanner = new Scanner(System.in);
     StringBuilder builder = new StringBuilder("");
+    Util util = new Util();
     
      public int menuBoasVindas() {
         builder.append("\n----------------------------");
@@ -20,6 +22,21 @@ public class GUI {
         builder.append("\n| 3 - Sair do programa     |");
         builder.append("\n|                          |");
         builder.append("\n----------------------------");
+        builder.append("\n\nQual sua opção? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+     
+    public int menuPrincipal() {
+        builder.append("\n-----------------------------------");
+        builder.append("\n|                                 |");
+        builder.append("\n| 1 - Perfil                      |");
+        builder.append("\n| 2 - Academia                    |");
+        builder.append("\n| 3 - Exercícios                  |");
+        builder.append("\n| 4 - Aplicações dos Exercícios   |");
+        builder.append("\n| 0 - Sair                        |");
+        builder.append("\n|                                 |");
+        builder.append("\n-----------------------------------");
         builder.append("\n\nQual sua opÃ§Ã£o? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -60,7 +77,7 @@ public class GUI {
         System.out.println("Nome: ");
         String nome = scanner.nextLine();
         a.setNome(nome);
-        System.out.println("EndereÃ§o: ");
+        System.out.println("Endereço: ");
         String endereco = scanner.nextLine();
         a.setEndereco(endereco);
         return a;
@@ -75,9 +92,21 @@ public class GUI {
         System.out.println("Nome: ");
         String nome = scanner.nextLine();
         a.setNome(nome);
+        //System.out.println("Data de Nascimento: ");
+        //LocalDate data = 
+        //a.setNascimento(LocalDate.MIN);
+        System.out.println("Sexo: ");
+        String sexo = scanner.nextLine();
+        a.setSexo(sexo);
         System.out.println("Email: ");
         String email = scanner.nextLine();
         a.setLogin(email);
+        System.out.println("Senha: ");
+        String senha = scanner.nextLine();
+        a.setSenha(senha);
+        System.out.println("Tipo de Usuário: ");
+        System.out.println("Digite um número-> 1- Aluno | 2- Professor | 3- Administrador");
+        int tipo = Integer.parseInt(scanner.nextLine());
         return a;
     }
 }
