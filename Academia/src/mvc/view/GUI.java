@@ -14,6 +14,7 @@ public class GUI {
     Util util = new Util();
     
      public int menuBoasVindas() {
+        builder.setLength(0);
         builder.append("\n----------------------------");
         builder.append("\n|   BEM VINDO A ACADEMIA   |");
         builder.append("\n|                          |");
@@ -28,6 +29,7 @@ public class GUI {
     }
      
     public int menuPrincipal() {
+        builder.setLength(0);
         builder.append("\n-----------------------------------");
         builder.append("\n|                                 |");
         builder.append("\n| 1 - Perfil                      |");
@@ -43,6 +45,7 @@ public class GUI {
     }
      
     public int opPessoa() {
+        builder.setLength(0);
         builder.append("\n-----------------------------------");
         builder.append("\n| 1 - Cadastrar                   |");
         builder.append("\n| 2 - Mostrar todas Pessoas       |");
@@ -50,12 +53,13 @@ public class GUI {
         builder.append("\n| 4 - Excluir pelo id             |");
         builder.append("\n| 5 - Sair                        |");
         builder.append("\n-----------------------------------");
-        builder.append("\n\nQual sua opÃ§Ã£o? R: ");
+        builder.append("\n\nQual sua opção? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
     }
      
     public int opAcademia() {
+        builder.setLength(0);
         builder.append("\n-----------------------------------");
         builder.append("\n| 1 - Cadastrar                   |");
         builder.append("\n| 2 - Mostrar todas Academias     |");
