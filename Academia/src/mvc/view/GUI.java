@@ -28,6 +28,75 @@ public class GUI {
         return Integer.parseInt(scanner.nextLine());
     }
      
+/*
+    
+    
+    
+*/
+    public int menuAluno() {
+        /*
+        PESSOA COMUM (aluno)
+        A pessoa comum pode efetuar a sua entrada na portaria da academia,
+        visualizar e imprimir a sua ficha de treino e visualizar avaliações físicas.
+        */
+        builder.setLength(0);
+        builder.append("\n------------------------------------");
+        builder.append("\n|   BEM VINDO ALUNO                 |");
+        builder.append("\n|                                   |");
+        builder.append("\n| 1 - Perfil                        |");
+        builder.append("\n| 2 - Visualizar Ficha de Treino    |");
+        builder.append("\n| 3 - Imprimir Ficha de Treino      |");
+        builder.append("\n| 4 - Visualizar Avaliações Físicas |");
+        builder.append("\n| 0 - Sair                          |");
+        builder.append("\n|                                   |");
+        builder.append("\n------------------------------------");
+        builder.append("\n\nQual sua opção? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public int menuProfessor() {
+        /*
+        PROFESSOR/INSTRUTOR
+        O professor/instrutor pode fazer o crud de aluno e treino e as operações do aluno.
+        */
+        builder.setLength(0);
+        builder.append("\n-----------------------------------");
+        builder.append("\n|       BEM VINDO INSTRUTOR       |");
+        builder.append("\n|                                 |");
+        builder.append("\n| 1 -                   |");
+        builder.append("\n| 2 -                   |");
+        builder.append("\n| 3 -                   |");
+        builder.append("\n| 4 -                   |");
+        builder.append("\n| 0 - Sair                        |");
+        builder.append("\n|                                 |");
+        builder.append("\n-----------------------------------");
+        builder.append("\n\nQual sua opção? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public int menuAdmin() {
+        /*
+        ADMINISTRADOR
+        O administrador pode fazer tudo que o professor faz e movimentações financeiras.
+        */
+        builder.setLength(0);
+        builder.append("\n-----------------------------------");
+        builder.append("\n|       BEM VINDO INSTRUTOR       |");
+        builder.append("\n|                                 |");
+        builder.append("\n| 1 -                   |");
+        builder.append("\n| 2 -                   |");
+        builder.append("\n| 3 -                   |");
+        builder.append("\n| 4 -                   |");
+        builder.append("\n| 0 - Sair                        |");
+        builder.append("\n|                                 |");
+        builder.append("\n-----------------------------------");
+        builder.append("\n\nQual sua opção? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+     
     public int menuPrincipal() {
         builder.setLength(0);
         builder.append("\n-----------------------------------");
@@ -39,7 +108,7 @@ public class GUI {
         builder.append("\n| 0 - Sair                        |");
         builder.append("\n|                                 |");
         builder.append("\n-----------------------------------");
-        builder.append("\n\nQual sua opÃ§Ã£o? R: ");
+        builder.append("\n\nQual sua opção? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
     }
@@ -67,7 +136,7 @@ public class GUI {
         builder.append("\n| 4 - Excluir pelo id             |");
         builder.append("\n| 5 - Sair                        |");
         builder.append("\n-----------------------------------");
-        builder.append("\n\nQual sua opÃ§Ã£o? R: ");
+        builder.append("\n\nQual sua opção? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
     }

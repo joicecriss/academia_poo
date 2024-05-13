@@ -23,6 +23,16 @@ public class PessoaDAO {
         p2.setTipoUsuario(3);
         p2.setCpf("000.000.000-00");
         adiciona(p2);
+        
+        Pessoa p3 = new Pessoa();
+        p3.setNome("Admin");
+        p3.setSexo("Sem gênero");
+        //p3.setNascimento(LocalDate.MIN);
+        p3.setLogin("admin");
+        p3.setSenha("admin");
+        p3.setTipoUsuario(3);
+        p3.setCpf("000.000.000-00");
+        adiciona(p3);
     }
     
     public boolean adiciona(Pessoa p) {

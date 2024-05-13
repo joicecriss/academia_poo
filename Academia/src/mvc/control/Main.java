@@ -10,7 +10,7 @@ import mvc.model.Pessoa;
 import mvc.model.PessoaDAO;
 import mvc.model.Util;
 
-//ImportaÃ§Ã£o das views
+//Importação das views
 import mvc.view.GUI;
 
 public class Main {
@@ -67,30 +67,102 @@ public class Main {
     }
     
     public void menuPrincipal() {
-        int opcaoPrincipal = 10;
-
-        while (opcaoPrincipal != 0) {
-            opcaoPrincipal = gui.menuPrincipal();
-            switch (opcaoPrincipal) {
-                case 1:
-                    System.out.println("1 - Perfil");
-                    break;
-                case 2:
-                    this.menuAcademia();
-                    break;
-                case 3:
-                    System.out.println("3- Exercícios");
-                    break;
-                case 4:
-                    System.out.println("4- Aplicações dos Exercícios");
-                case 0:
-                    System.out.println("sair");
-                    break;
-                default:
-                    System.out.println("Digite uma opção válida");
-                    break;
+        int opcaoPrincipal = 20;
+        
+        if(Util.getPessoaLogada().getTipoUsuario() == 1) {
+            while (opcaoPrincipal != 0) {
+                opcaoPrincipal = gui.menuAluno();
+                switch (opcaoPrincipal) {
+                    case 1:
+                        System.out.println("1 - Perfil");
+                        break;
+                    case 2:
+                        System.out.println("2 - Visualizar Ficha de Treino");
+                        break;
+                    case 3:
+                        System.out.println("3 - Imprimir Ficha de Treino");
+                        break;
+                    case 4:
+                        System.out.println("4 - Visualizar Avaliações Físicas");
+                    case 0:
+                        System.out.println("5 - Sair");
+                        break;
+                    default:
+                        System.out.println("Digite uma opção válida");
+                        break;
+                }
             }
+        } else if(Util.getPessoaLogada().getTipoUsuario() == 2) {
+            while (opcaoPrincipal != 0) {
+                opcaoPrincipal = gui.menuProfessor();
+                switch (opcaoPrincipal) {
+                    case 1:
+                        System.out.println("1 - ");
+                        break;
+                    case 2:
+                        System.out.println("2 - ");
+                        break;
+                    case 3:
+                        System.out.println("3 - ");
+                        break;
+                    case 4:
+                        System.out.println("4 - ");
+                    case 0:
+                        System.out.println("0 - Sair");
+                        break;
+                    default:
+                        System.out.println("Digite uma opção válida");
+                        break;
+                }
+            }
+            
+        } else if(Util.getPessoaLogada().getTipoUsuario() == 3) {
+            while (opcaoPrincipal != 0) {
+                opcaoPrincipal = gui.menuAdmin();
+                switch (opcaoPrincipal) {
+                    case 1:
+                        System.out.println("1 - ");
+                        break;
+                    case 2:
+                        System.out.println("2 - ");
+                        break;
+                    case 3:
+                        System.out.println("3 - ");
+                        break;
+                    case 4:
+                        System.out.println("4 - ");
+                    case 0:
+                        System.out.println("0 - Sair");
+                        break;
+                    default:
+                        System.out.println("Digite uma opção válida");
+                        break;
+                }
+            }
+        } else {
+            while (opcaoPrincipal != 0) {
+                opcaoPrincipal = gui.menuPrincipal();
+                switch (opcaoPrincipal) {
+                    case 1:
+                        System.out.println("1 - ");
+                        break;
+                    case 2:
+                        System.out.println("2 - ");
+                        break;
+                    case 3:
+                        System.out.println("3 - ");
+                        break;
+                    case 4:
+                        System.out.println("4 - ");
+                    case 0:
+                        System.out.println("0 - Sair");
+                        break;
+                    default:
+                        System.out.println("Digite uma opção válida");
+                        break;
+                }
 
+            }
         }
     }
     
