@@ -1,8 +1,7 @@
 package mvc.model;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 /*
 CRUD de ACADEMIA.
@@ -14,14 +13,14 @@ public class Academia {
     private String nome;
     private String endereco;
     private String cnpj;
-    private LocalDate dataCriacao;
-    private LocalDate dataModificacao;
+    private LocalDateTime dataCriacao;
+    private LocalDateTime dataModificacao;
     private static long aux = 0;
-    public static LocalDate diaAtual = LocalDate.now();
     
     public Academia() {
         this.id = ++Academia.aux;
-        this.dataCriacao = diaAtual;
+        this.dataCriacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDiaAtual();
     }
     
     public long getId() {
@@ -52,15 +51,15 @@ public class Academia {
         this.cnpj = cnpj;
     }
 
-    public LocalDate getDataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return this.dataCriacao;
     }
 
-    public LocalDate getDataModificacao() {
+    public LocalDateTime getDataModificacao() {
         return this.dataModificacao;
     }
 
-    public void setDataModificacao(LocalDate dataModificacao) {
+    public void setDataModificacao(LocalDateTime dataModificacao) {
         this.dataModificacao = dataModificacao;
     }
 

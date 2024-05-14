@@ -1,6 +1,6 @@
 package mvc.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ExercicioAplicacaoDAO {
     ExercicioAplicacao[] exAplicacao = new ExercicioAplicacao[10];
@@ -9,15 +9,13 @@ public class ExercicioAplicacaoDAO {
         ExercicioAplicacao ea1 = new ExercicioAplicacao();
         ea1.setId(1);
         ea1.setDescricao("4 series com 12 repeticoes");
-        ea1.setDataCriacao(LocalDate.now());
-        ea1.setDataModificacao(LocalDate.now());
+        ea1.setDataModificacao(LocalDateTime.now());
         adiciona(ea1);
         
         ExercicioAplicacao ea2 = new ExercicioAplicacao();
         ea2.setId(2);
         ea2.setDescricao("5 series com 8 repeticoes");
-        ea2.setDataCriacao(LocalDate.now());
-        ea2.setDataModificacao(LocalDate.now());
+        ea2.setDataModificacao(LocalDateTime.now());
         adiciona(ea2);
     }
     

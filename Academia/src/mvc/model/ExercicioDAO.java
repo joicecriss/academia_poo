@@ -1,6 +1,6 @@
 package mvc.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ExercicioDAO {
 
@@ -11,16 +11,14 @@ public class ExercicioDAO {
         e1.setId(1);
         e1.setNome("Supino reto");
         e1.setDescricao("Barra com pesos tipo anilha");
-        e1.setDataCriacao(LocalDate.now());
-        e1.setDataModificacao(LocalDate.now());
+        e1.setDataModificacao(LocalDateTime.now());
         adiciona(e1);
         
         Exercicio e2 = new Exercicio();
         e2.setId(2);
         e2.setNome("Agachamento livre");
         e2.setDescricao("Agachamento utilizando barra com pesos tipo anilha");
-        e2.setDataCriacao(LocalDate.now());
-        e2.setDataModificacao(LocalDate.now());
+        e2.setDataModificacao(LocalDateTime.now());
         adiciona(e2);
     }
 

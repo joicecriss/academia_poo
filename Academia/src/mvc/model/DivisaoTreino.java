@@ -83,7 +83,7 @@ public class DivisaoTreino {
     @Override
     public String toString() {
         return  "\n-------------------------------------" +
-                "\n| DivisaoTreino: " + 
+                "\n| Divisão de Treino: " + 
                 "\n| Id: " + id + 
                 "\n| Nome: " + nome + 
                 "\n| Descrição: " + descricao + 

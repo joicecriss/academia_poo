@@ -1,6 +1,6 @@
 package mvc.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /*
@@ -9,13 +9,20 @@ InformaÃ§Ãµes importantes: id, nome, descricao/foto, dataCriacao, dataModificaca
 EXEMPLO: supino reto, agachamento livre, ...
 */
 public class Exercicio {
-    private int id;
+    private long id;
+    private static long aux;
     private String nome;
     private String descricao;
-    private LocalDate dataCriacao;
-    private LocalDate dataModificacao;
+    private LocalDateTime dataCriacao;
+    private LocalDateTime dataModificacao;
 
-    public int getId() {
+     public Exercicio() {
+        this.id = ++Exercicio.aux;
+        this.dataCriacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDiaAtual();
+    }
+    
+    public long getId() {
         return id;
     }
 
@@ -39,27 +46,27 @@ public class Exercicio {
         this.descricao = descricao;
     }
 
-    public LocalDate getDataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDate dataCriacao) {
+    public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
-    public LocalDate getDataModificacao() {
+    public LocalDateTime getDataModificacao() {
         return dataModificacao;
     }
 
-    public void setDataModificacao(LocalDate dataModificacao) {
+    public void setDataModificacao(LocalDateTime dataModificacao) {
         this.dataModificacao = dataModificacao;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 61 * hash + this.id;
-        hash = 61 * hash + Objects.hashCode(this.nome);
+        int hash = 3;
+        hash = 97 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 97 * hash + Objects.hashCode(this.nome);
         return hash;
     }
 
@@ -83,7 +90,14 @@ public class Exercicio {
 
     @Override
     public String toString() {
-        return "Exercicio{" + "id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", dataCriacao=" + dataCriacao + ", dataModificacao=" + dataModificacao + '}';
+        return "\n---------------------------------" +
+               "\n| Exercício: " + 
+               "\n| Id: " + id + 
+               "\n| Nome: " + nome + 
+               "\n| Descrição: " + descricao + 
+               "\n| Data de Criação: " + dataCriacao + 
+               "\n| Data de Modificação: " + dataModificacao + 
+               "\n---------------------------------";
     }
 
 }

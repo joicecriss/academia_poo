@@ -10,14 +10,14 @@ public class AcademiaDAO {
         a1.setNome("Biotech");
         a1.setEndereco("Rua Teste 1");
         a1.setCnpj("123");
-        a1.setDataModificacao(LocalDate.MIN);
+        a1.setDataModificacao(Util.getDiaAtual());
         this.adiciona(a1);
         
         Academia a2 = new Academia();
         a2.setNome("SmartFit");
         a2.setEndereco("Rua Teste 2");
         a2.setCnpj("1234");
-        a2.setDataModificacao(a2.diaAtual);
+        a2.setDataModificacao(Util.getDiaAtual());
         this.adiciona(a2);
     }
     
