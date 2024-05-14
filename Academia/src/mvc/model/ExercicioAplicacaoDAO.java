@@ -7,15 +7,11 @@ public class ExercicioAplicacaoDAO {
     
     public ExercicioAplicacaoDAO() {
         ExercicioAplicacao ea1 = new ExercicioAplicacao();
-        ea1.setId(1);
         ea1.setDescricao("4 series com 12 repeticoes");
-        ea1.setDataModificacao(LocalDateTime.now());
         adiciona(ea1);
         
         ExercicioAplicacao ea2 = new ExercicioAplicacao();
-        ea2.setId(2);
         ea2.setDescricao("5 series com 8 repeticoes");
-        ea2.setDataModificacao(LocalDateTime.now());
         adiciona(ea2);
     }
     

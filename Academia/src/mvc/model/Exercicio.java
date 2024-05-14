@@ -26,10 +26,6 @@ public class Exercicio {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -48,10 +44,6 @@ public class Exercicio {
 
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
-    }
-
-    public void setDataCriacao(LocalDateTime dataCriacao) {
-        this.dataCriacao = dataCriacao;
     }
 
     public LocalDateTime getDataModificacao() {
