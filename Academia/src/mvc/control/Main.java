@@ -10,7 +10,7 @@ import mvc.model.Pessoa;
 import mvc.model.PessoaDAO;
 import mvc.model.Util;
 
-//Importação das views
+//ImportaÃ§Ã£o das views
 import mvc.view.GUI;
 
 public class Main {
@@ -34,13 +34,13 @@ public class Main {
                         Pessoa logada = pessoaDAO.buscaPessoaLogin(email, senha);
                         
                         if (logada != null) {
-                            System.out.println("Você está¡ logado!");
+                            System.out.println("VocÃª estÃ¡ logado!");
                             Util.setPessoaLogada(logada);
-                            System.out.println("Usuário Logado: " + Util.getPessoaLogada().toString());
+                            System.out.println("Usuario Logado: " + Util.getPessoaLogada().toString());
                             login = 1;
                             this.menuPrincipal();
                         } else {
-                            System.out.println("Login Inválido. Tente novamente!");
+                            System.out.println("Login InvÃ¡lido. Tente novamente!");
                         }
                     }
                     
@@ -54,9 +54,9 @@ public class Main {
                     }
                     break;
                 case 3:
-                    System.out.println("\n Até a próxima!!");
+                    System.out.println("\n Atï¿½ a prï¿½xima!!");
                 default:
-                    System.out.println("\n Digite um número válido!");
+                    System.out.println("\n Digite um nï¿½mero vï¿½lido!");
             }
         };        
 
@@ -83,12 +83,12 @@ public class Main {
                         System.out.println("3 - Imprimir Ficha de Treino");
                         break;
                     case 4:
-                        System.out.println("4 - Visualizar Avaliações Físicas");
+                        System.out.println("4 - Visualizar Avaliaï¿½ï¿½es Fï¿½sicas");
                     case 0:
                         System.out.println("5 - Sair");
                         break;
                     default:
-                        System.out.println("Digite uma opção válida");
+                        System.out.println("Digite uma opï¿½ï¿½o vï¿½lida");
                         break;
                 }
             }
@@ -111,7 +111,7 @@ public class Main {
                         System.out.println("0 - Sair");
                         break;
                     default:
-                        System.out.println("Digite uma opção válida");
+                        System.out.println("Digite uma opï¿½ï¿½o vï¿½lida");
                         break;
                 }
             }
@@ -135,7 +135,7 @@ public class Main {
                         System.out.println("0 - Sair");
                         break;
                     default:
-                        System.out.println("Digite uma opção válida");
+                        System.out.println("Digite uma opï¿½ï¿½o vï¿½lida");
                         break;
                 }
             }
@@ -158,7 +158,7 @@ public class Main {
                         System.out.println("0 - Sair");
                         break;
                     default:
-                        System.out.println("Digite uma opção válida");
+                        System.out.println("Digite uma opï¿½ï¿½o vï¿½lida");
                         break;
                 }
 

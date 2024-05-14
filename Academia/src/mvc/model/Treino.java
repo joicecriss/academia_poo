@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /*
-CRUD TREINO. Informações importantes: id, objetivo, data início, data término, 
+CRUD TREINO. Informaï¿½ï¿½es importantes: id, objetivo, data inï¿½cio, data tï¿½rmino, 
 divisao de treino, dataCriacao, dataModificacao.
 */
 public class Treino {
@@ -16,4 +16,12 @@ public class Treino {
     private DivisaoTreino divisaoTreino;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
+
+    public Treino() {
+        this.id = ++Treino.aux;
+        this.dataCriacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDiaAtual();
+    }
+
+    
 }

@@ -7,7 +7,7 @@ public class PessoaDAO {
         Pessoa p1 = new Pessoa();
         p1.setNome("Joice Cristina");
         p1.setSexo("Feminino");
-        //p1.setNascimento(LocalDate.MIN);
+        p1.setNascimento("15/09/1998");
         p1.setLogin("joice1509oliveira@gmail.com");
         p1.setSenha("joice123");
         p1.setTipoUsuario(3);
@@ -17,7 +17,7 @@ public class PessoaDAO {
         Pessoa p2 = new Pessoa();
         p2.setNome("Matheus Henrique");
         p2.setSexo("Masculino");
-        //p2.setNascimento(LocalDate.MIN);
+        p2.setNascimento("23/04/1996");
         p2.setLogin("matheus@gmail.com");
         p2.setSenha("matheus123");
         p2.setTipoUsuario(3);
@@ -26,8 +26,8 @@ public class PessoaDAO {
         
         Pessoa p3 = new Pessoa();
         p3.setNome("Admin");
-        p3.setSexo("Sem gênero");
-        //p3.setNascimento(LocalDate.MIN);
+        p3.setSexo("Sem gï¿½nero");
+        p3.setNascimento("14/05/2024");
         p3.setLogin("admin");
         p3.setSenha("admin");
         p3.setTipoUsuario(3);

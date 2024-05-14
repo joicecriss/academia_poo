@@ -23,21 +23,16 @@ public class GUI {
         builder.append("\n| 3 - Sair do programa     |");
         builder.append("\n|                          |");
         builder.append("\n----------------------------");
-        builder.append("\n\nQual sua opção? R: ");
+        builder.append("\n\nQual sua opï¿½ï¿½o? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
     }
      
-/*
-    
-    
-    
-*/
     public int menuAluno() {
         /*
         PESSOA COMUM (aluno)
         A pessoa comum pode efetuar a sua entrada na portaria da academia,
-        visualizar e imprimir a sua ficha de treino e visualizar avaliações físicas.
+        visualizar e imprimir a sua ficha de treino e visualizar avaliaï¿½ï¿½es fï¿½sicas.
         */
         builder.setLength(0);
         builder.append("\n------------------------------------");
@@ -46,11 +41,11 @@ public class GUI {
         builder.append("\n| 1 - Perfil                        |");
         builder.append("\n| 2 - Visualizar Ficha de Treino    |");
         builder.append("\n| 3 - Imprimir Ficha de Treino      |");
-        builder.append("\n| 4 - Visualizar Avaliações Físicas |");
+        builder.append("\n| 4 - Visualizar Avaliaï¿½ï¿½es Fï¿½sicas |");
         builder.append("\n| 0 - Sair                          |");
         builder.append("\n|                                   |");
         builder.append("\n------------------------------------");
-        builder.append("\n\nQual sua opção? R: ");
+        builder.append("\n\nQual sua opï¿½ï¿½o? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
     }
@@ -58,7 +53,7 @@ public class GUI {
     public int menuProfessor() {
         /*
         PROFESSOR/INSTRUTOR
-        O professor/instrutor pode fazer o crud de aluno e treino e as operações do aluno.
+        O professor/instrutor pode fazer o crud de aluno e treino e as operaï¿½ï¿½es do aluno.
         */
         builder.setLength(0);
         builder.append("\n-----------------------------------");
@@ -71,7 +66,7 @@ public class GUI {
         builder.append("\n| 0 - Sair                        |");
         builder.append("\n|                                 |");
         builder.append("\n-----------------------------------");
-        builder.append("\n\nQual sua opção? R: ");
+        builder.append("\n\nQual sua opï¿½ï¿½o? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
     }
@@ -79,7 +74,7 @@ public class GUI {
     public int menuAdmin() {
         /*
         ADMINISTRADOR
-        O administrador pode fazer tudo que o professor faz e movimentações financeiras.
+        O administrador pode fazer tudo que o professor faz e movimentaï¿½ï¿½es financeiras.
         */
         builder.setLength(0);
         builder.append("\n-----------------------------------");
@@ -92,7 +87,7 @@ public class GUI {
         builder.append("\n| 0 - Sair                        |");
         builder.append("\n|                                 |");
         builder.append("\n-----------------------------------");
-        builder.append("\n\nQual sua opção? R: ");
+        builder.append("\n\nQual sua opï¿½ï¿½o? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
     }
@@ -103,12 +98,12 @@ public class GUI {
         builder.append("\n|                                 |");
         builder.append("\n| 1 - Perfil                      |");
         builder.append("\n| 2 - Academia                    |");
-        builder.append("\n| 3 - Exercícios                  |");
-        builder.append("\n| 4 - Aplicações dos Exercícios   |");
+        builder.append("\n| 3 - Exercï¿½cios                  |");
+        builder.append("\n| 4 - Aplicaï¿½ï¿½es dos Exercï¿½cios   |");
         builder.append("\n| 0 - Sair                        |");
         builder.append("\n|                                 |");
         builder.append("\n-----------------------------------");
-        builder.append("\n\nQual sua opção? R: ");
+        builder.append("\n\nQual sua opï¿½ï¿½o? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
     }
@@ -122,7 +117,7 @@ public class GUI {
         builder.append("\n| 4 - Excluir pelo id             |");
         builder.append("\n| 5 - Sair                        |");
         builder.append("\n-----------------------------------");
-        builder.append("\n\nQual sua opção? R: ");
+        builder.append("\n\nQual sua opï¿½ï¿½o? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
     }
@@ -136,7 +131,7 @@ public class GUI {
         builder.append("\n| 4 - Excluir pelo id             |");
         builder.append("\n| 5 - Sair                        |");
         builder.append("\n-----------------------------------");
-        builder.append("\n\nQual sua opção? R: ");
+        builder.append("\n\nQual sua opï¿½ï¿½o? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
     }
@@ -150,7 +145,7 @@ public class GUI {
         System.out.println("Nome: ");
         String nome = scanner.nextLine();
         a.setNome(nome);
-        System.out.println("Endereço: ");
+        System.out.println("Endereï¿½o: ");
         String endereco = scanner.nextLine();
         a.setEndereco(endereco);
         return a;
@@ -159,26 +154,27 @@ public class GUI {
     public Pessoa criaPessoa() {
         Pessoa a = new Pessoa();
         
-        System.out.println("CPF: ");
+        System.out.println("\n CPF: ");
         String CPF = scanner.nextLine();
         a.setCpf(CPF);
-        System.out.println("Nome: ");
+        System.out.println("\n Nome: ");
         String nome = scanner.nextLine();
         a.setNome(nome);
-        //System.out.println("Data de Nascimento: ");
-        //LocalDate data = 
-        //a.setNascimento(LocalDate.MIN);
-        System.out.println("Sexo: ");
+        System.out.println("\n Data de Nascimento:");
+        System.out.println("\n Digite desta forma-> -> dd/MM/yyyy");
+        String data = scanner.nextLine();
+        a.setNascimento(data);
+        System.out.println("\n Sexo: ");
         String sexo = scanner.nextLine();
         a.setSexo(sexo);
-        System.out.println("Email: ");
+        System.out.println("\n Email: ");
         String email = scanner.nextLine();
         a.setLogin(email);
-        System.out.println("Senha: ");
+        System.out.println("\n Senha: ");
         String senha = scanner.nextLine();
         a.setSenha(senha);
-        System.out.println("Tipo de Usuário: ");
-        System.out.println("Digite um número-> 1- Aluno | 2- Professor | 3- Administrador");
+        System.out.println("\n Tipo de Usuï¿½rio: ");
+        System.out.println("\n Digite um nï¿½mero-> 1- Aluno | 2- Professor | 3- Administrador");
         int tipo = Integer.parseInt(scanner.nextLine());
         return a;
     }

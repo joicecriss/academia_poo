@@ -1,9 +1,23 @@
 package mvc.model;
 
 /*
-CRUD TREINO APLICACAO. Informações importantes: id, treino, exercício, 
-exercício aplicacao, divisao de treino, divisao de treino musculo, dataCriacao, dataModificacao.
+CRUD TREINO APLICACAO. Informaï¿½ï¿½es importantes: id, treino, exercï¿½cio, 
+exercï¿½cio aplicacao, divisao de treino, divisao de treino musculo, dataCriacao, dataModificacao.
 */
 public class TreinoAplicacao {
-    
+  private long id;
+  private static long aux;
+  private Treino treino;
+  private Exercicio exercicio;
+  private ExercicioAplicacao exercicioAplicacao;
+  private DivisaoTreino divisaoTreino;
+  private DivisaoTreinoMusculacao divisaoTreinoMusculacao;
+  private LocalDateTime dataCriacao;
+  private LocalDateTime dataModificacao;
+
+  public TreinoAplicacao() {
+      this.id = ++TreinoAplicacao.aux;
+      this.dataCriacao = Util.getDiaAtual();
+      this.dataModificacao = Util.getDiaAtual();
+  }
 }

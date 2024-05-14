@@ -3,6 +3,7 @@ package mvc.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.time.format.DateTimeFormatter;
 
 /*
 CRUD de PESSOA.
@@ -50,11 +51,13 @@ public class Pessoa {
     }
 
     public LocalDate getNascimento() {
-        return this.nascimento;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.nascimento.format(formatter);
     }
 
-    public void setNascimento(LocalDate nascimento) {
-        this.nascimento = nascimento;
+    public void setNascimento(String nascimento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.nascimento = LocalDate.parse(nascimento, formatter);
     }
 
     public String getLogin() {
@@ -110,7 +113,7 @@ public class Pessoa {
             case 3:
                 return "Administrador";
             default:
-                return "Usuário sem tipo.";
+                return "Usuï¿½rio sem tipo.";
         }
     }
 
@@ -145,7 +148,7 @@ public class Pessoa {
                 "\n| Sexo: " + this.sexo + 
                 "\n| Nascimento: " + this.nascimento + 
                 "\n| Email: " + this.login +
-                "\n| Tipo de Usuário: " + tipoUsuario(this.tipoUsuario) +
+                "\n| Tipo de Usuï¿½rio: " + tipoUsuario(this.tipoUsuario) +
                 "\n| CPF: " + this.cpf +
                 "\n| Data de Criacao: " + this.dataCriacao + 
                 "\n| Data de Modificacao: " + this.dataModificacao +
