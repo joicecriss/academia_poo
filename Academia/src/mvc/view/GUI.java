@@ -39,9 +39,10 @@ public class GUI {
         builder.append("\n|   BEM VINDO ALUNO                 |");
         builder.append("\n|                                   |");
         builder.append("\n| 1 - Perfil                        |");
-        builder.append("\n| 2 - Visualizar Ficha de Treino    |");
-        builder.append("\n| 3 - Imprimir Ficha de Treino      |");
-        builder.append("\n| 4 - Visualizar Avalia��es F�sicas |");
+        builder.append("\n| 2 - Visualizar Ficha de Treino    |"); //Treino Aplicicado
+        builder.append("\n| 3 - Imprimir Ficha de Treino      |"); //Treino Aplicado
+        builder.append("\n| 4 - Visualizar Avalia��es F�sicas |"); //Avaliacao
+        builder.append("\n| 5 - Visualizar Pagamento Mensalidade |"); //AlunoPagamentoMensalidade
         builder.append("\n| 0 - Sair                          |");
         builder.append("\n|                                   |");
         builder.append("\n------------------------------------");
@@ -59,7 +60,7 @@ public class GUI {
         builder.append("\n-----------------------------------");
         builder.append("\n|       BEM VINDO INSTRUTOR       |");
         builder.append("\n|                                 |");
-        builder.append("\n| 1 -                   |");
+        builder.append("\n| 1 - Perfil                  |");
         builder.append("\n| 2 -                   |");
         builder.append("\n| 3 -                   |");
         builder.append("\n| 4 -                   |");

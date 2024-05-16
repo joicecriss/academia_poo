@@ -1,5 +1,7 @@
 package mvc.model;
 
+import java.time.LocalDateTime;
+
 /*
 CRUD TREINO APLICACAO. Informa��es importantes: id, treino, exerc�cio, 
 exerc�cio aplicacao, divisao de treino, divisao de treino musculo, dataCriacao, dataModificacao.

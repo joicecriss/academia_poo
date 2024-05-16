@@ -50,7 +50,7 @@ public class Pessoa {
         this.sexo = sexo;
     }
 
-    public LocalDate getNascimento() {
+    public String getNascimento() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return this.nascimento.format(formatter);
     }

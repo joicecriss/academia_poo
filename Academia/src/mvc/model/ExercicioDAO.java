@@ -10,13 +10,13 @@ public class ExercicioDAO {
         Exercicio e1 = new Exercicio();
         e1.setNome("Supino reto");
         e1.setDescricao("Barra com pesos tipo anilha");
-        e1.setDataModificacao(LocalDateTime.now());
+        e1.setDataModificacao(Util.getDiaAtual());
         adiciona(e1);
         
         Exercicio e2 = new Exercicio();
         e2.setNome("Agachamento livre");
         e2.setDescricao("Agachamento utilizando barra com pesos tipo anilha");
-        e2.setDataModificacao(LocalDateTime.now());
+        e2.setDataModificacao(Util.getDiaAtual());
         adiciona(e2);
     }
 
