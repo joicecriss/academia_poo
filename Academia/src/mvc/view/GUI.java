@@ -5,6 +5,7 @@ import java.util.Scanner;
 import mvc.model.Academia;
 import mvc.model.Pessoa;
 import mvc.model.DivisaoTreino;
+import mvc.model.DivisaoTreinoDAO;
 import mvc.model.DivisaoTreinoMusculacao;
 import mvc.model.Util;
 
@@ -218,6 +219,35 @@ public class GUI {
         String descricao = scanner.nextLine();
         dt.setDescricao(descricao);
         return dt;
+    }
+    
+    public DivisaoTreinoMusculacao[] criaDivisaoTreinoMusculacao() {
+        System.out.println("Digite o ID da divisao de treino que deseja descrever:");
+        DivisaoTreino[] divisoes = new DivisaoTreinoDAO().mostrarTodosERetornar(); // supondo que você tenha um método getAll() em DivisaoDeTreinoDAO
+        for (int i = 0; i < divisoes.length; i++) {
+            System.out.println(divisoes[i].getNome() + " - ID: " + (i + 1));
+        }
+        int indice = scanner.nextInt() - 1;
+        scanner.nextLine(); // consome a quebra de linha pendente
+
+        DivisaoTreino divisaoSelecionada = divisoes[indice];
+
+        int numPosicoes = divisaoSelecionada.getNome().length(); // o número de posições é determinado pelo nome da DivisaoDeTreino
+
+        DivisaoTreinoMusculacao[] dtms = new DivisaoTreinoMusculacao[numPosicoes];
+        System.out.println("Voce escolheu a divisao de treino: " + divisaoSelecionada.getNome());
+        for (int i = 0; i < numPosicoes; i++) {
+            System.out.println("Digite a descricao da Posicao " + (char) ('A' + i) + ":");
+            String descricao = scanner.nextLine();
+
+            DivisaoTreinoMusculacao dtm = new DivisaoTreinoMusculacao();
+            dtm.setDescricao(descricao);
+            dtm.setPosicao(String.valueOf((char) ('A' + i))); // A, B, C, ...
+            dtm.setDivisaoTreino(divisaoSelecionada);
+            dtms[i] = dtm;
+        }
+        divisaoSelecionada.setMusculacao(dtms);
+        return dtms;
     }
     // =-=-=-=-=FIM CRIACOES=-=-=-=-=-= //
 }

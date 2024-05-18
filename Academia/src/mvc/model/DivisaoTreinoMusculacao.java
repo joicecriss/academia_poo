@@ -10,6 +10,7 @@ public class DivisaoTreinoMusculacao {
     private long id;
     private static long aux;
     private String descricao;
+    private String posicao;
     private DivisaoTreino divisaoTreino;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
@@ -31,9 +32,21 @@ public class DivisaoTreinoMusculacao {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+    
+    public String getPosicao() {
+        return posicao;
+    }
+
+    public void setPosicao(String posicao) {
+        this.posicao = posicao;
+    }
 
     public DivisaoTreino getDivisaoTreino() {
         return divisaoTreino;
+    }
+    
+    public void setDivisaoTreino(DivisaoTreino divisaoTreino) {
+        this.divisaoTreino = divisaoTreino;
     }
 
     public LocalDateTime getDataCriacao() {
