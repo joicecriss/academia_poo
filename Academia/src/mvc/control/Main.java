@@ -176,7 +176,6 @@ public class Main {
             switch (op) {
                 case 1:
                     Academia a = gui.criaAcademia();
-
                     boolean academiaInserida = academiaDAO.adiciona(a);
                     if (academiaInserida) {
                         System.out.println("\n Academia inserida com sucesso!");

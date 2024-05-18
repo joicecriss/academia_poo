@@ -87,11 +87,17 @@ public class DivisaoTreino {
     public String toString() {
         return  "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
                 "\n| Divisão de Treino: " + 
-                "\n| Id                 : " + id + 
-                "\n| Nome               : " + nome + 
-                "\n| Descrição          : " + descricao + 
-                "\n| Data de Criação    : " + getDataCriacao() + 
-                "\n| Data de Modificação: " + getDataModificacao() +
+                "\n| Id                 : " + this.id + 
+                "\n| Nome               : " + this.nome + 
+                "\n| Descrição          : " + this.descricao + 
+                "\n| Data de Criação    : " + this.getDataCriacao() + 
+                "\n| Data de Modificação: " + this.getDataModificacao() +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
+    }
+    
+    public String descResumida() {
+        return  "\n| Divisão de Treino Id       : " + this.id + 
+                "\n| Divisão de Treino Nome     : " + this.nome + 
+                "\n| Divisão de Treino Descrição: " + this.descricao;
     }
 }

@@ -40,6 +40,28 @@ public class DivisaoTreinoDAO {
         }
     }
     
+    public DivisaoTreino[] getAll() {
+        // Conta quantas divisoes de treino existem
+        int count = 0;
+        for (DivisaoTreino dt : divisoesTreinos) {
+            if (dt != null) {
+                count++;
+            }
+        }
+
+        // Cria um array para armazenar as divisoes de treino existentes
+        DivisaoTreino[] result = new DivisaoTreino[count];
+        int index = 0;
+        for (DivisaoTreino dt : divisoesTreinos) {
+            if (dt != null) {
+                result[index] = dt;
+                index++;
+            }
+        }
+
+        return result;
+    }
+    
     public boolean alterarNome(String nome, String novoNome) {
         for (DivisaoTreino dt : divisoesTreinos) {
             if (dt != null && dt.getNome().equals(nome)) {
