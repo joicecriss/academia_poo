@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 /*
 CRUD de PESSOA.
-Informações importantes: id, nome, sexo, nascimento, login, senha, tipoUsuario, dataCriacao, dataModificacao.
+Informacoes importantes: id, nome, sexo, nascimento, login, senha, tipoUsuario, dataCriacao, dataModificacao.
 A pessoa pode ser um aluno, professor ou administrador.
 */
 public class Pessoa {
@@ -22,7 +22,6 @@ public class Pessoa {
     private String cpf;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-
     
     public Pessoa() {
         this.id = Pessoa.aux++;
@@ -40,6 +39,7 @@ public class Pessoa {
 
     public void setNome(String nome) {
         this.nome = nome;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
     public String getSexo() {
@@ -48,6 +48,7 @@ public class Pessoa {
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
     public String getNascimento() {
@@ -58,6 +59,7 @@ public class Pessoa {
     public void setNascimento(String nascimento) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.nascimento = LocalDate.parse(nascimento, formatter);
+        this.dataModificacao = Util.getDiaAtual();
     }
 
     public String getLogin() {
@@ -66,6 +68,7 @@ public class Pessoa {
 
     public void setLogin(String login) {
         this.login = login;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
     public String getSenha() {
@@ -74,6 +77,7 @@ public class Pessoa {
 
     public void setSenha(String senha) {
         this.senha = senha;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
     public int getTipoUsuario() {
@@ -82,6 +86,7 @@ public class Pessoa {
 
     public void setTipoUsuario(int tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
     public String getCpf() {
@@ -90,18 +95,21 @@ public class Pessoa {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
-    public LocalDateTime getDataCriacao() {
-        return this.dataCriacao;
+    public String getDataCriacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataCriacao.format(formatter);
     }
 
-    public LocalDateTime getDataModificacao() {
-        return this.dataModificacao;
+    public String getDataModificacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataModificacao.format(formatter);
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = dataModificacao;
+        this.dataModificacao = Util.getDiaAtual();
     }
     
     public String tipoUsuario(int tipo) {
@@ -141,17 +149,19 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return  "\n---------------------------------" +
-                "\n| Pessoa:" + 
-                "\n| ID: " + this.id + 
-                "\n| Nome: " + this.nome + 
-                "\n| Sexo: " + this.sexo + 
-                "\n| Nascimento: " + this.nascimento + 
-                "\n| Email: " + this.login +
-                "\n| Tipo de Usu�rio: " + tipoUsuario(this.tipoUsuario) +
-                "\n| CPF: " + this.cpf +
-                "\n| Data de Criacao: " + this.dataCriacao + 
-                "\n| Data de Modificacao: " + this.dataModificacao +
-                "\n---------------------------------";
+        return  """
+                
+                   -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                   | Pessoa:
+                   | ID                 : """ + this.id + 
+                "\n| Nome               : " + this.nome + 
+                "\n| Sexo               : " + this.sexo + 
+                "\n| Nascimento         : " + getNascimento() + 
+                "\n| Email              : " + this.login +
+                "\n| Tipo de Usuario    : " + tipoUsuario(this.tipoUsuario) +
+                "\n| CPF                : " + this.cpf +
+                "\n| Data de Criacao    : " + getDataCriacao() + 
+                "\n| Data de Modificacao: " + getDataModificacao() +
+                "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 }

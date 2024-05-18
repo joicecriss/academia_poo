@@ -1,11 +1,11 @@
 package mvc.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 /*
 CRUD de ACADEMIA.
-Informações importantes: id, nome, endereço, dataCriacao, dataModificacao.
+Informacoes importantes: id, nome, endereco, dataCriacao, dataModificacao.
 Apenas uma academia para o trabalho.
 */
 public class Academia {
@@ -33,6 +33,7 @@ public class Academia {
 
     public void setNome(String nome) {
         this.nome = nome;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
     public String getEndereco() {
@@ -41,6 +42,7 @@ public class Academia {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+        this.dataModificacao = Util.getDiaAtual();
     }
     
     public String getCnpj() {
@@ -49,31 +51,36 @@ public class Academia {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
-    public LocalDateTime getDataCriacao() {
-        return this.dataCriacao;
+    public String getDataCriacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataCriacao.format(formatter);
     }
 
-    public LocalDateTime getDataModificacao() {
-        return this.dataModificacao;
+    public String getDataModificacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataModificacao.format(formatter);
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = dataModificacao;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
     @Override
     public String toString() {
-        return  "\n------------------------------" +
-                "\n| Academia:" + 
-                "\n| ID: " + id + 
-                "\n| Nome: " + nome + 
-                "\n| Endereco: " + endereco + 
-                "\n| CNPJ: " + cnpj + 
-                "\n| Data de Criacao: " + dataCriacao + 
-                "\n| Data de Modificacao: " + dataModificacao +
-                "\n------------------------------";
+        return  """
+                
+                -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                | Academia:
+                | ID                 : """ + this.id + 
+                "\n| Nome               : " + this.nome + 
+                "\n| Endereco           : " + this.endereco + 
+                "\n| CNPJ               : " + this.cnpj + 
+                "\n| Data de Criacao    : " + getDataCriacao() + 
+                "\n| Data de Modificacao: " + getDataModificacao() +
+                "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 
     @Override

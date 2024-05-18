@@ -64,6 +64,19 @@ public class PessoaDAO {
 
     }
     
+    public void mostrarTodos() {
+        boolean temPessoa = false;
+        for (Pessoa p : pessoas) {
+            if (p != null) {
+                System.out.println(p);
+                temPessoa = true;
+            }
+        }
+        if (!temPessoa) {
+            System.out.println("Nao existe pessoa cadastrada!");
+        }
+    }
+    
     public Pessoa buscaPessoaLogin(String email, String senha) {
          for (Pessoa p : pessoas) {
             if (p != null && p.getLogin().equals(email) &&
@@ -74,4 +87,93 @@ public class PessoaDAO {
         return null;
     }
     
+    public Pessoa buscaPessoa(String cpf) {
+         for (Pessoa p : pessoas) {
+            if (p != null && p.getCpf().equals(cpf)) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
+    public boolean remover(String cpf) {
+        for (int i = 0; i < pessoas.length; i++) {
+            if (pessoas[i] != null && pessoas[i].getCpf().equals(cpf)) {
+                pessoas[i] = null;
+                return true;
+            }
+        }
+        return false;
+
+    }
+    
+    public boolean alterarNome(String cpf, String novoNome) {
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getCpf().equals(cpf)) {
+                p.setNome(novoNome);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean alterarSexo(String cpf, String novoSexo) {
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getCpf().equals(cpf)) {
+                p.setSexo(novoSexo);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean alterarNascimento(String cpf, String novoNascimento) {
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getCpf().equals(cpf)) {
+                p.setNascimento(novoNascimento);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean alterarEmail(String cpf, String novoEmail) {
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getCpf().equals(cpf)) {
+                p.setLogin(novoEmail);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean alterarSenha(String cpf, String novaSenha) {
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getCpf().equals(cpf)) {
+                p.setSenha(novaSenha);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean alterarTipoUsuario(String cpf, int novoTipo) {
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getCpf().equals(cpf)) {
+                p.setTipoUsuario(novoTipo);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean alterarCpf(String cpf, String novaCpf) {
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getCpf().equals(cpf)) {
+                p.setCpf(novaCpf);
+                return true;
+            }
+        }
+        return false;
+    }
 }

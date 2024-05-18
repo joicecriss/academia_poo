@@ -7,18 +7,10 @@ public class AcademiaDAO {
     
     public AcademiaDAO() {
         Academia a1 = new Academia();
-        a1.setNome("Biotech");
-        a1.setEndereco("Rua Teste 1");
-        a1.setCnpj("123");
-        a1.setDataModificacao(Util.getDiaAtual());
+        a1.setNome("Biotech Prime");
+        a1.setEndereco("Rua Ceara, nº 1571, bairro Santa Maria");
+        a1.setCnpj("31.810.569/0001-46");
         this.adiciona(a1);
-        
-        Academia a2 = new Academia();
-        a2.setNome("SmartFit");
-        a2.setEndereco("Rua Teste 2");
-        a2.setCnpj("1234");
-        a2.setDataModificacao(Util.getDiaAtual());
-        this.adiciona(a2);
     }
     
     public boolean adiciona(Academia a) {
@@ -39,6 +31,16 @@ public class AcademiaDAO {
         }
         return true;
     }
+    
+    private int proximaPosicaoLivre() {
+        for (int i = 0; i < academias.length; i++) {
+            if (academias[i] == null) {
+                return i;
+            }
+        }
+        return -1;
+
+    }
 
     public void mostrarTodos() {
         boolean temAcademia = false;
@@ -49,7 +51,7 @@ public class AcademiaDAO {
             }
         }
         if (!temAcademia) {
-            System.out.println("NÃ£o existe academia cadastrada!");
+            System.out.println("Nao existe academia cadastrada!");
         }
     }
 
@@ -62,7 +64,27 @@ public class AcademiaDAO {
         }
         return false;
     }
+    
+    public boolean alterarEndereco(String nome, String novoEndereco) {
+        for (Academia academia : academias) {
+            if (academia != null && academia.getNome().equals(nome)) {
+                academia.setEndereco(novoEndereco);
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public boolean alterarCnpj(String nome, String novoCnpj) {
+        for (Academia academia : academias) {
+            if (academia != null && academia.getNome().equals(nome)) {
+                academia.setEndereco(novoCnpj);
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public Academia buscaPorNome(String nome) {
         for (Academia a : academias) {
             if (a != null && a.getNome().equals(nome)) {
@@ -80,16 +102,6 @@ public class AcademiaDAO {
             }
         }
         return false;
-
-    }
-
-    private int proximaPosicaoLivre() {
-        for (int i = 0; i < academias.length; i++) {
-            if (academias[i] == null) {
-                return i;
-            }
-        }
-        return -1;
 
     }
 }
