@@ -1,6 +1,7 @@
 package mvc.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /*
@@ -30,6 +31,7 @@ public class DivisaoTreino {
 
     public void setNome(String nome) {
         this.nome = nome;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
     public String getDescricao() {
@@ -38,20 +40,21 @@ public class DivisaoTreino {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
-    public LocalDateTime getDataCriacao() {
-        return this.dataCriacao;
-    } void setDataCriacao(LocalDateTime dataCriacao) {
-        this.dataCriacao = dataCriacao;
+    public String getDataCriacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataCriacao.format(formatter);
     }
 
-    public LocalDateTime getDataModificacao() {
-        return this.dataModificacao;
+    public String getDataModificacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataModificacao.format(formatter);
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = dataModificacao;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
     @Override
@@ -82,13 +85,13 @@ public class DivisaoTreino {
 
     @Override
     public String toString() {
-        return  "\n-------------------------------------" +
+        return  "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
                 "\n| Divisão de Treino: " + 
-                "\n| Id: " + id + 
-                "\n| Nome: " + nome + 
-                "\n| Descrição: " + descricao + 
-                "\n| Data de Criação: " + dataCriacao + 
-                "\n| Data de Modificação: " + dataModificacao +
-                "\n-------------------------------------";
+                "\n| Id                 : " + id + 
+                "\n| Nome               : " + nome + 
+                "\n| Descrição          : " + descricao + 
+                "\n| Data de Criação    : " + getDataCriacao() + 
+                "\n| Data de Modificação: " + getDataModificacao() +
+                "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 }

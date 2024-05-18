@@ -4,6 +4,8 @@ package mvc.view;
 import java.util.Scanner;
 import mvc.model.Academia;
 import mvc.model.Pessoa;
+import mvc.model.DivisaoTreino;
+import mvc.model.DivisaoTreinoMusculacao;
 import mvc.model.Util;
 
 public class GUI {
@@ -137,6 +139,24 @@ public class GUI {
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
     }
+    
+    public int opDivisaoTreino() {
+        builder.setLength(0);
+        builder.append("\n----------------------------------------");
+        builder.append("\n|  * -> Divisao Treino                  |");
+        builder.append("\n|                                       |");
+        builder.append("\n|  1 - Cadastrar                        |");
+        builder.append("\n|  2 - Mostrar todas Divisoes de Treino |");
+        builder.append("\n|  3 - Buscar Divisao de Treino pelo id |");
+        builder.append("\n|  4 - Alterar uma Divisao de Treino    |");
+        builder.append("\n|  5 - Excluir pelo id                  |");
+        builder.append("\n|  0 - Sair                             |");
+        builder.append("\n|                                       |");
+        builder.append("\n----------------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
     // =-=-=-=-=FIM MENUS DAS CLASSES INDIVIDUALMENTE=-=-=-=-=-= //
     
     
@@ -186,6 +206,18 @@ public class GUI {
         int tipo = Integer.parseInt(scanner.nextLine());
         a.setTipoUsuario(tipo);
         return a;
+    }
+    
+    public DivisaoTreino criaDivisaoTreino() {
+        DivisaoTreino dt = new DivisaoTreino();
+        
+        System.out.println("Nome: ");
+        String nome = scanner.nextLine();
+        dt.setNome(nome);
+        System.out.println("Descricao: ");
+        String descricao = scanner.nextLine();
+        dt.setDescricao(descricao);
+        return dt;
     }
     // =-=-=-=-=FIM CRIACOES=-=-=-=-=-= //
 }

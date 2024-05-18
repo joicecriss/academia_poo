@@ -126,28 +126,6 @@ public class Pessoa {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.cpf);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Pessoa other = (Pessoa) obj;
-        return Objects.equals(this.cpf, other.cpf);
-    }
-
-    @Override
     public String toString() {
         return  """
                 
@@ -164,4 +142,52 @@ public class Pessoa {
                 "\n| Data de Modificacao: " + getDataModificacao() +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.nome);
+        hash = 23 * hash + Objects.hashCode(this.sexo);
+        hash = 23 * hash + Objects.hashCode(this.nascimento);
+        hash = 23 * hash + Objects.hashCode(this.login);
+        hash = 23 * hash + Objects.hashCode(this.senha);
+        hash = 23 * hash + this.tipoUsuario;
+        hash = 23 * hash + Objects.hashCode(this.cpf);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pessoa other = (Pessoa) obj;
+        if (this.tipoUsuario != other.tipoUsuario) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.sexo, other.sexo)) {
+            return false;
+        }
+        if (!Objects.equals(this.login, other.login)) {
+            return false;
+        }
+        if (!Objects.equals(this.senha, other.senha)) {
+            return false;
+        }
+        if (!Objects.equals(this.cpf, other.cpf)) {
+            return false;
+        }
+        return Objects.equals(this.nascimento, other.nascimento);
+    }
+    
+    
 }
