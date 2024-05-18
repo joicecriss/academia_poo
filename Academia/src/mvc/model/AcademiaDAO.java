@@ -1,7 +1,5 @@
 package mvc.model;
 
-import java.time.LocalDate;
-
 public class AcademiaDAO {
     Academia [] academias = new Academia[5];
     

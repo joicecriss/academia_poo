@@ -8,6 +8,8 @@ import mvc.model.Academia;
 import mvc.model.AcademiaDAO;
 import mvc.model.Pessoa;
 import mvc.model.PessoaDAO;
+import mvc.model.DivisaoTreino;
+import mvc.model.DivisaoTreinoDAO;
 import mvc.model.Util;
 
 //ImportaÃ§Ã£o das views
@@ -16,6 +18,7 @@ import mvc.view.GUI;
 public class Main {
     GUI gui = new GUI();
     AcademiaDAO academiaDAO = new AcademiaDAO();
+    DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
     PessoaDAO pessoaDAO = new PessoaDAO();
     Scanner s = new Scanner(System.in);
     JFrame frame = new JFrame();
@@ -186,18 +189,43 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("\n Digite o nome da Academia que deseja alterar: ");
-                    String procurada = s.nextLine();
-                    System.out.println("\n Novo nome:");
-                    String novoNome = s.nextLine();
-                    if (academiaDAO.alterarNome(procurada, novoNome)) {
-                        System.out.println("\n Academia alterada");
+                    String academia = s.nextLine();
+                    
+                    Academia editar = academiaDAO.buscaPorNome(academia);
+                    Academia semEditar = academiaDAO.buscaPorNome(academia);
+                    
+                    if(editar != null) {
+                        System.out.println("\n Digite o novo nome (ou pressione ENTER para manter o nome atual): " + editar.getNome());
+                        String nome = s.nextLine();
+                        if(!nome.isEmpty()) {
+                            editar.setNome(nome);
+                        }
+                        
+                        System.out.println("\n Digite o novo endereco (ou pressione ENTER para manter o endereco atual): " + editar.getEndereco());
+                        String endereco = s.nextLine();
+                        if(!endereco.isEmpty()) {
+                            editar.setEndereco(endereco);
+                        }
+                        
+                        System.out.println("\n Digite o novo CNPJ (ou pressione ENTER para manter o CNPJ atual): " + editar.getCnpj());
+                        System.out.println("\n Digite desta forma-> 00.000.000/0000-00");
+                        String cnpj = s.nextLine();
+                        if(!cnpj.isEmpty()) {
+                            editar.setCnpj(cnpj);
+                        }
+                        
+                        if(semEditar.equals(editar)) {
+                            System.out.println("Academia nao foi alterada!");
+                        } else {
+                            System.out.println("Academia alterado com sucesso, alteracoes: ");
+                            editar.toString();
+                        }
                     } else {
-                        System.out.println("\n Academia nao encontrada!");
+                        System.out.println("Academia nao encontrada para alterar!");
                     }
-
                     break;
                 case 4:
-                    System.out.println("\n Academia procurada:");
+                    System.out.println("\n Digite o nome da Academia que deseja excluir: ");
                     String nomeExclusao = s.nextLine();
 
                     if (academiaDAO.remover(nomeExclusao)) {
@@ -322,6 +350,84 @@ public class Main {
                     break;
                 case 0:
                     System.out.println("Saindo do modulo Pessoa!");
+                    break;
+                default:
+                    System.out.println("Digite um numero valido!");
+                    break;
+            }
+        } while (op != 0);
+    }
+    
+    public void menuDivisaoTreino() {
+        int op = 10;
+        do {
+            op = gui.opDivisaoTreino();
+            switch (op) {
+                case 1:
+                    DivisaoTreino dt = gui.criaDivisaoTreino();
+
+                    boolean divisaoInserida = divisaoTreinoDAO.adiciona(dt);
+                    if (divisaoInserida) {
+                        System.out.println("\n Divisao de Treino inserida com sucesso!");
+                    } else {
+                        System.out.println("\n Divisao de Treino nao inserida!");
+                    }
+                    break;
+                case 2:
+                    divisaoTreinoDAO.mostrarTodos();
+                    break;
+                case 3:
+                    System.out.println("\n Digite o id da Divisao de Treino: ");
+                    Long id = Long.parseLong(s.nextLine());
+                    DivisaoTreino achou = divisaoTreinoDAO.buscaPorId(id);
+                    if(achou != null) {
+                        achou.toString();
+                    } else {
+                        System.out.println("Divisao de Treino nao encontrada!");
+                    }
+                    break;
+                case 4:
+                    System.out.println("\n Digite o nome da Divisao de Treino que deseja alterar: ");
+                    Long idAchar = Long.parseLong(s.nextLine());
+                    
+                    DivisaoTreino editar = divisaoTreinoDAO.buscaPorId(idAchar);
+                    DivisaoTreino semEditar = divisaoTreinoDAO.buscaPorId(idAchar);
+                    
+                    if(editar != null) {
+                        System.out.println("\n Digite o novo nome (ou pressione ENTER para manter o nome atual): " + editar.getNome());
+                        String nome = s.nextLine();
+                        if(!nome.isEmpty()) {
+                            editar.setNome(nome);
+                        }
+                        
+                        System.out.println("\n Digite a nova descricao (ou pressione ENTER para manter a descricao atual): " + editar.getDescricao());
+                        String descricao = s.nextLine();
+                        if(!descricao.isEmpty()) {
+                            editar.setDescricao(descricao);
+                        }
+                        
+                        if(semEditar.equals(editar)) {
+                            System.out.println("Divisao de Treino nao foi alterada!");
+                        } else {
+                            System.out.println("Divisao de Treino alterado com sucesso, alteracoes: ");
+                            editar.toString();
+                        }
+                    } else {
+                        System.out.println("Divisao de Treino nao encontrada para alterar!");
+                    }
+                    break;
+                case 5:
+                    System.out.println("\n Digite o id da Divisao de Treino que deseja excluir: ");
+                    Long idExcluir = Long.parseLong(s.nextLine());
+
+                    if (divisaoTreinoDAO.remover(idExcluir)) {
+                        System.out.println("\n Divisao de Treino exclui­da!");
+                    } else {
+                        System.out.println("\n Divisao de Treino nao exclui­da!");
+                    }
+                    break;
+                case 0:
+                    System.out.println("Saindo do modulo Divisao de Treino!");
                     break;
                 default:
                     System.out.println("Digite um numero valido!");
