@@ -6,11 +6,13 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 import mvc.model.Util;
 import mvc.model.Academia;
+import mvc.model.AvaliacaoFisica;
 import mvc.model.Pessoa;
 import mvc.model.DivisaoTreino;
 import mvc.model.DivisaoTreinoDAO;
 import mvc.model.DivisaoTreinoMusculacao;
 import mvc.model.EntradaAluno;
+import mvc.model.MovimentacaoFinanceira;
 import mvc.model.Exercicio;
 import mvc.model.ExercicioAplicacao;
 import mvc.model.MensalidadeVigente;
@@ -243,6 +245,24 @@ public class GUI {
         return Integer.parseInt(scanner.nextLine());
     }
     
+    public int opAvaliacaoFisica() {
+        builder.setLength(0);
+        builder.append("\n--------------------------------");
+        builder.append("\n|  * -> Avalicao Fisica        |");
+        builder.append("\n|                              |");
+        builder.append("\n|  1 - Cadastrar               |");
+        builder.append("\n|  2 - Mostrar todos           |");
+        builder.append("\n|  3 - Buscar pelo id          |");
+        builder.append("\n|  4 - Alterar                 |");
+        builder.append("\n|  5 - Excluir pelo id         |");
+        builder.append("\n|  0 - Sair                    |");
+        builder.append("\n|                              |");
+        builder.append("\n--------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+
     public int opExercicio() {
         builder.setLength(0);
         builder.append("\n----------------------------------------");
@@ -261,6 +281,24 @@ public class GUI {
         return Integer.parseInt(scanner.nextLine());
     }
     
+    public int opMovimentacaoFinanceira() {
+        builder.setLength(0);
+        builder.append("\n--------------------------------");
+        builder.append("\n|  * -> Movimentacao Financeira|");
+        builder.append("\n|                              |");
+        builder.append("\n|  1 - Cadastrar               |");
+        builder.append("\n|  2 - Mostrar todos           |");
+        builder.append("\n|  3 - Buscar pelo id          |");
+        builder.append("\n|  4 - Alterar                 |");
+        builder.append("\n|  5 - Excluir pelo id         |");
+        builder.append("\n|  0 - Sair                    |");
+        builder.append("\n|                              |");
+        builder.append("\n--------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+  
     public int opExercicioAplicacao() {
         builder.setLength(0);
         builder.append("\n----------------------------------------");
@@ -590,6 +628,39 @@ public class GUI {
         LocalDateTime entrada = LocalDateTime.parse(scanner.nextLine());
 
         return e;
+    }
+    
+    public AvaliacaoFisica criaAvalicaoFisica() {
+        AvaliacaoFisica aF = new AvaliacaoFisica();
+        
+        /*System.out.println("Objetivo: ");
+        String objetivo = scanner.nextLine();
+        t.setObjetivo(objetivo);
+        System.out.println("Data de Inicio: ");
+        System.out.println("\n Digite desta forma-> dd/MM/yyyy");
+        String dataInicio = scanner.nextLine();
+        t.setDataInicio(dataInicio);
+        System.out.println("Data de Termino: ");
+        String dataTermino = scanner.nextLine();
+        t.setDataTermino(dataTermino);*/
+        return aF;
+    }
+    
+    public MovimentacaoFinanceira criaMovimentacaoFinanceira() {
+        MovimentacaoFinanceira mF = new MovimentacaoFinanceira();
+        
+        /*System.out.println("Objetivo: ");
+        String objetivo = scanner.nextLine();
+        t.setObjetivo(objetivo);
+        System.out.println("Data de Inicio: ");
+        System.out.println("\n Digite desta forma-> dd/MM/yyyy");
+        String dataInicio = scanner.nextLine();
+        t.setDataInicio(dataInicio);
+        System.out.println("Data de Termino: ");
+        String dataTermino = scanner.nextLine();
+        t.setDataTermino(dataTermino);*/
+        return mF;
+    
     }
     // =-=-=-=-=FIM CRIACOES=-=-=-=-=-= //
 }
