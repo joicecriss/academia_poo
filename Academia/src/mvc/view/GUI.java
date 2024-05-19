@@ -329,6 +329,24 @@ public class GUI {
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
     }
+    
+    public int opPagamentoMensalidade() {
+        builder.setLength(0);
+        builder.append("\n----------------------------------------");
+        builder.append("\n|  * -> Pagamento Mensalidade (Aluno)   |");
+        builder.append("\n|                                       |");
+        builder.append("\n|  1 - Cadastrar                        |");
+        builder.append("\n|  2 - Mostrar todos os Pagamentos      |");
+        builder.append("\n|  3 - Buscar Pagamentos     pelo ID    |");
+        builder.append("\n|  4 - Alterar um Pagamento             |");
+        builder.append("\n|  5 - Excluir pelo ID                  |");
+        builder.append("\n|  0 - Sair                             |");
+        builder.append("\n|                                       |");
+        builder.append("\n----------------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
     // =-=-=-=-=FIM MENUS DAS CLASSES INDIVIDUALMENTE=-=-=-=-=-= //
     
     

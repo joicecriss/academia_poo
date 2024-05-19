@@ -124,9 +124,9 @@ public class PagamentoMensalidadeDAO {
         return false;
     }
     
-    public PagamentoMensalidade buscaPorPessoa (Pessoa pessoa) {
+    public PagamentoMensalidade buscaPorId (Long id) {
         for (PagamentoMensalidade pgm : pagMensalidade) {
-            if (pgm != null && pgm.getPessoa()== pessoa) {
+            if (pgm != null && pgm.getId()== id) {
                 return pgm;
             }
         }
