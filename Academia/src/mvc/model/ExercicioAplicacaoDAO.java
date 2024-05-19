@@ -43,4 +43,47 @@ public class ExercicioAplicacaoDAO {
         return -1;
 
     }
+    
+    public void mostrarTodos() {
+        boolean temExercicioA = false;
+        for (ExercicioAplicacao ea : exAplicacao) {
+            if (ea != null) {
+                System.out.println(ea);
+                temExercicioA = true;
+            }
+        }
+        if (!temExercicioA) {
+            System.out.println("Nao existe exercicio cadastrado!");
+        }
+    }
+    
+    public boolean alterarDescricao(String descricao, String novaDescricao) {
+        for (ExercicioAplicacao ea : exAplicacao) {
+            if (ea != null && ea.getDescricao().equals(descricao)) {
+                ea.setDescricao(novaDescricao);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public ExercicioAplicacao buscaPorId(Long id) {
+        for (ExercicioAplicacao ea : exAplicacao) {
+            if (ea != null && ea.getId() == id) {
+                return ea;
+            }
+        }
+        return null;
+    }
+    
+    public boolean remover(Long id) {
+        for (int i = 0; i < exAplicacao.length; i++) {
+             if (exAplicacao[i] != null && exAplicacao[i].getId() == id) {
+                exAplicacao[i] = null;
+                return true;
+            }
+        }
+        return false;
+
+    }
 }

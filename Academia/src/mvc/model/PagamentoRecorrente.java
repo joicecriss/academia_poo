@@ -20,7 +20,7 @@ public class PagamentoRecorrente {
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public PagamentoRecorrente(long id, LocalDateTime dataCriacao, LocalDateTime dataModificacao) {
+    public PagamentoRecorrente() {
         this.id = ++PagamentoRecorrente.aux;
         this.dataCriacao = Util.getDiaAtual();
         this.dataModificacao = Util.getDiaAtual();
