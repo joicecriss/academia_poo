@@ -30,7 +30,7 @@ public class DivisaoTreinoMusculacaoDAO {
         c.setDivisaoTreino(divisaoTreino);
         adiciona(c);
         
-        DivisaoTreinoMusculacao [] dtm = new DivisaoTreinoMusculacao[2];
+        DivisaoTreinoMusculacao [] dtm = new DivisaoTreinoMusculacao[3];
         dtm[0] = a;
         dtm[1] = b;
         dtm[2] = c;

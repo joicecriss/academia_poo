@@ -25,8 +25,8 @@ public class Pessoa {
     
     public Pessoa() {
         this.id = Pessoa.aux++;
-        this.dataCriacao = Util.getDiaAtual();
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataCriacao = Util.getDia();
+        this.dataModificacao = Util.getDia();
     }
     
     public long getId() {
@@ -39,7 +39,7 @@ public class Pessoa {
 
     public void setNome(String nome) {
         this.nome = nome;
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
 
     public String getSexo() {
@@ -48,7 +48,7 @@ public class Pessoa {
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
 
     public String getNascimento() {
@@ -59,7 +59,7 @@ public class Pessoa {
     public void setNascimento(String nascimento) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.nascimento = LocalDate.parse(nascimento, formatter);
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
 
     public String getLogin() {
@@ -68,7 +68,7 @@ public class Pessoa {
 
     public void setLogin(String login) {
         this.login = login;
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
 
     public String getSenha() {
@@ -77,7 +77,7 @@ public class Pessoa {
 
     public void setSenha(String senha) {
         this.senha = senha;
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
 
     public int getTipoUsuario() {
@@ -86,7 +86,7 @@ public class Pessoa {
 
     public void setTipoUsuario(int tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
 
     public String getCpf() {
@@ -95,7 +95,7 @@ public class Pessoa {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
 
     public String getDataCriacao() {
@@ -109,7 +109,7 @@ public class Pessoa {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
     
     public String tipoUsuario(int tipo) {
@@ -140,6 +140,19 @@ public class Pessoa {
                 "\n| CPF                : " + this.cpf +
                 "\n| Data de Criacao    : " + getDataCriacao() + 
                 "\n| Data de Modificacao: " + getDataModificacao() +
+                "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
+    }
+    
+    public String perfil() {
+        return  "\n|-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
+                "\n| Este é seu perfil " + this.nome +
+                "\n|" + "\n|" +
+                "\n| ID                 : " + this.id + 
+                "\n| Sexo               : " + this.sexo + 
+                "\n| Nascimento         : " + getNascimento() + 
+                "\n| Email              : " + this.login +
+                "\n| Tipo de Usuario    : " + tipoUsuario(this.tipoUsuario) +
+                "\n| CPF                : " + this.cpf +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 

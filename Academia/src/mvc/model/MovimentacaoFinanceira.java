@@ -18,8 +18,8 @@ public class MovimentacaoFinanceira {
 
     public MovimentacaoFinanceira(long id, LocalDateTime dataCriacao, LocalDateTime dataModificacao) {
         this.id = ++MovimentacaoFinanceira.aux;
-        this.dataCriacao = Util.getDiaAtual();
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataCriacao = Util.getDia();
+        this.dataModificacao = Util.getDia();
     }
 
     public long getId() {

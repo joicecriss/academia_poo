@@ -8,6 +8,7 @@ public class Util {
     private static Pessoa pessoaLogada = null;
     
     private static LocalDateTime diaAtual = LocalDateTime.of(2023, Month.MARCH, 01, 22, 05);
+    private static LocalDateTime dia = LocalDateTime.now();
 
     public static Pessoa getPessoaLogada() {
         return pessoaLogada;
@@ -19,6 +20,10 @@ public class Util {
 
     public static LocalDateTime getDiaAtual() {
         return diaAtual;
+    }
+    
+    public static LocalDateTime getDia() {
+        return dia;
     }
     
     public static int getDiaDoMes() {

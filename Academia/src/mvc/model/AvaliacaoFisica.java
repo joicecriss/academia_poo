@@ -21,8 +21,8 @@ public class AvaliacaoFisica {
 
     public AvaliacaoFisica(long id, LocalDateTime dataCriacao) {
         this.id = ++AvaliacaoFisica.aux;
-        this.dataCriacao = Util.getDiaAtual();
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataCriacao = Util.getDia();
+        this.dataModificacao = Util.getDia();
     }
 
     public long getId() {
