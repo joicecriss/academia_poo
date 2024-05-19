@@ -12,13 +12,14 @@ public class DivisaoTreino {
     private static long aux;
     private String nome;
     private String descricao;
+    private DivisaoTreinoMusculacao[] musculacao;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
     public DivisaoTreino() {
         this.id = DivisaoTreino.aux++;
-        this.dataCriacao = Util.getDiaAtual();
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataCriacao = Util.getDia();
+        this.dataModificacao = Util.getDia();
     }
 
     public long getId() {
@@ -31,7 +32,7 @@ public class DivisaoTreino {
 
     public void setNome(String nome) {
         this.nome = nome;
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
 
     public String getDescricao() {
@@ -40,7 +41,16 @@ public class DivisaoTreino {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
+    }
+    
+    public DivisaoTreinoMusculacao[] getMusculacao() {
+        return this.musculacao;
+    }
+
+    public void setMusculacao(DivisaoTreinoMusculacao[] musculacao) {
+        this.musculacao = musculacao;
+        this.dataModificacao = Util.getDia();
     }
 
     public String getDataCriacao() {
@@ -54,7 +64,7 @@ public class DivisaoTreino {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
 
     @Override
@@ -87,11 +97,17 @@ public class DivisaoTreino {
     public String toString() {
         return  "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
                 "\n| Divisão de Treino: " + 
-                "\n| Id                 : " + id + 
-                "\n| Nome               : " + nome + 
-                "\n| Descrição          : " + descricao + 
-                "\n| Data de Criação    : " + getDataCriacao() + 
-                "\n| Data de Modificação: " + getDataModificacao() +
+                "\n| Id                 : " + this.id + 
+                "\n| Nome               : " + this.nome + 
+                "\n| Descrição          : " + this.descricao + 
+                "\n| Data de Criação    : " + this.getDataCriacao() + 
+                "\n| Data de Modificação: " + this.getDataModificacao() +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
+    }
+    
+    public String descResumida() {
+        return  "\n| Divisão de Treino Id       : " + this.id + 
+                "\n| Divisão de Treino Nome     : " + this.nome + 
+                "\n| Divisão de Treino Descrição: " + this.descricao;
     }
 }

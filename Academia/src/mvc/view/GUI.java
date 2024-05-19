@@ -4,14 +4,18 @@ package mvc.view;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+import mvc.model.Util;
 import mvc.model.Academia;
 import mvc.model.Pessoa;
 import mvc.model.DivisaoTreino;
+import mvc.model.DivisaoTreinoDAO;
 import mvc.model.DivisaoTreinoMusculacao;
 import mvc.model.Exercicio;
 import mvc.model.ExercicioAplicacao;
 import mvc.model.MensalidadeVigente;
 import mvc.model.Util;
+import mvc.model.Treino;
+import mvc.model.TreinoAplicacao;
 
 public class GUI {
     Scanner scanner = new Scanner(System.in);
@@ -56,16 +60,22 @@ public class GUI {
     public int menuProfessor() {
         /* O professor/instrutor pode fazer o crud de aluno e treino e as operacoes do aluno. */
         builder.setLength(0);
-        builder.append("\n-----------------------------------");
-        builder.append("\n|       BEM VINDO INSTRUTOR       |");
-        builder.append("\n|                                 |");
-        builder.append("\n| 1 - Perfil                      |");
-        builder.append("\n| 2 -                             |");
-        builder.append("\n| 3 -                             |");
-        builder.append("\n| 4 -                             |");
-        builder.append("\n| 0 - Sair                        |");
-        builder.append("\n|                                 |");
-        builder.append("\n-----------------------------------");
+        builder.append("\n-------------------------------------");
+        builder.append("\n|        BEM VINDO INSTRUTOR        |");
+        builder.append("\n|                                   |");
+        builder.append("\n|  1 - Perfil                       |");
+        builder.append("\n|  2 - Usuarios                     |");
+        builder.append("\n|  3 - Exercicio                    |");
+        builder.append("\n|  4 - Exercicio Aplicacao          |");
+        builder.append("\n|  5 - Divisao de Treino            |");
+        builder.append("\n|  6 - Divisao de Treino-Musculacao |");
+        builder.append("\n|  7 - Treino                       |");
+        builder.append("\n|  8 - Treino Aplicacao             |");
+        builder.append("\n|  9 - Avaliacao Fisica             |");
+        builder.append("\n| 10 - Entrada Aluno                |");
+        builder.append("\n|  0 - Sair                         |");
+        builder.append("\n|                                   |");
+        builder.append("\n-------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -74,15 +84,26 @@ public class GUI {
     public int menuAdmin() {
         /* O administrador pode fazer tudo que o professor faz e movimentacoes financeiras. */
         builder.setLength(0);
-        builder.append("\n-----------------------------------");
-        builder.append("\n|       BEM VINDO ADMINISTRADOR   |");
-        builder.append("\n|                                 |");
-        builder.append("\n| 1 - Perfil                      |");
-        builder.append("\n| 2 -                             |");
-        builder.append("\n| 3 -                             |");
-        builder.append("\n| 4 -                             |");
-        builder.append("\n| 0 - Sair                        |");
-        builder.append("\n|                                 |");
+        builder.append("\n------------------------------------");
+        builder.append("\n|       BEM VINDO ADMINISTRADOR    |");
+        builder.append("\n|                                  |");
+        builder.append("\n|  1 - Perfil                      |");
+        builder.append("\n|  2 - Academia                    |");
+        builder.append("\n|  3 - Usuarios                    |");
+        builder.append("\n|  4 - Exercicio                   |");
+        builder.append("\n|  5 - Exercio Aplicacao           |");
+        builder.append("\n|  6 - Divisao de Treino           |");
+        builder.append("\n|  7 - Divisao de Treino-Muculacao |");
+        builder.append("\n|  8 - Treino                      |");
+        builder.append("\n|  9 - Treino Aplicacao            |");
+        builder.append("\n| 10 - Avaliacao Fisica            |");
+        builder.append("\n| 11 - Mensalidade Vigente         |");
+        builder.append("\n| 12 - Aluno Pagamento Mensalidade |");
+        builder.append("\n| 13 - Pagamento Recorrente        |");
+        builder.append("\n| 14 - Entrada Aluno               |");
+        builder.append("\n| 15 - Movimentacao Financeira     |");
+        builder.append("\n|  0 - Sair                        |");
+        builder.append("\n|                                  |");
         builder.append("\n-----------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
@@ -93,11 +114,11 @@ public class GUI {
         builder.setLength(0);
         builder.append("\n-----------------------------------");
         builder.append("\n|             MENU                |");
+        builder.append("\n|     Usuario sem tipo valido!    |");
         builder.append("\n|                                 |");
         builder.append("\n| 1 - Perfil                      |");
-        builder.append("\n| 2 - Academia                    |");
-        builder.append("\n| 3 - Exercicios                  |");
-        builder.append("\n| 4 - Aplicacoes dos Exercicios   |");
+        builder.append("\n| 2 - Alterar Cadastro            |");
+        builder.append("\n| 3 - Tentar Novamente            |");
         builder.append("\n| 0 - Sair                        |");
         builder.append("\n|                                 |");
         builder.append("\n-----------------------------------");
@@ -116,9 +137,9 @@ public class GUI {
         builder.append("\n|  * -> Pessoa                     |");
         builder.append("\n|                                  |");
         builder.append("\n|  1 - Cadastrar                   |");
-        builder.append("\n|  2 - Mostrar todas as Pessoas    |");
-        builder.append("\n|  3 - Buscar Pessoa pelo CPF      |");
-        builder.append("\n|  4 - Alterar a Pessoa            |");
+        builder.append("\n|  2 - Mostrar todas               |");
+        builder.append("\n|  3 - Buscar pelo CPF             |");
+        builder.append("\n|  4 - Alterar uma Pessoa          |");
         builder.append("\n|  5 - Excluir pelo CPF            |");
         builder.append("\n|  0 - Sair                        |");
         builder.append("\n|                                  |");
@@ -134,8 +155,8 @@ public class GUI {
         builder.append("\n|  * -> Academia                   |");
         builder.append("\n|                                  |");
         builder.append("\n|  1 - Cadastrar                   |");
-        builder.append("\n|  2 - Mostrar todas Academias     |");
-        builder.append("\n|  3 - Alterar a Academia          |");
+        builder.append("\n|  2 - Mostrar todas               |");
+        builder.append("\n|  3 - Alterar uma Academia        |");
         builder.append("\n|  4 - Excluir pelo nome           |");
         builder.append("\n|  0 - Sair                        |");
         builder.append("\n|                                  |");
@@ -147,17 +168,71 @@ public class GUI {
     
     public int opDivisaoTreino() {
         builder.setLength(0);
-        builder.append("\n----------------------------------------");
-        builder.append("\n|  * -> Divisao Treino                  |");
-        builder.append("\n|                                       |");
-        builder.append("\n|  1 - Cadastrar                        |");
-        builder.append("\n|  2 - Mostrar todas Divisoes de Treino |");
-        builder.append("\n|  3 - Buscar Divisao de Treino pelo id |");
-        builder.append("\n|  4 - Alterar uma Divisao de Treino    |");
-        builder.append("\n|  5 - Excluir pelo id                  |");
-        builder.append("\n|  0 - Sair                             |");
-        builder.append("\n|                                       |");
-        builder.append("\n----------------------------------------");
+        builder.append("\n--------------------------------");
+        builder.append("\n|  * -> Divisao Treino         |");
+        builder.append("\n|                              |");
+        builder.append("\n|  1 - Cadastrar               |");
+        builder.append("\n|  2 - Mostrar todas           |");
+        builder.append("\n|  3 - Buscar pelo id          |");
+        builder.append("\n|  4 - Alterar uma Divisao     |");
+        builder.append("\n|  5 - Excluir pelo id         |");
+        builder.append("\n|  0 - Sair                    |");
+        builder.append("\n|                              |");
+        builder.append("\n--------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public int opDivisaoTreinoMusculacao() {
+        builder.setLength(0);
+        builder.append("\n-------------------------------------");
+        builder.append("\n|   * -> Divisao Treino Musculacao   |");
+        builder.append("\n|                                    |");
+        builder.append("\n|   1 - Cadastrar                    |");
+        builder.append("\n|   2 - Mostrar todas                |");
+        builder.append("\n|   3 - Buscar pelo id               |");
+        builder.append("\n|   4 - Alterar uma Divisao          |");
+        builder.append("\n|   5 - Excluir pelo id              |");
+        builder.append("\n|   0 - Sair                         |");
+        builder.append("\n|                                    |");
+        builder.append("\n-------------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public int opTreino() {
+        builder.setLength(0);
+        builder.append("\n--------------------------------");
+        builder.append("\n|  * -> Treino                 |");
+        builder.append("\n|                              |");
+        builder.append("\n|  1 - Cadastrar               |");
+        builder.append("\n|  2 - Mostrar todos           |");
+        builder.append("\n|  3 - Buscar pelo id          |");
+        builder.append("\n|  4 - Alterar um Treino       |");
+        builder.append("\n|  5 - Excluir pelo id         |");
+        builder.append("\n|  0 - Sair                    |");
+        builder.append("\n|                              |");
+        builder.append("\n--------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public int opTreinoAplicacao() {
+        builder.setLength(0);
+        builder.append("\n--------------------------------");
+        builder.append("\n|  * -> Treino Aplicacao       |");
+        builder.append("\n|                              |");
+        builder.append("\n|  1 - Cadastrar               |");
+        builder.append("\n|  2 - Mostrar todos           |");
+        builder.append("\n|  3 - Buscar pelo id          |");
+        builder.append("\n|  4 - Alterar                 |");
+        builder.append("\n|  5 - Excluir pelo id         |");
+        builder.append("\n|  0 - Sair                    |");
+        builder.append("\n|                              |");
+        builder.append("\n--------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -312,6 +387,63 @@ public class GUI {
         LocalDate termino = LocalDate.parse(scanner.nextLine());
         mv.setTermino(termino);
         return mv;
+    }
+    
+    public DivisaoTreinoMusculacao[] criaDivisaoTreinoMusculacao() {
+        System.out.println("Digite o ID da divisao de treino que deseja descrever:");
+        DivisaoTreino[] divisoes = new DivisaoTreinoDAO().mostrarTodosERetornar(); // supondo que você tenha um método getAll() em DivisaoDeTreinoDAO
+        for (int i = 0; i < divisoes.length; i++) {
+            System.out.println(divisoes[i].getNome() + " - ID: " + (i + 1));
+        }
+        int indice = scanner.nextInt() - 1;
+        scanner.nextLine(); // consome a quebra de linha pendente
+
+        DivisaoTreino divisaoSelecionada = divisoes[indice];
+
+        int numPosicoes = divisaoSelecionada.getNome().length(); // o número de posições é determinado pelo nome da DivisaoDeTreino
+
+        DivisaoTreinoMusculacao[] dtms = new DivisaoTreinoMusculacao[numPosicoes];
+        System.out.println("Voce escolheu a divisao de treino: " + divisaoSelecionada.getNome());
+        for (int i = 0; i < numPosicoes; i++) {
+            System.out.println("Digite a descricao da Posicao " + (char) ('A' + i) + ":");
+            String descricao = scanner.nextLine();
+
+            DivisaoTreinoMusculacao dtm = new DivisaoTreinoMusculacao();
+            dtm.setDescricao(descricao);
+            dtm.setPosicao(String.valueOf((char) ('A' + i))); // A, B, C, ...
+            dtm.setDivisaoTreino(divisaoSelecionada);
+            dtms[i] = dtm;
+        }
+        divisaoSelecionada.setMusculacao(dtms);
+        return dtms;
+    }
+    
+    public Treino criaTreino() {
+        Treino t = new Treino();
+        
+        System.out.println("Objetivo: ");
+        String objetivo = scanner.nextLine();
+        t.setObjetivo(objetivo);
+        System.out.println("Data de Inicio: ");
+        System.out.println("\n Digite desta forma-> dd/MM/yyyy");
+        String dataInicio = scanner.nextLine();
+        t.setDataInicio(dataInicio);
+        System.out.println("Data de Termino: ");
+        String dataTermino = scanner.nextLine();
+        t.setDataTermino(dataTermino);
+        return t;
+    }
+    
+    public TreinoAplicacao criaTreinoAplicacao() {
+        TreinoAplicacao tA = new TreinoAplicacao();
+        
+        /*System.out.println("Nome: ");
+        String nome = scanner.nextLine();
+        tA.setNome(nome);
+        System.out.println("Descricao: ");
+        String descricao = scanner.nextLine();
+        tA.setDescricao(descricao);*/
+        return tA;
     }
     // =-=-=-=-=FIM CRIACOES=-=-=-=-=-= //
 }
