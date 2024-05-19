@@ -22,7 +22,7 @@ public class PagamentoMensalidade {
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public PagamentoMensalidade(long id, LocalDateTime dataCriacao, LocalDateTime dataModificacao) {
+    public PagamentoMensalidade() {
         this.id = ++PagamentoMensalidade.aux;
         this.dataCriacao = Util.getDiaAtual();
         this.dataModificacao = Util.getDiaAtual();
@@ -70,6 +70,10 @@ public class PagamentoMensalidade {
 
     public void setData(LocalDate data) {
         this.data = data;
+    }
+    
+    public void setPessoa (Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
     public Pessoa getPessoa() {
