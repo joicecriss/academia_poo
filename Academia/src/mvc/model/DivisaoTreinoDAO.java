@@ -47,6 +47,7 @@ public class DivisaoTreinoDAO {
         }
     }
     
+
     public DivisaoTreino[] mostrarTodosERetornar() {
         // Conta quantas divisoes de treino existem para criar o array com o tamanho exato
         int count = 0;

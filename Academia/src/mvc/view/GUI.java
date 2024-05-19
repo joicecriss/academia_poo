@@ -257,7 +257,7 @@ public class GUI {
     
     public DivisaoTreinoMusculacao[] criaDivisaoTreinoMusculacao() {
         System.out.println("Digite o ID da divisao de treino que deseja descrever:");
-        DivisaoTreino[] divisoes = new DivisaoTreinoDAO().mostrarTodosERetornar(); // supondo que você tenha um método getAll() em DivisaoDeTreinoDAO
+        DivisaoTreino[] divisoes = new DivisaoTreinoDAO().mostrarTodosERetornar(); // supondo que vocÃª tenha um mÃ©todo getAll() em DivisaoDeTreinoDAO
         for (int i = 0; i < divisoes.length; i++) {
             System.out.println(divisoes[i].getNome() + " - ID: " + (i + 1));
         }
@@ -266,7 +266,7 @@ public class GUI {
 
         DivisaoTreino divisaoSelecionada = divisoes[indice];
 
-        int numPosicoes = divisaoSelecionada.getNome().length(); // o número de posições é determinado pelo nome da DivisaoDeTreino
+        int numPosicoes = divisaoSelecionada.getNome().length(); // o nÃºmero de posiÃ§Ãµes Ã© determinado pelo nome da DivisaoDeTreino
 
         DivisaoTreinoMusculacao[] dtms = new DivisaoTreinoMusculacao[numPosicoes];
         System.out.println("Voce escolheu a divisao de treino: " + divisaoSelecionada.getNome());

@@ -1,10 +1,11 @@
 package mvc.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /*
-CRUD DIVISAO DE TREINO-MUSCULO. Informações importantes: id, decricao,  divisao de treino, dataCriacao, dataModificacao.
+CRUD DIVISAO DE TREINO-MUSCULO. InformaÃ§Ãµes importantes: id, decricao,  divisao de treino, dataCriacao, dataModificacao.
 */
 public class DivisaoTreinoMusculacao {
     private long id;
@@ -31,6 +32,16 @@ public class DivisaoTreinoMusculacao {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+        this.dataModificacao = Util.getDiaAtual();
+    }
+    
+    public String getPosicao() {
+        return this.posicao;
+    }
+
+    public void setPosicao(String posicao) {
+        this.posicao = posicao;
+        this.dataModificacao = Util.getDiaAtual();
     }
     
     public String getPosicao() {
@@ -47,18 +58,21 @@ public class DivisaoTreinoMusculacao {
     
     public void setDivisaoTreino(DivisaoTreino divisaoTreino) {
         this.divisaoTreino = divisaoTreino;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
-    public LocalDateTime getDataCriacao() {
-        return dataCriacao;
+    public String getDataCriacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataCriacao.format(formatter);
     }
 
-    public LocalDateTime getDataModificacao() {
-        return dataModificacao;
+    public String getDataModificacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataModificacao.format(formatter);
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = dataModificacao;
+        this.dataModificacao = Util.getDiaAtual();
     }
 
     @Override
@@ -89,14 +103,14 @@ public class DivisaoTreinoMusculacao {
 
     @Override
     public String toString() {
-        return "\n---------------------------------" +
-               "\n| Divisão Treino Musculação" + 
-               "\n| Id: " + id + 
-               "\n| Descrição: " + descricao + 
-               "\n| Divisão Treino: " + divisaoTreino + 
-               "\n| Data Criação: " + dataCriacao + 
-               "\n| Data Modificação: " + dataModificacao + 
-               "\n---------------------------------" ;
+        return "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
+               "\n| DivisÃ£o Treino MusculaÃ§Ã£o" + 
+               "\n| Id              : " + id + 
+               "\n| DescriÃ§Ã£o       : " + descricao + 
+               divisaoTreino.descResumida() + 
+               "\n| Data CriaÃ§Ã£o    : " + getDataCriacao() + 
+               "\n| Data ModificaÃ§Ã£o: " + getDataModificacao() + 
+               "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" ;
     }
     
 }
