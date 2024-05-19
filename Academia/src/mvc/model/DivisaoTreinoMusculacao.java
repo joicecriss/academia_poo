@@ -96,12 +96,13 @@ public class DivisaoTreinoMusculacao {
     @Override
     public String toString() {
         return "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
-               "\n| Divisão Treino Musculação" + 
-               "\n| Id              : " + id + 
-               "\n| Descrição       : " + descricao + 
-               divisaoTreino.descResumida() + 
-               "\n| Data Criação    : " + getDataCriacao() + 
-               "\n| Data Modificação: " + getDataModificacao() + 
+               "\n| Divisao Treino Musculacao" + 
+               "\n| Id              : " + this.id + 
+               "\n| Descricao       : " + this.descricao + 
+               "\n| Treino          : " + this.posicao +
+               "\n| Data Criacao    : " + getDataCriacao() + 
+               "\n| Data Modificacao: " + getDataModificacao() + 
+               "\n|" + divisaoTreino.descResumida() + 
                "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" ;
     }
     

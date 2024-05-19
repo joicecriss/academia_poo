@@ -69,9 +69,18 @@ public class EntradaAlunoDAO {
         return false;
     }
     
-    public boolean remover(LocalDateTime entry) {
+    public EntradaAluno buscaPorId(Long id) {
+        for (EntradaAluno ea : entrada) {
+            if (ea != null && ea.getId() == id) {
+                return ea;
+            }
+        }
+        return null;
+    }
+    
+    public boolean remover(Long id) {
         for (int i = 0; i < entrada.length; i++) {
-            if (entrada[i] != null && entrada[i].getEntrada() == entry) {
+            if (entrada[i] != null && entrada[i].getId() == id) {
                 entrada[i] = null;
                 return true;
             }

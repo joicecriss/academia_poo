@@ -11,10 +11,15 @@ import mvc.model.Pessoa;
 import mvc.model.DivisaoTreino;
 import mvc.model.DivisaoTreinoDAO;
 import mvc.model.DivisaoTreinoMusculacao;
+import mvc.model.EntradaAluno;
 import mvc.model.MovimentacaoFinanceira;
 import mvc.model.Exercicio;
 import mvc.model.ExercicioAplicacao;
 import mvc.model.MensalidadeVigente;
+import mvc.model.MensalidadeVigenteDAO;
+import mvc.model.PagamentoMensalidade;
+import mvc.model.PagamentoRecorrente;
+import mvc.model.PessoaDAO;
 import mvc.model.Util;
 import mvc.model.Treino;
 import mvc.model.TreinoAplicacao;
@@ -337,8 +342,44 @@ public class GUI {
         builder.append("\n|                                       |");
         builder.append("\n|  1 - Cadastrar                        |");
         builder.append("\n|  2 - Mostrar todos os Pagamentos      |");
-        builder.append("\n|  3 - Buscar Pagamentos     pelo ID    |");
+        builder.append("\n|  3 - Buscar Pagamento pelo ID         |");
         builder.append("\n|  4 - Alterar um Pagamento             |");
+        builder.append("\n|  5 - Excluir pelo ID                  |");
+        builder.append("\n|  0 - Sair                             |");
+        builder.append("\n|                                       |");
+        builder.append("\n----------------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public int opPagamentoRecorrente() {
+        builder.setLength(0);
+        builder.append("\n----------------------------------------");
+        builder.append("\n|  * -> Pagamento Recorrente            |");
+        builder.append("\n|                                       |");
+        builder.append("\n|  1 - Cadastrar                        |");
+        builder.append("\n|  2 - Mostrar todos os Pagamentos      |");
+        builder.append("\n|  3 - Buscar Pagamento pelo ID         |");
+        builder.append("\n|  4 - Alterar um Pagamento             |");
+        builder.append("\n|  5 - Excluir pelo ID                  |");
+        builder.append("\n|  0 - Sair                             |");
+        builder.append("\n|                                       |");
+        builder.append("\n----------------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public int opEntradaAluno() {
+        builder.setLength(0);
+        builder.append("\n----------------------------------------");
+        builder.append("\n|  * -> Entrada Aluno                   |");
+        builder.append("\n|                                       |");
+        builder.append("\n|  1 - Cadastrar                        |");
+        builder.append("\n|  2 - Mostrar todos as Entradas        |");
+        builder.append("\n|  3 - Buscar Entrada pelo ID           |");
+        builder.append("\n|  4 - Alterar uma Entrada              |");
         builder.append("\n|  5 - Excluir pelo ID                  |");
         builder.append("\n|  0 - Sair                             |");
         builder.append("\n|                                       |");
@@ -439,6 +480,7 @@ public class GUI {
         mv.setValor(valor);
         System.out.println("Data de inicio: ");
         LocalDate inicio = LocalDate.parse(scanner.nextLine());
+        System.out.println("Data de termino: ");
         mv.setInicio(inicio);
         LocalDate termino = LocalDate.parse(scanner.nextLine());
         mv.setTermino(termino);
@@ -449,9 +491,9 @@ public class GUI {
         System.out.println("Digite o ID da divisao de treino que deseja descrever:");
         DivisaoTreino[] divisoes = new DivisaoTreinoDAO().mostrarTodosERetornar(); // supondo que você tenha um método getAll() em DivisaoDeTreinoDAO
         for (int i = 0; i < divisoes.length; i++) {
-            System.out.println(divisoes[i].getNome() + " - ID: " + (i + 1));
+            System.out.println(divisoes[i].getNome() + " - ID: " + (i));
         }
-        int indice = scanner.nextInt() - 1;
+        int indice = scanner.nextInt();
         scanner.nextLine(); // consome a quebra de linha pendente
 
         DivisaoTreino divisaoSelecionada = divisoes[indice];
@@ -502,6 +544,92 @@ public class GUI {
         return tA;
     }
     
+    public PagamentoMensalidade criaPagMensalidade() {
+        PagamentoMensalidade pgm = new PagamentoMensalidade();
+        
+        System.out.println("Digite o ID da mensalidade vigente que deseja : ");
+        MensalidadeVigente[] mensalidades = new MensalidadeVigenteDAO().mostrarTodosERetornar(); 
+        for (int i = 0; i < mensalidades.length; i++) {
+            System.out.println(mensalidades[i].getValor()+ " - ID: " + (i + 1));
+        }
+        int indice = scanner.nextInt() - 1;
+        scanner.nextLine(); // consome a quebra de linha pendente
+        MensalidadeVigente mensSelecionada = mensalidades[indice];
+        pgm.setMensalidadeVigente(mensSelecionada);
+        
+        System.out.println("Data de vencimento: ");
+        LocalDate dataVencimento = LocalDate.parse(scanner.nextLine());
+        pgm.setDataVencimento(dataVencimento);
+        System.out.println("Data de pagamento: ");
+        LocalDate dataPagamento = LocalDate.parse(scanner.nextLine());
+        pgm.setDataPagamento(dataVencimento);
+        System.out.println("Valor pago: ");
+        Double valorPago = Double.parseDouble(scanner.nextLine());
+        pgm.setValorPago(valorPago);
+        System.out.println("Data: ");
+        LocalDate data = LocalDate.parse(scanner.nextLine());
+        pgm.setData(data);
+        
+        System.out.println("Digite o ID da pessoa que deseja : ");
+        Pessoa[] pessoas = new PessoaDAO().mostrarTodosERetornar(); 
+        for (int i = 0; i < pessoas.length; i++) {
+            System.out.println(pessoas[i].getNome() + " - ID: " + (i + 1));
+        }
+        int indice2 = scanner.nextInt() - 1;
+        scanner.nextLine(); // consome a quebra de linha pendente
+        Pessoa pessoaSelecionada = pessoas[indice2];
+        pgm.setPessoa(pessoaSelecionada);
+        
+        System.out.println("Modalidade: ");
+        System.out.println("\n\n1 - Dinheiro\n" + "2 - Pix\n" + "3 - Deb. Automatico\n" + "4 - Pag. Recorrente\n");
+        int modalidade = Integer.parseInt( scanner.nextLine());
+        pgm.setModalidade(modalidade);
+        
+        return pgm;
+    }
+    
+    public PagamentoRecorrente criaPagRecorrente() {
+        PagamentoRecorrente pr = new PagamentoRecorrente();
+        
+        System.out.println("Digite o ID da pessoa que deseja : ");
+        Pessoa[] pessoas = new PessoaDAO().mostrarTodosERetornar(); 
+        for (int i = 0; i < pessoas.length; i++) {
+            System.out.println(pessoas[i].getNome() + " - ID: " + (i + 1));
+        }
+        int indice = scanner.nextInt() - 1;
+        scanner.nextLine(); // consome a quebra de linha pendente
+        Pessoa pessoaSelecionada = pessoas[indice];
+        pr.setPessoa(pessoaSelecionada);
+        
+        System.out.println("Data: ");
+        LocalDate data = LocalDate.parse(scanner.nextLine());
+        pr.setData(data);
+        System.out.println("Cartao de credito: ");
+        String cartao = scanner.nextLine();
+        pr.setCartaoCredito(cartao);
+        System.out.println("Valor: ");
+        Double valor = Double.parseDouble(scanner.nextLine());
+        pr.setValor(valor);
+        System.out.println("Data de inicio: ");
+        LocalDate dataInicio = LocalDate.parse(scanner.nextLine());
+        pr.setDataInicio(dataInicio);
+        System.out.println("Numero de meses: ");
+        int meses = Integer.parseInt(scanner.nextLine());
+        pr.setNumeroMeses(meses);
+        
+        return pr;
+    }
+    
+    public EntradaAluno criaEntrada() {
+        EntradaAluno e = new EntradaAluno();
+        
+        System.out.println("Entrada: ");
+        System.out.println("Digite: dd/MM/aaa HH:MM ");
+        LocalDateTime entrada = LocalDateTime.parse(scanner.nextLine());
+
+        return e;
+    }
+    
     public AvaliacaoFisica criaAvalicaoFisica() {
         AvaliacaoFisica aF = new AvaliacaoFisica();
         
@@ -532,6 +660,7 @@ public class GUI {
         String dataTermino = scanner.nextLine();
         t.setDataTermino(dataTermino);*/
         return mF;
+    
     }
     // =-=-=-=-=FIM CRIACOES=-=-=-=-=-= //
 }

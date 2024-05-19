@@ -96,18 +96,18 @@ public class DivisaoTreino {
     @Override
     public String toString() {
         return  "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
-                "\n| Divisão de Treino: " + 
+                "\n| Divisao de Treino: " + 
                 "\n| Id                 : " + this.id + 
                 "\n| Nome               : " + this.nome + 
-                "\n| Descrição          : " + this.descricao + 
-                "\n| Data de Criação    : " + this.getDataCriacao() + 
-                "\n| Data de Modificação: " + this.getDataModificacao() +
+                "\n| Descriçao          : " + this.descricao + 
+                "\n| Data de Criacao    : " + this.getDataCriacao() + 
+                "\n| Data de Modificacao: " + this.getDataModificacao() +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
     
     public String descResumida() {
         return  "\n| Divisão de Treino Id       : " + this.id + 
                 "\n| Divisão de Treino Nome     : " + this.nome + 
-                "\n| Divisão de Treino Descrição: " + this.descricao;
+                "\n| Divisão de Treino Descricao: " + this.descricao;
     }
 }

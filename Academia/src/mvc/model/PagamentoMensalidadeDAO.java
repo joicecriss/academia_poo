@@ -133,9 +133,9 @@ public class PagamentoMensalidadeDAO {
         return null;
     }
     
-    public boolean remover(Pessoa pessoa) {
+    public boolean remover(Long id) {
         for (int i = 0; i < pagMensalidade.length; i++) {
-            if (pagMensalidade[i] != null && pagMensalidade[i].getPessoa() == pessoa) {
+            if (pagMensalidade[i] != null && pagMensalidade[i].getId()== id) {
                 pagMensalidade[i] = null;
                 return true;
             }

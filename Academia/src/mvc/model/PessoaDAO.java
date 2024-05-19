@@ -77,6 +77,26 @@ public class PessoaDAO {
         }
     }
     
+    public Pessoa[] mostrarTodosERetornar() {
+        // Conta quantas divisoes de treino existem para criar o array com o tamanho exato
+        int count = 0;
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getCpf().length() == 0) {
+                count++;
+            }
+        }
+        // Cria um array para armazenar as divisoes de treino existentes
+        Pessoa[] result = new Pessoa[count];
+        int index = 0;
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getCpf().length() == 0) {
+                result[index] = p;
+                index++;
+            }
+        }
+        return result;
+    }
+    
     public Pessoa buscaPessoaLogin(String email, String senha) {
          for (Pessoa p : pessoas) {
             if (p != null && p.getLogin().equals(email) &&
