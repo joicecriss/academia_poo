@@ -35,7 +35,6 @@ public class Main {
     ExercicioAplicacaoDAO exAplicacaoDAO = new ExercicioAplicacaoDAO();
     MensalidadeVigenteDAO mensVigenteDAO = new MensalidadeVigenteDAO();
     PessoaDAO pessoaDAO = new PessoaDAO();
-    DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
     DivisaoTreinoMusculacaoDAO divisaoTreinoMusculacaoDAO = new DivisaoTreinoMusculacaoDAO();
     TreinoDAO treinoDAO = new TreinoDAO();
     TreinoAplicacaoDAO treinoAplicacaoDAO = new TreinoAplicacaoDAO();
@@ -615,7 +614,8 @@ public class Main {
                         if(!nome.isEmpty()) {
                             editar.setNome(nome);
                         }
-                      System.out.println("Exercicio nao foi alterado!");
+                        if(semEditar.equals(editar)) {
+                            System.out.println("Exercicio nao foi alterado!");
                         } else {
                             System.out.println("Exercicio alterado com sucesso, alteracoes: ");
                             editar.toString();
@@ -644,7 +644,6 @@ public class Main {
            } while (op != 0);
        }
                         
-
     public void menuDivisaoTreinoMusculacao() {
         int op = 10;
         do {
@@ -876,7 +875,6 @@ public class Main {
         } while (op != 0);
     }
     
-
     public void menuMensVigente() {
         int op = 10;
         do {
