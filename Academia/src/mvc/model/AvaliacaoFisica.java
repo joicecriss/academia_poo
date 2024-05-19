@@ -1,6 +1,7 @@
 package mvc.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /*
@@ -16,65 +17,87 @@ public class AvaliacaoFisica {
     private double peso;
     private double altura;
     private double imc;
+    private int satisfacao;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public AvaliacaoFisica(long id, LocalDateTime dataCriacao) {
+    public AvaliacaoFisica() {
         this.id = ++AvaliacaoFisica.aux;
         this.dataCriacao = Util.getDia();
         this.dataModificacao = Util.getDia();
     }
 
     public long getId() {
-        return id;
+        return this.id;
     }
 
     public Pessoa getPessoa() {
-        return pessoa;
+        return this.pessoa;
     }
 
     public String getUltimoTreino() {
-        return ultimoTreino;
+        return this.ultimoTreino;
     }
 
     public void setUltimoTreino(String ultimoTreino) {
         this.ultimoTreino = ultimoTreino;
+        this.dataModificacao = Util.getDia();
     }
 
     public double getPeso() {
-        return peso;
+        return this.peso;
     }
 
     public void setPeso(double peso) {
         this.peso = peso;
+        this.dataModificacao = Util.getDia();
     }
 
     public double getAltura() {
-        return altura;
+        return this.altura;
     }
 
     public void setAltura(double altura) {
         this.altura = altura;
+        this.dataModificacao = Util.getDia();
     }
 
     public double getImc() {
-        return imc;
+        calcularIMC();
+        return this.imc;
     }
 
     public void setImc(double imc) {
         this.imc = imc;
+        this.dataModificacao = Util.getDia();
+    }
+    
+    public int getSatisfacao() {
+        return this.satisfacao;
     }
 
-    public LocalDateTime getDataCriacao() {
-        return dataCriacao;
+    public void setA(double altura) {
+        this.altura = altura;
+        this.dataModificacao = Util.getDia();
     }
 
-    public LocalDateTime getDataModificacao() {
-        return dataModificacao;
+    public String getDataCriacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataCriacao.format(formatter);
+    }
+
+    public String getDataModificacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataModificacao.format(formatter);
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = dataModificacao;
+        this.dataModificacao = Util.getDia();
+    }
+    
+    public double calcularIMC() {
+        this.imc = this.peso / (this.altura * this.altura);
+        return this.imc;
     }
 
     @Override
@@ -113,18 +136,17 @@ public class AvaliacaoFisica {
 
     @Override
     public String toString() {
-        return "\n---------------------------------" +
+        return "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
                "\n| Avaliação Física: " + 
-               "\n| Id: " + id + 
-               "\n| Pessoa: " + pessoa + 
-               "\n| Último Treino: " + ultimoTreino + 
-               "\n| Peso: " + peso + 
-               "\n| Altura: " + altura + 
-               "\n| Imc: " + imc + 
-               "\n| Data de Criação: " + dataCriacao + 
-               "\n| Data de Modificação: " + dataModificacao +
-               "\n----------------------------------";
+               "\n| Id                 : " + this.id + 
+               "\n| Pessoa             : " + this.pessoa + 
+               "\n| Último Treino      : " + this.ultimoTreino + 
+               "\n| Peso               : " + this.peso + 
+               "\n| Altura             : " + this.altura + 
+               "\n| Imc                : " + this.imc + 
+               "\n| Data de Criação    : " + this.dataCriacao + 
+               "\n| Data de Modificação: " + this.dataModificacao +
+               "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
-    
     
 }
