@@ -52,7 +52,7 @@ public class DivisaoTreinoDAO {
         // Conta quantas divisoes de treino existem para criar o array com o tamanho exato
         int count = 0;
         for (DivisaoTreino dt : divisoesTreinos) {
-            if (dt != null && dt.getMusculacao().length == 0) {
+            if (dt != null && dt.getMusculacao() == null) {
                 count++;
             }
         }
@@ -60,7 +60,7 @@ public class DivisaoTreinoDAO {
         DivisaoTreino[] result = new DivisaoTreino[count];
         int index = 0;
         for (DivisaoTreino dt : divisoesTreinos) {
-            if (dt != null && dt.getMusculacao().length == 0) {
+            if (dt != null && dt.getMusculacao() == null) {
                 result[index] = dt;
                 index++;
             }

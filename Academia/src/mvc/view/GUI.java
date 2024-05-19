@@ -449,9 +449,9 @@ public class GUI {
         System.out.println("Digite o ID da divisao de treino que deseja descrever:");
         DivisaoTreino[] divisoes = new DivisaoTreinoDAO().mostrarTodosERetornar(); // supondo que você tenha um método getAll() em DivisaoDeTreinoDAO
         for (int i = 0; i < divisoes.length; i++) {
-            System.out.println(divisoes[i].getNome() + " - ID: " + (i + 1));
+            System.out.println(divisoes[i].getNome() + " - ID: " + (i));
         }
-        int indice = scanner.nextInt() - 1;
+        int indice = scanner.nextInt();
         scanner.nextLine(); // consome a quebra de linha pendente
 
         DivisaoTreino divisaoSelecionada = divisoes[indice];
