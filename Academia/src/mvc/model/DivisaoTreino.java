@@ -12,6 +12,7 @@ public class DivisaoTreino {
     private static long aux;
     private String nome;
     private String descricao;
+    private DivisaoTreinoMusculacao[] musculacao;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
@@ -40,6 +41,15 @@ public class DivisaoTreino {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+        this.dataModificacao = Util.getDiaAtual();
+    }
+    
+    public DivisaoTreinoMusculacao[] getMusculacao() {
+        return this.musculacao;
+    }
+
+    public void setMusculacao(DivisaoTreinoMusculacao[] musculacao) {
+        this.musculacao = musculacao;
         this.dataModificacao = Util.getDiaAtual();
     }
 

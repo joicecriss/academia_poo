@@ -1,6 +1,6 @@
 package mvc.control;
 
-//Importação dos models
+//Importacoes dos models
 import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -10,16 +10,19 @@ import mvc.model.Pessoa;
 import mvc.model.PessoaDAO;
 import mvc.model.DivisaoTreino;
 import mvc.model.DivisaoTreinoDAO;
+import mvc.model.DivisaoTreinoMusculacao;
+import mvc.model.DivisaoTreinoMusculacaoDAO;
 import mvc.model.Util;
 
-//Importação das views
+//Importacoes das views
 import mvc.view.GUI;
 
 public class Main {
     GUI gui = new GUI();
     AcademiaDAO academiaDAO = new AcademiaDAO();
-    DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
     PessoaDAO pessoaDAO = new PessoaDAO();
+    DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
+    DivisaoTreinoMusculacaoDAO divisaoTreinoMusculacaoDAO = new DivisaoTreinoMusculacaoDAO();
     Scanner s = new Scanner(System.in);
     JFrame frame = new JFrame();
     
@@ -427,6 +430,78 @@ public class Main {
                     break;
                 case 0:
                     System.out.println("Saindo do modulo Divisao de Treino!");
+                    break;
+                default:
+                    System.out.println("Digite um numero valido!");
+                    break;
+            }
+        } while (op != 0);
+    }
+    
+    public void menuDivisaoTreinoMusculacao() {
+        int op = 10;
+        do {
+            op = gui.opDivisaoTreinoMusculacao();
+            switch (op) {
+                case 1:
+                    DivisaoTreinoMusculacao[] dtm = gui.criaDivisaoTreinoMusculacao();
+
+                    boolean divisaoInserida = divisaoTreinoMusculacaoDAO.adicionaArray(dtm);
+                    if (divisaoInserida) {
+                        System.out.println("\n Divisoes de Treino Musculacao inseridas com sucesso!");
+                    } else {
+                        System.out.println("\n Divisoes de Treino nao foram inseridas!");
+                    }
+                    break;
+                case 2:
+                    divisaoTreinoMusculacaoDAO.mostrarTodos();
+                    break;
+                case 3:
+                    System.out.println("\n Digite o id da Divisao de Treino Musculacao: ");
+                    Long id = Long.parseLong(s.nextLine());
+                    DivisaoTreinoMusculacao achou = divisaoTreinoMusculacaoDAO.buscaPorId(id);
+                    if(achou != null) {
+                        achou.toString();
+                    } else {
+                        System.out.println("Divisao de Treino Musculacao nao encontrada!");
+                    }
+                    break;
+                case 4:
+                    System.out.println("\n Digite o id da Divisao de Treino Musculacao que deseja alterar: ");
+                    Long idAchar = Long.parseLong(s.nextLine());
+                    
+                    DivisaoTreinoMusculacao editar = divisaoTreinoMusculacaoDAO.buscaPorId(idAchar);
+                    DivisaoTreinoMusculacao semEditar = divisaoTreinoMusculacaoDAO.buscaPorId(idAchar);
+                    
+                    if(editar != null) {
+                        System.out.println("\n Digite a nova descricao (ou pressione ENTER para manter a descricao atual): " + editar.getDescricao());
+                        String descricao = s.nextLine();
+                        if(!descricao.isEmpty()) {
+                            editar.setDescricao(descricao);
+                        }
+                        
+                        if(semEditar.equals(editar)) {
+                            System.out.println("Divisao de Treino Musculacao nao foi alterada!");
+                        } else {
+                            System.out.println("Divisao de Treino Musculacao alterado com sucesso, alteracoes: ");
+                            editar.toString();
+                        }
+                    } else {
+                        System.out.println("Divisao de Treino Musculacao nao encontrada para alterar!");
+                    }
+                    break;
+                case 5:
+                    System.out.println("\n Digite o id da Divisao de Treino Musculaco que deseja excluir: ");
+                    Long idExcluir = Long.parseLong(s.nextLine());
+
+                    if (divisaoTreinoDAO.remover(idExcluir)) {
+                        System.out.println("\n Divisao de Treino Musculaco exclui�da!");
+                    } else {
+                        System.out.println("\n Divisao de Treino Musculacao nao exclui�da!");
+                    }
+                    break;
+                case 0:
+                    System.out.println("Saindo do modulo Divisao de Treino Musculacao!");
                     break;
                 default:
                     System.out.println("Digite um numero valido!");

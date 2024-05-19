@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /*
-CRUD DIVISAO DE TREINO-MUSCULO. Informações importantes: id, decricao,  divisao de treino, dataCriacao, dataModificacao.
+CRUD DIVISAO DE TREINO-MUSCULO. InformaÃ§Ãµes importantes: id, decricao,  divisao de treino, dataCriacao, dataModificacao.
 */
 public class DivisaoTreinoMusculacao {
     private long id;
@@ -42,6 +42,14 @@ public class DivisaoTreinoMusculacao {
     public void setPosicao(String posicao) {
         this.posicao = posicao;
         this.dataModificacao = Util.getDiaAtual();
+    }
+    
+    public String getPosicao() {
+        return posicao;
+    }
+
+    public void setPosicao(String posicao) {
+        this.posicao = posicao;
     }
 
     public DivisaoTreino getDivisaoTreino() {
@@ -96,12 +104,12 @@ public class DivisaoTreinoMusculacao {
     @Override
     public String toString() {
         return "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
-               "\n| Divisão Treino Musculação" + 
+               "\n| DivisÃ£o Treino MusculaÃ§Ã£o" + 
                "\n| Id              : " + id + 
-               "\n| Descrição       : " + descricao + 
+               "\n| DescriÃ§Ã£o       : " + descricao + 
                divisaoTreino.descResumida() + 
-               "\n| Data Criação    : " + getDataCriacao() + 
-               "\n| Data Modificação: " + getDataModificacao() + 
+               "\n| Data CriaÃ§Ã£o    : " + getDataCriacao() + 
+               "\n| Data ModificaÃ§Ã£o: " + getDataModificacao() + 
                "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" ;
     }
     

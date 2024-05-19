@@ -5,6 +5,14 @@ public class DivisaoTreinoDAO {
     
     public DivisaoTreinoDAO() {
         DivisaoTreino dt1 = new DivisaoTreino();
+        dt1.setNome("ABC");
+        dt1.setDescricao("ABC 2x e descansa 1x");
+        adiciona(dt1);
+        
+        DivisaoTreino dt2 = new DivisaoTreino();
+        dt2.setNome("ABCD");
+        dt2.setDescricao("ABCD 2x e descansa 1x");
+        adiciona(dt2);
     }
     
     public boolean adiciona(DivisaoTreino dt) {
@@ -24,7 +32,6 @@ public class DivisaoTreinoDAO {
             }
         }
         return -1;
-
     }
     
     public void mostrarTodos() {
@@ -40,25 +47,24 @@ public class DivisaoTreinoDAO {
         }
     }
     
-    public DivisaoTreino[] getAll() {
-        // Conta quantas divisoes de treino existem
+
+    public DivisaoTreino[] mostrarTodosERetornar() {
+        // Conta quantas divisoes de treino existem para criar o array com o tamanho exato
         int count = 0;
         for (DivisaoTreino dt : divisoesTreinos) {
-            if (dt != null) {
+            if (dt != null && dt.getMusculacao().length == 0) {
                 count++;
             }
         }
-
         // Cria um array para armazenar as divisoes de treino existentes
         DivisaoTreino[] result = new DivisaoTreino[count];
         int index = 0;
         for (DivisaoTreino dt : divisoesTreinos) {
-            if (dt != null) {
+            if (dt != null && dt.getMusculacao().length == 0) {
                 result[index] = dt;
                 index++;
             }
         }
-
         return result;
     }
     
@@ -99,6 +105,5 @@ public class DivisaoTreinoDAO {
             }
         }
         return false;
-
     }
 }
