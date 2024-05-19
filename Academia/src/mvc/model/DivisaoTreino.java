@@ -18,8 +18,8 @@ public class DivisaoTreino {
 
     public DivisaoTreino() {
         this.id = DivisaoTreino.aux++;
-        this.dataCriacao = Util.getDiaAtual();
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataCriacao = Util.getDia();
+        this.dataModificacao = Util.getDia();
     }
 
     public long getId() {
@@ -32,7 +32,7 @@ public class DivisaoTreino {
 
     public void setNome(String nome) {
         this.nome = nome;
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
 
     public String getDescricao() {
@@ -41,7 +41,7 @@ public class DivisaoTreino {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
     
     public DivisaoTreinoMusculacao[] getMusculacao() {
@@ -50,7 +50,7 @@ public class DivisaoTreino {
 
     public void setMusculacao(DivisaoTreinoMusculacao[] musculacao) {
         this.musculacao = musculacao;
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
 
     public String getDataCriacao() {
@@ -64,7 +64,7 @@ public class DivisaoTreino {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataModificacao = Util.getDia();
     }
 
     @Override
