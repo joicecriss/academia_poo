@@ -64,6 +64,26 @@ public class MensalidadeVigenteDAO {
         }
     }
     
+    public MensalidadeVigente[] mostrarTodosERetornar() {
+        // Conta quantas divisoes de treino existem para criar o array com o tamanho exato
+        int count = 0;
+        for (MensalidadeVigente mv : mensVigente) {
+            if (mv != null && mv.getValor() == 0) {
+                count++;
+            }
+        }
+        // Cria um array para armazenar as divisoes de treino existentes
+        MensalidadeVigente[] result = new MensalidadeVigente[count];
+        int index = 0;
+        for (MensalidadeVigente mv : mensVigente) {
+            if (mv != null && mv.getValor() == 0) {
+                result[index] = mv;
+                index++;
+            }
+        }
+        return result;
+    }
+    
     public boolean alteraValor(Double valor, Double novoValor) {
         for (MensalidadeVigente mv : mensVigente) {
             if (mv != null && mv.getValor() == novoValor) {

@@ -56,6 +56,15 @@ public class PagamentoRecorrenteDAO {
         return -1;
     }
     
+    public PagamentoRecorrente buscaPorId(Long id) {
+        for (PagamentoRecorrente pr : pagRecorrente) {
+            if (pr != null && pr.getId() == id) {
+                return pr;
+            }
+        }
+        return null;
+    }
+    
     public void mostrarTodos() {
         boolean temPagamento = false;
         for (PagamentoRecorrente pgr : pagRecorrente) {
@@ -67,5 +76,16 @@ public class PagamentoRecorrenteDAO {
         if (!temPagamento) {
             System.out.println("Nao existe pagamento cadastrado!");
         }
+    }
+    
+    public boolean remover(Long id) {
+        for (int i = 0; i < pagRecorrente.length; i++) {
+            if (pagRecorrente[i] != null && pagRecorrente[i].getId()== id) {
+                pagRecorrente[i] = null;
+                return true;
+            }
+        }
+        return false;
+
     }
 }
