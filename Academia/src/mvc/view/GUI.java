@@ -1,6 +1,8 @@
 package mvc.view;
 
 //Importacoes
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import mvc.model.Util;
 import mvc.model.Academia;
@@ -10,6 +12,10 @@ import mvc.model.DivisaoTreino;
 import mvc.model.DivisaoTreinoDAO;
 import mvc.model.DivisaoTreinoMusculacao;
 import mvc.model.MovimentacaoFinanceira;
+import mvc.model.Exercicio;
+import mvc.model.ExercicioAplicacao;
+import mvc.model.MensalidadeVigente;
+import mvc.model.Util;
 import mvc.model.Treino;
 import mvc.model.TreinoAplicacao;
 
@@ -251,6 +257,24 @@ public class GUI {
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
     }
+
+    public int opExercicio() {
+        builder.setLength(0);
+        builder.append("\n----------------------------------------");
+        builder.append("\n|  * -> Exercicio                       |");
+        builder.append("\n|                                       |");
+        builder.append("\n|  1 - Cadastrar                        |");
+        builder.append("\n|  2 - Mostrar todos os Exercicios      |");
+        builder.append("\n|  3 - Buscar Exercicio pelo id         |");
+        builder.append("\n|  4 - Alterar um Exercicio             |");
+        builder.append("\n|  5 - Excluir pelo id                  |");
+        builder.append("\n|  0 - Sair                             |");
+        builder.append("\n|                                       |");
+        builder.append("\n----------------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
     
     public int opMovimentacaoFinanceira() {
         builder.setLength(0);
@@ -265,6 +289,42 @@ public class GUI {
         builder.append("\n|  0 - Sair                    |");
         builder.append("\n|                              |");
         builder.append("\n--------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+  
+    public int opExercicioAplicacao() {
+        builder.setLength(0);
+        builder.append("\n----------------------------------------");
+        builder.append("\n|  * -> Exercicio-Aplicacao             |");
+        builder.append("\n|                                       |");
+        builder.append("\n|  1 - Cadastrar                        |");
+        builder.append("\n|  2 - Mostrar todos os Ex. Aplicacao   |");
+        builder.append("\n|  3 - Buscar Ex Aplicacao pelo ID      |");
+        builder.append("\n|  4 - Alterar um Ex. Aplicacao         |");
+        builder.append("\n|  5 - Excluir pelo ID                  |");
+        builder.append("\n|  0 - Sair                             |");
+        builder.append("\n|                                       |");
+        builder.append("\n----------------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public int opMensalidadeVigente() {
+        builder.setLength(0);
+        builder.append("\n----------------------------------------");
+        builder.append("\n|  * -> Mensalidade Vigente             |");
+        builder.append("\n|                                       |");
+        builder.append("\n|  1 - Cadastrar                        |");
+        builder.append("\n|  2 - Mostrar todos as Mens. Vigentes  |");
+        builder.append("\n|  3 - Buscar Mens. Vigentes pelo ID    |");
+        builder.append("\n|  4 - Alterar uma Mens. Vigente        |");
+        builder.append("\n|  5 - Excluir pelo ID                  |");
+        builder.append("\n|  0 - Sair                             |");
+        builder.append("\n|                                       |");
+        builder.append("\n----------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -330,6 +390,41 @@ public class GUI {
         String descricao = scanner.nextLine();
         dt.setDescricao(descricao);
         return dt;
+    }
+    
+    public Exercicio criaExercicio() {
+        Exercicio e = new Exercicio();
+        
+        System.out.println("Nome: ");
+        String nome = scanner.nextLine();
+        e.setNome(nome);
+        System.out.println("Descricao: ");
+        String descricao = scanner.nextLine();
+        e.setDescricao(descricao);
+        return e;
+    }
+    
+    public ExercicioAplicacao criaExAplicacao() {
+        ExercicioAplicacao ea = new ExercicioAplicacao();
+        
+        System.out.println("Descricao: ");
+        String descricao = scanner.nextLine();
+        ea.setDescricao(descricao);
+        return ea;
+    }
+    
+    public MensalidadeVigente criaMensVigente() {
+        MensalidadeVigente mv = new MensalidadeVigente();
+        
+        System.out.println("Valor: ");
+        Double valor = Double.parseDouble(scanner.nextLine());
+        mv.setValor(valor);
+        System.out.println("Data de inicio: ");
+        LocalDate inicio = LocalDate.parse(scanner.nextLine());
+        mv.setInicio(inicio);
+        LocalDate termino = LocalDate.parse(scanner.nextLine());
+        mv.setTermino(termino);
+        return mv;
     }
     
     public DivisaoTreinoMusculacao[] criaDivisaoTreinoMusculacao() {

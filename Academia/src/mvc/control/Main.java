@@ -10,6 +10,12 @@ import mvc.model.Pessoa;
 import mvc.model.PessoaDAO;
 import mvc.model.DivisaoTreino;
 import mvc.model.DivisaoTreinoDAO;
+import mvc.model.Exercicio;
+import mvc.model.ExercicioAplicacao;
+import mvc.model.ExercicioAplicacaoDAO;
+import mvc.model.ExercicioDAO;
+import mvc.model.MensalidadeVigente;
+import mvc.model.MensalidadeVigenteDAO;
 import mvc.model.DivisaoTreinoMusculacao;
 import mvc.model.DivisaoTreinoMusculacaoDAO;
 import mvc.model.Treino;
@@ -24,8 +30,11 @@ import mvc.view.GUI;
 public class Main {
     GUI gui = new GUI();
     AcademiaDAO academiaDAO = new AcademiaDAO();
-    PessoaDAO pessoaDAO = new PessoaDAO();
     DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
+    ExercicioDAO exercicioDAO = new ExercicioDAO();
+    ExercicioAplicacaoDAO exAplicacaoDAO = new ExercicioAplicacaoDAO();
+    MensalidadeVigenteDAO mensVigenteDAO = new MensalidadeVigenteDAO();
+    PessoaDAO pessoaDAO = new PessoaDAO();
     DivisaoTreinoMusculacaoDAO divisaoTreinoMusculacaoDAO = new DivisaoTreinoMusculacaoDAO();
     TreinoDAO treinoDAO = new TreinoDAO();
     TreinoAplicacaoDAO treinoAplicacaoDAO = new TreinoAplicacaoDAO();
@@ -357,9 +366,9 @@ public class Main {
                     String nomeExclusao = s.nextLine();
 
                     if (academiaDAO.remover(nomeExclusao)) {
-                        System.out.println("\n Academia exclui­da!");
+                        System.out.println("\n Academia excluiÂ­da!");
                     } else {
-                        System.out.println("\n Academia nao exclui­da!");
+                        System.out.println("\n Academia nao excluiÂ­da!");
                     }
                     break;
                 case 0:
@@ -471,9 +480,9 @@ public class Main {
                     String cpfExclusao = s.nextLine();
 
                     if (pessoaDAO.remover(cpfExclusao)) {
-                        System.out.println("\n Pessoa exclui­da!");
+                        System.out.println("\n Pessoa excluiÂ­da!");
                     } else {
-                        System.out.println("\n Pessoa nao exclui­da!");
+                        System.out.println("\n Pessoa nao excluiÂ­da!");
                     }
                     break;
                 case 0:
@@ -549,9 +558,9 @@ public class Main {
                     Long idExcluir = Long.parseLong(s.nextLine());
 
                     if (divisaoTreinoDAO.remover(idExcluir)) {
-                        System.out.println("\n Divisao de Treino exclui­da!");
+                        System.out.println("\n Divisao de Treino excluiÂ­da!");
                     } else {
-                        System.out.println("\n Divisao de Treino nao exclui­da!");
+                        System.out.println("\n Divisao de Treino nao excluiÂ­da!");
                     }
                     break;
                 case 0:
@@ -564,6 +573,77 @@ public class Main {
         } while (op != 0);
     }
     
+    public void menuExercicio() {
+        int op = 10;
+        do {
+            op = gui.opExercicio();
+            switch (op) {
+                case 1:
+                    Exercicio e = gui.criaExercicio();
+                    
+                    boolean exercicioInserido = exercicioDAO.adiciona(e);
+                    if(exercicioInserido) {
+                        System.out.println("\n Exercicio inserido com sucesso!");
+                    } else {
+                        System.out.println("\n Exercicio nao inserido!");
+                    }
+                    break;
+                case 2:
+                    exercicioDAO.mostrarTodos();
+                    break;
+                case 3:
+                    System.out.println("\n Digite o id do Exercicio: ");
+                    Long id = Long.parseLong(s.nextLine());
+                    Exercicio achou = exercicioDAO.buscaPorId(id);
+                    if(achou != null) {
+                        achou.toString();
+                    } else {
+                        System.out.println("Exercicio nao encontrado!");
+                    }
+                    break;
+                case 4:
+                    System.out.println("\n Digite o ID do exercicio que deseja alterar: ");
+                    Long idAchar = Long.parseLong(s.nextLine());
+                    
+                    Exercicio editar = exercicioDAO.buscaPorId(idAchar);
+                    Exercicio semEditar = exercicioDAO.buscaPorId(idAchar);
+                    
+                    if(editar != null) {
+                        System.out.println("\n Digite o novo nome (ou pressione ENTER para manter o nome atual): " + editar.getNome());
+                        String nome = s.nextLine();
+                        if(!nome.isEmpty()) {
+                            editar.setNome(nome);
+                        }
+                        if(semEditar.equals(editar)) {
+                            System.out.println("Exercicio nao foi alterado!");
+                        } else {
+                            System.out.println("Exercicio alterado com sucesso, alteracoes: ");
+                            editar.toString();
+                        }
+                    } else {
+                        System.out.println("Exercicio nao encontrado para alterar!");
+                    }
+                    break;
+                case 5:
+                    System.out.println("\n Digite o ID do Exercicio que deseja excluir: ");
+                    Long idExcluir = Long.parseLong(s.nextLine());
+
+                    if (exercicioDAO.remover(idExcluir)) {
+                        System.out.println("\n Exercicio excluiÂ­do!");
+                    } else {
+                        System.out.println("\n Exercicio nao excluiÂ­do!");
+                    }
+                    break;
+                case 0:
+                    System.out.println("Saindo do modulo Exercicio!");
+                    break;
+                default:
+                    System.out.println("Digite um numero valido!");
+                    break;
+                }
+           } while (op != 0);
+       }
+                        
     public void menuDivisaoTreinoMusculacao() {
         int op = 10;
         do {
@@ -621,9 +701,9 @@ public class Main {
                     Long idExcluir = Long.parseLong(s.nextLine());
 
                     if (divisaoTreinoDAO.remover(idExcluir)) {
-                        System.out.println("\n Divisao de Treino Musculaco exclui­da!");
+                        System.out.println("\n Divisao de Treino Musculaco excluiÂ­da!");
                     } else {
-                        System.out.println("\n Divisao de Treino Musculacao nao exclui­da!");
+                        System.out.println("\n Divisao de Treino Musculacao nao excluiÂ­da!");
                     }
                     break;
                 case 0:
@@ -632,10 +712,82 @@ public class Main {
                 default:
                     System.out.println("Digite um numero valido!");
                     break;
+                }
+           } while (op != 0);
+       }
+                
+    public void menuExAplicacao() {
+        int op = 10;
+        do {
+            op = gui.opExercicioAplicacao();
+            switch (op) {
+                case 1:
+                    ExercicioAplicacao ea = gui.criaExAplicacao();
+                    
+                    boolean exAplicacaoInserido = exAplicacaoDAO.adiciona(ea);
+                    if(exAplicacaoInserido) {
+                        System.out.println("\n Exercicio-Aplicacao inserido com sucesso!");
+                    } else {
+                        System.out.println("\n Exercicio-Aplicacao nao inserido!");
+                    }
+                    break;
+                case 2:
+                    exAplicacaoDAO.mostrarTodos();
+                    break;
+                case 3:
+                    System.out.println("\n Digite o id do Exercicio: ");
+                    Long id = Long.parseLong(s.nextLine());
+                    ExercicioAplicacao achou = exAplicacaoDAO.buscaPorId(id);
+                    if(achou != null) {
+                        achou.toString();
+                    } else {
+                        System.out.println("Exercicio-Aplicacao nao encontrado!");
+                    }
+                    break;
+                case 4:
+                    System.out.println("\n Digite o ID do exercicio-aplicacao que deseja alterar: ");
+                    Long idAchar = Long.parseLong(s.nextLine());
+                    
+                    ExercicioAplicacao editar = exAplicacaoDAO.buscaPorId(idAchar);
+                    ExercicioAplicacao semEditar = exAplicacaoDAO.buscaPorId(idAchar);
+                    
+                    if(editar != null) {                  
+                        System.out.println("\n Digite a nova descricao (ou pressione ENTER para manter a descricao atual): " + editar.getDescricao());
+                        String descricao = s.nextLine();
+                        if(!descricao.isEmpty()) {
+                            editar.setDescricao(descricao);
+                        }
+                        
+                        if(semEditar.equals(editar)) {
+                            System.out.println("Exercicio-Aplicacao nao foi alterado!");
+                        } else {
+                            System.out.println("Exercicio-Apliacao alterado com sucesso, alteracoes: ");
+                            editar.toString();
+                        }
+                    } else {
+                        System.out.println("Exercicio-Aplicacao nao encontrado para alterar!");
+                    }
+                    break;
+                case 5:
+                    System.out.println("\n Digite o ID do Exercicio-Aplicacao que deseja excluir: ");
+                    Long idExcluir = Long.parseLong(s.nextLine());
+
+                    if (exAplicacaoDAO.remover(idExcluir)) {
+                        System.out.println("\n Exercicio-Aplicacao excluiÂ­do!");
+                    } else {
+                        System.out.println("\n Exercicio-Aplicacao nao excluiÂ­do!");
+                    }
+                    break;
+                case 0:
+                    System.out.println("Saindo do modulo Exercicio-Aplicacao!");
+                 break;
+                default:
+                    System.out.println("Digite um numero valido!");
+                    break;
             }
         } while (op != 0);
     }
-    
+
     public void menuTreino() {
         int op = 10;
         do {
@@ -707,13 +859,14 @@ public class Main {
                     Long idExcluir = Long.parseLong(s.nextLine());
 
                     if (treinoDAO.remover(idExcluir)) {
-                        System.out.println("\n Treino exclui­do!");
+                        System.out.println("\n Treino excluiÂ­do!");
                     } else {
-                        System.out.println("\n Treino nao exclui­do!");
+                        System.out.println("\n Treino nao excluiÂ­do!");
                     }
                     break;
                 case 0:
                     System.out.println("Saindo do modulo Treino!");
+
                     break;
                 default:
                     System.out.println("Digite um numero valido!");
@@ -722,6 +875,82 @@ public class Main {
         } while (op != 0);
     }
     
+    public void menuMensVigente() {
+        int op = 10;
+        do {
+            op = gui.opMensalidadeVigente();
+            switch (op) {
+                case 1:
+                    MensalidadeVigente mv = gui.criaMensVigente();
+                    
+                    boolean mensVigenteInserido = mensVigenteDAO.adiciona(mv);
+                    if(mensVigenteInserido) {
+                        System.out.println("\n Mensalidade Vigente inserido com sucesso!");
+                    } else {
+                        System.out.println("\n Mensalidade Vigente nao inserido!");
+                    }
+                    break;
+                case 2:
+                    mensVigenteDAO.mostrarTodos();
+                    break;
+                case 3:
+                    System.out.println("\n Digite o ID da Mensalidade Vigente: ");
+                    Long id = Long.parseLong(s.nextLine());
+                    MensalidadeVigente achou = mensVigenteDAO.buscaPorId(id);
+                    if(achou != null) {
+                        achou.toString();
+                    } else {
+                        System.out.println("Mensalidade Vigente nao encontrada!");
+                    }
+                    break;
+                case 4:
+                    System.out.println("\n Digite o ID da Mensalidade Vigente que deseja alterar: ");
+                    Long idAchar = Long.parseLong(s.nextLine());
+                    
+                    MensalidadeVigente editar = mensVigenteDAO.buscaPorId(idAchar);
+                    MensalidadeVigente semEditar = mensVigenteDAO.buscaPorId(idAchar);
+                    
+                    if(editar != null) {
+                        System.out.println("Digite o novo valor (ou pressione ENTER para manter o valor atual): " + editar.getValor());
+                        Double valor = Double.parseDouble(s.nextLine());
+                        if(valor != null) {
+                            editar.setValor(valor);
+                        }
+                        
+                        //
+                        
+                        if(semEditar.equals(editar)) {
+                            System.out.println("Mensalidade Vigente nao foi alterada!");
+                        } else {
+                            System.out.println("Mensalidade Vigente alterada com sucesso, alteracoes: ");
+                            editar.toString();
+                        }
+                        
+                        
+                    } else {
+                        System.out.println("Mensalidade Vigente nao encontrada para alterar!");
+                    }
+                    break;
+                case 5:
+                    System.out.println("\n Digite o ID do Exercicio-Aplicacao que deseja excluir: ");
+                    Long idExcluir = Long.parseLong(s.nextLine());
+
+                    if (exAplicacaoDAO.remover(idExcluir)) {
+                        System.out.println("\n Exercicio-Aplicacao excluiÂ­do!");
+                    } else {
+                        System.out.println("\n Exercicio-Aplicacao nao excluiÂ­do!");
+                    }
+                    break;
+                case 0:
+                    System.out.println("Saindo do modulo Exercicio-Aplicacao!");
+                    break;
+                default:
+                    System.out.println("Digite um numero valido!");
+                    break;
+            }
+        } while (op != 0);
+    }
+
     public void menuTreinoAplicacao() {
         int op = 10;
         do {
@@ -779,9 +1008,9 @@ public class Main {
                     Long idExcluir = Long.parseLong(s.nextLine());
 
                     if (divisaoTreinoDAO.remover(idExcluir)) {
-                        System.out.println("\n Divisao de Treino Musculaco exclui­da!");
+                        System.out.println("\n Divisao de Treino Musculaco excluiÂ­da!");
                     } else {
-                        System.out.println("\n Divisao de Treino Musculacao nao exclui­da!");
+                        System.out.println("\n Divisao de Treino Musculacao nao excluiÂ­da!");
                     }
                     break;
                 case 0:
