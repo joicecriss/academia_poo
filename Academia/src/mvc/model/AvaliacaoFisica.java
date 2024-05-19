@@ -76,8 +76,8 @@ public class AvaliacaoFisica {
         return this.satisfacao;
     }
 
-    public void setA(double altura) {
-        this.altura = altura;
+    public void setSatisfacao(int satisfacao) {
+        this.satisfacao = satisfacao;
         this.dataModificacao = Util.getDia();
     }
 
