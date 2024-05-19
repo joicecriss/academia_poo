@@ -1,6 +1,7 @@
 package mvc.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /*
@@ -32,6 +33,7 @@ public class MovimentacaoFinanceira {
 
     public void setValor(double valor) {
         this.valor = valor;
+        this.dataModificacao = Util.getDia();
     }
 
     public int getTipo() {
@@ -40,6 +42,7 @@ public class MovimentacaoFinanceira {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
+        this.dataModificacao = Util.getDia();
     }
 
     public String getDescricao() {
@@ -48,18 +51,32 @@ public class MovimentacaoFinanceira {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+        this.dataModificacao = Util.getDia();
     }
 
-    public LocalDateTime getDataCriacao() {
-        return dataCriacao;
+    public String getDataCriacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataCriacao.format(formatter);
     }
 
-    public LocalDateTime getDataModificacao() {
-        return dataModificacao;
+    public String getDataModificacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataModificacao.format(formatter);
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = dataModificacao;
+        this.dataModificacao = Util.getDia();
+    }
+    
+    public String tipo(int tipo) {
+        switch (tipo) {
+            case 1:
+                return "Entrada";
+            case 2:
+                return "Saida";
+            default:
+                return "Movimentacao sem tipo.";
+        }
     }
 
     @Override
@@ -94,16 +111,14 @@ public class MovimentacaoFinanceira {
 
     @Override
     public String toString() {
-        return "\n---------------------------------" +
+        return "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
                "\n| Movimentação Financeira: " + 
-               "\n| Id: " + id + 
-               "\n| Valor: " + valor + 
-               "\n| Tipo: " + tipo + 
-               "\n| Descrição: " + descricao + 
-               "\n| Data de Criação: " + dataCriacao + 
+               "\n| Id                 : " + id + 
+               "\n| Valor              : " + valor + 
+               "\n| Tipo               : " + tipo(this.tipo) + 
+               "\n| Descrição          : " + descricao + 
+               "\n| Data de Criação    : " + dataCriacao + 
                "\n| Data de Modificação: " + dataModificacao + 
-               "\n---------------------------------";
+               "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
-    
-    
 }

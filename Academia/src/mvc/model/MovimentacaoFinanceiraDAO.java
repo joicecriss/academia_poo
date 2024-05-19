@@ -38,4 +38,54 @@ public class MovimentacaoFinanceiraDAO {
             System.out.println("Nao existe movimentacoes financeiras cadastradas!");
         }
     }
+    
+    public boolean alterarValor(Long id, double novoValor) {
+        for (MovimentacaoFinanceira mF : movimentacoesFinanceiras) {
+            if (mF != null && mF.getId() == id) {
+                mF.setValor(novoValor);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean alterarTipo(Long id, int novoTipo) {
+        for (MovimentacaoFinanceira mF : movimentacoesFinanceiras) {
+            if (mF != null && mF.getId() == id) {
+                mF.setTipo(novoTipo);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean alterarDescricao(Long id, String novaDescricao) {
+        for (MovimentacaoFinanceira mF : movimentacoesFinanceiras) {
+            if (mF != null && mF.getId() == id) {
+                mF.setDescricao(novaDescricao);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public MovimentacaoFinanceira buscaPorId(Long id) {
+        for (MovimentacaoFinanceira mF : movimentacoesFinanceiras) {
+            if (mF != null && mF.getId() == id) {
+                return mF;
+            }
+        }
+        return null;
+    }
+
+    public boolean remover(long id) {
+        for (int i = 0; i < movimentacoesFinanceiras.length; i++) {
+            if (movimentacoesFinanceiras[i] != null && movimentacoesFinanceiras[i].getId() == id) {
+                movimentacoesFinanceiras[i] = null;
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }
