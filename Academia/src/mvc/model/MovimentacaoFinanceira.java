@@ -16,7 +16,7 @@ public class MovimentacaoFinanceira {
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public MovimentacaoFinanceira(long id, LocalDateTime dataCriacao, LocalDateTime dataModificacao) {
+    public MovimentacaoFinanceira() {
         this.id = ++MovimentacaoFinanceira.aux;
         this.dataCriacao = Util.getDia();
         this.dataModificacao = Util.getDia();

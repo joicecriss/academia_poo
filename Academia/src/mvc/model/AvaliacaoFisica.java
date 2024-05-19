@@ -19,7 +19,7 @@ public class AvaliacaoFisica {
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public AvaliacaoFisica(long id, LocalDateTime dataCriacao) {
+    public AvaliacaoFisica() {
         this.id = ++AvaliacaoFisica.aux;
         this.dataCriacao = Util.getDia();
         this.dataModificacao = Util.getDia();
