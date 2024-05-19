@@ -56,9 +56,14 @@ public class GUI {
         builder.append("\n|       BEM VINDO INSTRUTOR       |");
         builder.append("\n|                                 |");
         builder.append("\n| 1 - Perfil                      |");
-        builder.append("\n| 2 -                             |");
-        builder.append("\n| 3 -                             |");
-        builder.append("\n| 4 -                             |");
+        builder.append("\n| 2 - Exercicio                   |");
+        builder.append("\n| 3 - Exercicio Aplicacao         |");
+        builder.append("\n| 4 - Divisao de Treino           |");
+        builder.append("\n| 5 - Divisao de Treino-Musculacao|");
+        builder.append("\n| 6 - Treino                      |");
+        builder.append("\n| 7 - Treino Aplicacao            |");
+        builder.append("\n| 8 - Avaliacao Fisica            |");
+        builder.append("\n| 9 - Entrada Aluno               |");
         builder.append("\n| 0 - Sair                        |");
         builder.append("\n|                                 |");
         builder.append("\n-----------------------------------");
@@ -70,15 +75,26 @@ public class GUI {
     public int menuAdmin() {
         /* O administrador pode fazer tudo que o professor faz e movimentacoes financeiras. */
         builder.setLength(0);
-        builder.append("\n-----------------------------------");
-        builder.append("\n|       BEM VINDO ADMINISTRADOR   |");
-        builder.append("\n|                                 |");
-        builder.append("\n| 1 - Perfil                      |");
-        builder.append("\n| 2 -                             |");
-        builder.append("\n| 3 -                             |");
-        builder.append("\n| 4 -                             |");
-        builder.append("\n| 0 - Sair                        |");
-        builder.append("\n|                                 |");
+        builder.append("\n------------------------------------");
+        builder.append("\n|       BEM VINDO ADMINISTRADOR    |");
+        builder.append("\n|                                  |");
+        builder.append("\n|  1 - Perfil                      |");
+        builder.append("\n|  2 - Academia                    |");
+        builder.append("\n|  3 - Usuarios                    |");
+        builder.append("\n|  4 - Exercicio                   |");
+        builder.append("\n|  5 - Exercio Aplicacao           |");
+        builder.append("\n|  6 - Divisao de Treino           |");
+        builder.append("\n|  7 - Divisao de Treino-Muculacao |");
+        builder.append("\n|  8 - Treino                      |");
+        builder.append("\n|  9 - Treino Aplicacao            |");
+        builder.append("\n| 10 - Avaliacao Fisica            |");
+        builder.append("\n| 11 - Mensalidade Vigente         |");
+        builder.append("\n| 12 - Aluno Pagamento Mensalidade |");
+        builder.append("\n| 13 - Pagamento Recorrente        |");
+        builder.append("\n| 14 - Entrada Aluno               |");
+        builder.append("\n| 15 - Movimentacao Financeira     |");
+        builder.append("\n|  0 - Sair                        |");
+        builder.append("\n|                                  |");
         builder.append("\n-----------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
@@ -112,9 +128,9 @@ public class GUI {
         builder.append("\n|  * -> Pessoa                     |");
         builder.append("\n|                                  |");
         builder.append("\n|  1 - Cadastrar                   |");
-        builder.append("\n|  2 - Mostrar todas as Pessoas    |");
-        builder.append("\n|  3 - Buscar Pessoa pelo CPF      |");
-        builder.append("\n|  4 - Alterar a Pessoa            |");
+        builder.append("\n|  2 - Mostrar todas               |");
+        builder.append("\n|  3 - Buscar pelo CPF             |");
+        builder.append("\n|  4 - Alterar uma Pessoa          |");
         builder.append("\n|  5 - Excluir pelo CPF            |");
         builder.append("\n|  0 - Sair                        |");
         builder.append("\n|                                  |");
@@ -130,8 +146,8 @@ public class GUI {
         builder.append("\n|  * -> Academia                   |");
         builder.append("\n|                                  |");
         builder.append("\n|  1 - Cadastrar                   |");
-        builder.append("\n|  2 - Mostrar todas Academias     |");
-        builder.append("\n|  3 - Alterar a Academia          |");
+        builder.append("\n|  2 - Mostrar todas               |");
+        builder.append("\n|  3 - Alterar uma Academia        |");
         builder.append("\n|  4 - Excluir pelo nome           |");
         builder.append("\n|  0 - Sair                        |");
         builder.append("\n|                                  |");
@@ -143,17 +159,35 @@ public class GUI {
     
     public int opDivisaoTreino() {
         builder.setLength(0);
-        builder.append("\n----------------------------------------");
-        builder.append("\n|  * -> Divisao Treino                  |");
-        builder.append("\n|                                       |");
-        builder.append("\n|  1 - Cadastrar                        |");
-        builder.append("\n|  2 - Mostrar todas Divisoes de Treino |");
-        builder.append("\n|  3 - Buscar Divisao de Treino pelo id |");
-        builder.append("\n|  4 - Alterar uma Divisao de Treino    |");
-        builder.append("\n|  5 - Excluir pelo id                  |");
-        builder.append("\n|  0 - Sair                             |");
-        builder.append("\n|                                       |");
-        builder.append("\n----------------------------------------");
+        builder.append("\n--------------------------------");
+        builder.append("\n|  * -> Divisao Treino         |");
+        builder.append("\n|                              |");
+        builder.append("\n|  1 - Cadastrar               |");
+        builder.append("\n|  2 - Mostrar todas           |");
+        builder.append("\n|  3 - Buscar pelo id          |");
+        builder.append("\n|  4 - Alterar uma Divisao     |");
+        builder.append("\n|  5 - Excluir pelo id         |");
+        builder.append("\n|  0 - Sair                    |");
+        builder.append("\n|                              |");
+        builder.append("\n--------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public int opDivisaoTreinoMusculacao() {
+        builder.setLength(0);
+        builder.append("\n--------------------------------");
+        builder.append("\n|  * -> Divisao Treino         |");
+        builder.append("\n|                              |");
+        builder.append("\n|  1 - Cadastrar               |");
+        builder.append("\n|  2 - Mostrar todas           |");
+        builder.append("\n|  3 - Buscar pelo id          |");
+        builder.append("\n|  4 - Alterar uma Divisao     |");
+        builder.append("\n|  5 - Excluir pelo id         |");
+        builder.append("\n|  0 - Sair                    |");
+        builder.append("\n|                              |");
+        builder.append("\n--------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
