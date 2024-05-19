@@ -1,6 +1,8 @@
 package mvc.control;
 
 //Importacoes dos models
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,6 +20,12 @@ import mvc.model.MensalidadeVigente;
 import mvc.model.MensalidadeVigenteDAO;
 import mvc.model.DivisaoTreinoMusculacao;
 import mvc.model.DivisaoTreinoMusculacaoDAO;
+import mvc.model.EntradaAluno;
+import mvc.model.EntradaAlunoDAO;
+import mvc.model.PagamentoMensalidade;
+import mvc.model.PagamentoMensalidadeDAO;
+import mvc.model.PagamentoRecorrente;
+import mvc.model.PagamentoRecorrenteDAO;
 import mvc.model.Treino;
 import mvc.model.TreinoDAO;
 import mvc.model.TreinoAplicacao;
@@ -38,6 +46,9 @@ public class Main {
     DivisaoTreinoMusculacaoDAO divisaoTreinoMusculacaoDAO = new DivisaoTreinoMusculacaoDAO();
     TreinoDAO treinoDAO = new TreinoDAO();
     TreinoAplicacaoDAO treinoAplicacaoDAO = new TreinoAplicacaoDAO();
+    PagamentoMensalidadeDAO pagMensalidadeDAO = new PagamentoMensalidadeDAO();
+    PagamentoRecorrenteDAO pagRecorrenteDAO = new PagamentoRecorrenteDAO();
+    EntradaAlunoDAO entradaAlunoDAO = new EntradaAlunoDAO();
     Scanner s = new Scanner(System.in);
     JFrame frame = new JFrame();
     
@@ -127,11 +138,11 @@ public class Main {
                         break;
                     case 3:
                         System.out.println("Exercicio");
-                        //menuExercicio();
+                        menuExercicio();
                         break;
                     case 4:
                         System.out.println("Exercicio Aplicado");
-                        //menuExercicioAplicado();
+                        menuExAplicacao();
                         break;
                     case 5:
                         menuDivisaoTreino();
@@ -177,10 +188,10 @@ public class Main {
                         break;
                     case 4:
                         System.out.println("Exercicio");
-                        //menuExercicio();
+                        menuExercicio();
                     case 5:
                         System.out.println("Exercicio Aplicado");
-                        //menuExercicioAplicado();
+                        menuExAplicacao();
                         break;
                     case 6:
                         menuDivisaoTreino();
@@ -200,19 +211,19 @@ public class Main {
                         break;
                     case 11:
                         System.out.println("Mensalidade Vigente");
-                        //menuMensalidadeVigente();
+                        menuMensVigente();
                         break;
                     case 12:
                         System.out.println("Aluno Pagamento Mensalidade");
-                        //menuPagamentoMensalidade();
+                        menuPagMensalidade();
                         break;
                     case 13:
                         System.out.println("Pagamento Recorrente");
-                        //menuPagamentoRecorrente();
+                        menuPagRecorrente();
                         break;
                     case 14:
                         System.out.println("Entrada Aluno");
-                        //menuEntradaAvaliacao();
+                        menuEntradaAluno();
                         break;
                     case 15:
                         System.out.println("Movimentacao Financeira");
@@ -919,7 +930,17 @@ public class Main {
                             editar.setValor(valor);
                         }
                         
-                        //
+                        System.out.println("Digite a nova data de inicio (ou pressione ENTER para manter a data atual): " + editar.getInicio());
+                        LocalDate inicio = LocalDate.parse(s.nextLine());
+                        if(inicio != null) {
+                            editar.setInicio(inicio);
+                        }
+                        
+                        System.out.println("Digite a nova data de termino (ou pressione ENTER para manter a data atual): " + editar.getInicio());
+                        LocalDate termino = LocalDate.parse(s.nextLine());
+                        if(termino != null) {
+                            editar.setTermino(termino);
+                        }
                         
                         if(semEditar.equals(editar)) {
                             System.out.println("Mensalidade Vigente nao foi alterada!");
@@ -927,24 +948,23 @@ public class Main {
                             System.out.println("Mensalidade Vigente alterada com sucesso, alteracoes: ");
                             editar.toString();
                         }
-                        
-                        
+                             
                     } else {
                         System.out.println("Mensalidade Vigente nao encontrada para alterar!");
                     }
                     break;
                 case 5:
-                    System.out.println("\n Digite o ID do Exercicio-Aplicacao que deseja excluir: ");
+                    System.out.println("\n Digite o ID da Mensalidade Vigente que deseja excluir: ");
                     Long idExcluir = Long.parseLong(s.nextLine());
 
-                    if (exAplicacaoDAO.remover(idExcluir)) {
-                        System.out.println("\n Exercicio-Aplicacao exclui­do!");
+                    if (mensVigenteDAO.remover(idExcluir)) {
+                        System.out.println("\n Mensalidade Vigente excluido!");
                     } else {
-                        System.out.println("\n Exercicio-Aplicacao nao exclui­do!");
+                        System.out.println("\n Mensalidade Vigente nao excluido!");
                     }
                     break;
                 case 0:
-                    System.out.println("Saindo do modulo Exercicio-Aplicacao!");
+                    System.out.println("Saindo do modulo Mensalidade Vigente!");
                     break;
                 default:
                     System.out.println("Digite um numero valido!");
@@ -1017,6 +1037,267 @@ public class Main {
                     break;
                 case 0:
                     System.out.println("Saindo do modulo Divisao de Treino Musculacao!");
+                    break;
+                default:
+                    System.out.println("Digite um numero valido!");
+                    break;
+            }
+        } while (op != 0);
+    }
+    
+    public void menuPagMensalidade() {
+        int op = 10;
+        do {
+            op = gui.opPagamentoMensalidade();
+            switch (op) {
+                case 1:
+                    PagamentoMensalidade pgm = gui.criaPagMensalidade();
+                    
+                    boolean pagInserido = pagMensalidadeDAO.adiciona(pgm);
+                    if(pagInserido) {
+                        System.out.println("\n Pagamento inserido com sucesso!");
+                    } else {
+                        System.out.println("\n Pagamento nao inserido!");
+                    }
+                    break;
+                case 2:
+                    pagMensalidadeDAO.mostrarTodos();
+                    break;
+                case 3:
+                    System.out.println("\n Digite o ID do pagamento: ");
+                    Long id = Long.parseLong(s.nextLine());
+                    PagamentoMensalidade achou = pagMensalidadeDAO.buscaPorId(id);
+                    if(achou != null) {
+                        achou.toString();
+                    } else {
+                        System.out.println("Pagamento nao encontrado!");
+                    }
+                    break;
+                case 4:
+                    System.out.println("\n Digite o ID do pagamento que deseja alterar: ");
+                    Long idAchar = Long.parseLong(s.nextLine());
+                    
+                    PagamentoMensalidade editar = pagMensalidadeDAO.buscaPorId(idAchar);
+                    PagamentoMensalidade semEditar = pagMensalidadeDAO.buscaPorId(idAchar);
+                    
+                    if(editar != null) {
+                        System.out.println("Digite a nova data de vencimento (ou pressione ENTER para manter a data atual): " + editar.getDataVencimento());
+                        LocalDate dataVencimento = LocalDate.parse(s.nextLine());
+                        if(dataVencimento != null) {
+                            editar.setDataVencimento(dataVencimento);
+                        }
+                        
+                        System.out.println("Digite a nova data de pagamento (ou pressione ENTER para manter a data atual): " + editar.getDataPagamento());
+                        LocalDate dataPagamento = LocalDate.parse(s.nextLine());
+                        if(dataPagamento != null) {
+                            editar.setDataPagamento(dataPagamento);
+                        }
+                        
+                        System.out.println("Digite o novo valor pago (ou pressione ENTER para manter o valor ataul): " + editar.getValorPago());
+                        Double valorPago = Double.parseDouble(s.nextLine());
+                        if(valorPago != null) {
+                            editar.setValorPago(valorPago);
+                        }
+                        
+                        System.out.println("Digite a nova data (ou pressione ENTER para manter a data atual): " + editar.getData());
+                        LocalDate data = LocalDate.parse(s.nextLine());
+                        if(data != null) {
+                            editar.setData(data);
+                        }
+                        
+                        if(semEditar.equals(editar)) {
+                            System.out.println("Pagamento nao foi alterado!");
+                        } else {
+                            System.out.println("Pagamento alterado com sucesso, alteracoes: ");
+                            editar.toString();
+                        }
+                            
+                    } else {
+                        System.out.println("Pagamento nao encontrada para alterar!");
+                    }
+                    break;
+                case 5:
+                    System.out.println("\n Digite o ID do Pagamento que deseja excluir: ");
+                    Long idExcluir = Long.parseLong(s.nextLine());
+
+                    if (pagMensalidadeDAO.remover(idExcluir)) {
+                        System.out.println("\n Pagamento excluido!");
+                    } else {
+                        System.out.println("\n Pagamento nao excluido!");
+                    }
+                    break;
+                case 0:
+                    System.out.println("Saindo do modulo Pagamento Mensalidade!");
+                    break;
+                default:
+                    System.out.println("Digite um numero valido!");
+                    break;
+            }
+        } while (op != 0);
+    }
+    
+    public void menuPagRecorrente() {
+        int op = 10;
+        do {
+            op = gui.opPagamentoRecorrente();
+            switch (op) {
+                case 1:
+                    PagamentoRecorrente pr = gui.criaPagRecorrente();
+                    
+                    boolean pagInserido = pagRecorrenteDAO.adiciona(pr);
+                    if(pagInserido) {
+                        System.out.println("\n Pagamento inserido com sucesso!");
+                    } else {
+                        System.out.println("\n Pagamento nao inserido!");
+                    }
+                    break;
+                case 2:
+                    pagRecorrenteDAO.mostrarTodos();
+                    break;
+                case 3:
+                    System.out.println("\n Digite o ID do pagamento: ");
+                    Long id = Long.parseLong(s.nextLine());
+                    PagamentoRecorrente achou = pagRecorrenteDAO.buscaPorId(id);
+                    if(achou != null) {
+                        achou.toString();
+                    } else {
+                        System.out.println("Pagamento nao encontrado!");
+                    }
+                    break;
+                case 4:
+                    System.out.println("\n Digite o ID do pagamento que deseja alterar: ");
+                    Long idAchar = Long.parseLong(s.nextLine());
+                    
+                    PagamentoRecorrente editar = pagRecorrenteDAO.buscaPorId(idAchar);
+                    PagamentoRecorrente semEditar = pagRecorrenteDAO.buscaPorId(idAchar);
+                    
+                    if(editar != null) {
+                        System.out.println("Digite a nova data (ou pressione ENTER para manter a data atual): " + editar.getData());
+                        LocalDate data = LocalDate.parse(s.nextLine());
+                        if(data != null) {
+                            editar.setData(data);
+                        }
+                        
+                        System.out.println("Digite o novo cartao de credito (ou pressione ENTER para manter o cartao atual): " + editar.getCartaoCredito());
+                        String cartao = s.nextLine();
+                        if(cartao != null) {
+                            editar.setCartaoCredito(cartao);
+                        }
+                        
+                        System.out.println("Digite o novo valor (ou pressione ENTER para manter o valor ataul): " + editar.getValor());
+                        Double valor = Double.parseDouble(s.nextLine());
+                        if(valor != null) {
+                            editar.setValor(valor);
+                        }
+                        
+                        System.out.println("Digite a nova data de inicio (ou pressione ENTER para manter a data atual): " + editar.getDataInicio());
+                        LocalDate dataInicio = LocalDate.parse(s.nextLine());
+                        if(dataInicio != null) {
+                            editar.setDataInicio(dataInicio);
+                        }
+                        
+                        System.out.println("Digite o novo numero de meses (ou pressione ENTER para manter o numero atual): " + editar.getNumeroMeses());
+                        int meses = Integer.parseInt(s.nextLine());
+                        if(meses != 0) {
+                            editar.setNumeroMeses(meses);
+                        }
+
+                        if(semEditar.equals(editar)) {
+                            System.out.println("Pagamento nao foi alterado!");
+                        } else {
+                            System.out.println("Pagamento alterado com sucesso, alteracoes: ");
+                            editar.toString();
+                        }
+                            
+                    } else {
+                        System.out.println("Pagamento nao encontrada para alterar!");
+                    }
+                    break;
+                case 5:
+                    System.out.println("\n Digite o ID do Pagamento que deseja excluir: ");
+                    Long idExcluir = Long.parseLong(s.nextLine());
+
+                    if (pagRecorrenteDAO.remover(idExcluir)) {
+                        System.out.println("\n Pagamento excluido!");
+                    } else {
+                        System.out.println("\n Pagamento nao excluido!");
+                    }
+                    break;
+                case 0:
+                    System.out.println("Saindo do modulo Pagamento Recorrente!");
+                    break;
+                default:
+                    System.out.println("Digite um numero valido!");
+                    break;
+            }
+        } while (op != 0);
+    }
+    
+    public void menuEntradaAluno() {
+        int op = 10;
+        do {
+            op = gui.opEntradaAluno();
+            switch (op) {
+                case 1:
+                    EntradaAluno ea = gui.criaEntrada();
+                    
+                    boolean entradaInserida = entradaAlunoDAO.adiciona(ea);
+                    if(entradaInserida) {
+                        System.out.println("\n Entrada inserida com sucesso!");
+                    } else {
+                        System.out.println("\n Entrada nao inserida!");
+                    }
+                    break;
+                case 2:
+                    entradaAlunoDAO.mostrarTodos();
+                    break;
+                case 3:
+                    System.out.println("\n Digite o ID da entrada: ");
+                    Long id = Long.parseLong(s.nextLine());
+                    EntradaAluno achou = entradaAlunoDAO.buscaPorId(id);
+                    if(achou != null) {
+                        achou.toString();
+                    } else {
+                        System.out.println("Entrada nao encontrada!");
+                    }
+                    break;
+                case 4:
+                    System.out.println("\n Digite o ID da entrada que deseja alterar: ");
+                    Long idAchar = Long.parseLong(s.nextLine());
+                    
+                    EntradaAluno editar = entradaAlunoDAO.buscaPorId(idAchar);
+                    EntradaAluno semEditar = entradaAlunoDAO.buscaPorId(idAchar);
+                    
+                    if(editar != null) {
+                        System.out.println("Digite a nova entrada (ou pressione ENTER para manter a entrada atual): " + editar.getEntrada());
+                        LocalDateTime entrada = LocalDateTime.parse(s.nextLine());
+                        if(entrada != null) {
+                            editar.setEntrada(entrada);
+                        }
+
+                        if(semEditar.equals(editar)) {
+                            System.out.println("Entrada nao foi alterada!");
+                        } else {
+                            System.out.println("Entrada alterada com sucesso, alteracoes: ");
+                            editar.toString();
+                        }
+                            
+                    } else {
+                        System.out.println("Entrada nao encontrada para alterar!");
+                    }
+                    break;
+                case 5:
+                    System.out.println("\n Digite o ID da Entrada que deseja excluir: ");
+                    Long idExcluir = Long.parseLong(s.nextLine());
+
+                    if (entradaAlunoDAO.remover(idExcluir)) {
+                        System.out.println("\n Entrada excluida!");
+                    } else {
+                        System.out.println("\n Entrada nao excluida!");
+                    }
+                    break;
+                case 0:
+                    System.out.println("Saindo do modulo Entrada!");
                     break;
                 default:
                     System.out.println("Digite um numero valido!");
