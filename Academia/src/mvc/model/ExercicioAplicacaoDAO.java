@@ -57,6 +57,24 @@ public class ExercicioAplicacaoDAO {
         }
     }
     
+    public ExercicioAplicacao[] mostrarTodosERetornar() {
+        int count = 0;
+        for (ExercicioAplicacao dt : exAplicacao) {
+            if (dt != null) {
+                count++;
+            }
+        }
+        ExercicioAplicacao[] result = new ExercicioAplicacao[count];
+        int index = 0;
+        for (ExercicioAplicacao dt : exAplicacao) {
+            if (dt != null) {
+                result[index] = dt;
+                index++;
+            }
+        }
+        return result;
+    }
+    
     public boolean alterarDescricao(String descricao, String novaDescricao) {
         for (ExercicioAplicacao ea : exAplicacao) {
             if (ea != null && ea.getDescricao().equals(descricao)) {

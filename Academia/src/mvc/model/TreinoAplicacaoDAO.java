@@ -38,4 +38,23 @@ public class TreinoAplicacaoDAO {
             System.out.println("Nao existe treinos aplicacao cadastrado!");
         }
     }
+    
+    public TreinoAplicacao buscaPorId(Long id) {
+        for (TreinoAplicacao tA : treinosAplicao) {
+            if (tA != null && tA.getId() == id) {
+                return tA;
+            }
+        }
+        return null;
+    }
+
+    public boolean remover(long id) {
+        for (int i = 0; i < treinosAplicao.length; i++) {
+            if (treinosAplicao[i] != null && treinosAplicao[i].getId() == id) {
+                treinosAplicao[i] = null;
+                return true;
+            }
+        }
+        return false;
+    }
 }

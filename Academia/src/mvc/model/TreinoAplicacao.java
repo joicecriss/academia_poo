@@ -11,11 +11,12 @@ exerc�cio aplicacao, divisao de treino, divisao de treino musculo, dataCriacao
 public class TreinoAplicacao {
   private long id;
   private static long aux;
+  private Pessoa pessoa;
   private Treino treino;
   private Exercicio exercicio;
   private ExercicioAplicacao exercicioAplicacao;
   private DivisaoTreino divisaoTreino;
-  private DivisaoTreinoMusculacao divisaoTreinoMusculacao;
+  private DivisaoTreinoMusculacao[] divisaoTreinoMusculacao;
   private LocalDateTime dataCriacao;
   private LocalDateTime dataModificacao;
 
@@ -27,6 +28,15 @@ public class TreinoAplicacao {
 
     public long getId() {
         return id;
+    }
+    
+    public Pessoa getPessoa() {
+        return this.pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+        this.dataModificacao = Util.getDia();
     }
 
     public Treino getTreino() {
@@ -65,11 +75,11 @@ public class TreinoAplicacao {
         this.dataModificacao = Util.getDia();
     }
 
-    public DivisaoTreinoMusculacao getDivisaoTreinoMusculacao() {
+    public DivisaoTreinoMusculacao[] getDivisaoTreinoMusculacao() {
         return divisaoTreinoMusculacao;
     }
 
-    public void setDivisaoTreinoMusculacao(DivisaoTreinoMusculacao divisaoTreinoMusculacao) {
+    public void setDivisaoTreinoMusculacao(DivisaoTreinoMusculacao[] divisaoTreinoMusculacao) {
         this.divisaoTreinoMusculacao = divisaoTreinoMusculacao;
         this.dataModificacao = Util.getDia();
     }

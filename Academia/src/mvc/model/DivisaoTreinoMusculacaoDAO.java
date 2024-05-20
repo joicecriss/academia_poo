@@ -81,6 +81,24 @@ public class DivisaoTreinoMusculacaoDAO {
         }
     }
     
+    public DivisaoTreinoMusculacao[] mostrarTodosERetornar() {
+        int count = 0;
+        for (DivisaoTreinoMusculacao dt : divisoesTreinosMusculacao) {
+            if (dt != null) {
+                count++;
+            }
+        }
+        DivisaoTreinoMusculacao[] result = new DivisaoTreinoMusculacao[count];
+        int index = 0;
+        for (DivisaoTreinoMusculacao dt : divisoesTreinosMusculacao) {
+            if (dt != null) {
+                result[index] = dt;
+                index++;
+            }
+        }
+        return result;
+    }
+    
     public boolean alterarDescricao(Long id, String novaDescricao) {
         for (DivisaoTreinoMusculacao dtm : divisoesTreinosMusculacao) {
             if (dtm != null && dtm.getId() == id) {
