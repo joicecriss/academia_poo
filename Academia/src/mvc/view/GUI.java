@@ -712,7 +712,7 @@ public class GUI {
         Double altura = Double.parseDouble(scanner.nextLine());
         aF.setPeso(altura);
         
-        double imc = aF.calcularIMC2(peso, altura);
+        double imc = aF.calcularIMC2(altura, peso);
         aF.setImc(imc);
         
         System.out.println("Satisfacao: ");
