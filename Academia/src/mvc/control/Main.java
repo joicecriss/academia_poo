@@ -117,13 +117,14 @@ public class Main {
                         Util.getPessoaLogada().perfil();
                         break;
                     case 2:
-                        System.out.println("2 - Visualizar Ficha de Treino");
+                        treinoAplicacaoDAO.mostrarTodos();
                         break;
                     case 3:
-                        System.out.println("3 - Imprimir Ficha de Treino");
+                        treinoAplicacaoDAO.mostrarTodos();
                         break;
                     case 4:
-                        System.out.println("4 - Visualizar Avaliacoes Fisicas");
+                        avaliacaoFisicaDAO.mostrarTodosPorAluno(Util.getPessoaLogada());
+                        break;
                     case 0:
                         System.out.println("5 - Sair");
                         break;
@@ -222,7 +223,7 @@ public class Main {
                         break;
                     case 15:
                         System.out.println("Movimentacao Financeira");
-                        //menuMovimentacaoFinanceira();
+                        menuMovimentacaoFinanceira();
                         break;
                     case 0:
                         System.out.println("0 - Sair");

@@ -23,8 +23,8 @@ public class PagamentoRecorrente {
 
     public PagamentoRecorrente() {
         this.id = ++PagamentoRecorrente.aux;
-        this.dataCriacao = Util.getDiaAtual();
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataCriacao = Util.getDia();
+        this.dataModificacao = Util.getDia();
     }
 
     public long getId() {
@@ -37,6 +37,7 @@ public class PagamentoRecorrente {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+        this.dataModificacao = Util.getDia();
     }
 
     public String getData() {
@@ -56,6 +57,7 @@ public class PagamentoRecorrente {
 
     public void setCartaoCredito(String cartaoCredito) {
         this.cartaoCredito = cartaoCredito;
+        this.dataModificacao = Util.getDia();
     }
 
     public double getValor() {
@@ -83,6 +85,7 @@ public class PagamentoRecorrente {
 
     public void setNumeroMeses(int numeroMeses) {
         this.numeroMeses = numeroMeses;
+        this.dataModificacao = Util.getDia();
     }
 
     public LocalDateTime getDataCriacao() {
@@ -94,7 +97,7 @@ public class PagamentoRecorrente {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = dataModificacao;
+        this.dataModificacao = Util.getDia();
     }
 
     @Override

@@ -19,8 +19,8 @@ public class MensalidadeVigente {
 
     public MensalidadeVigente() {
         this.id = ++MensalidadeVigente.aux;
-        this.dataCriacao = Util.getDiaAtual();
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataCriacao = Util.getDia();
+        this.dataModificacao = Util.getDia();
     }
 
     public long getId() {
@@ -33,6 +33,7 @@ public class MensalidadeVigente {
 
     public void setValor(double valor) {
         this.valor = valor;
+        this.dataModificacao = Util.getDia();
     }
 
     public String getInicio() {
@@ -66,7 +67,7 @@ public class MensalidadeVigente {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = dataModificacao;
+        this.dataModificacao = Util.getDia();
     }
 
     @Override

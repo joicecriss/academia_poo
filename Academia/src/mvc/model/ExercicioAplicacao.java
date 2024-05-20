@@ -17,8 +17,8 @@ public class ExercicioAplicacao {
 
     public ExercicioAplicacao() {
         this.id = ++ExercicioAplicacao.aux;
-        this.dataCriacao = Util.getDiaAtual();
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataCriacao = Util.getDia();
+        this.dataModificacao = Util.getDia();
     }
     
     public long getId() {
@@ -31,6 +31,7 @@ public class ExercicioAplicacao {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+        this.dataModificacao = Util.getDia();
     }
 
     public LocalDateTime getDataCriacao() {
@@ -42,7 +43,7 @@ public class ExercicioAplicacao {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = dataModificacao;
+        this.dataModificacao = Util.getDia();
     }
 
     @Override

@@ -18,8 +18,8 @@ public class Exercicio {
 
      public Exercicio() {
         this.id = ++Exercicio.aux;
-        this.dataCriacao = Util.getDiaAtual();
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataCriacao = Util.getDia();
+        this.dataModificacao = Util.getDia();
     }
     
     public long getId() {
@@ -32,6 +32,7 @@ public class Exercicio {
 
     public void setNome(String nome) {
         this.nome = nome;
+        this.dataModificacao = Util.getDia();
     }
 
     public String getDescricao() {
@@ -40,6 +41,7 @@ public class Exercicio {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+        this.dataModificacao = Util.getDia();
     }
 
     public LocalDateTime getDataCriacao() {
@@ -51,7 +53,7 @@ public class Exercicio {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = dataModificacao;
+        this.dataModificacao = Util.getDia();
     }
 
     @Override

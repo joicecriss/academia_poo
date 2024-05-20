@@ -26,8 +26,8 @@ public class PagamentoMensalidade {
 
     public PagamentoMensalidade() {
         this.id = ++PagamentoMensalidade.aux;
-        this.dataCriacao = Util.getDiaAtual();
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataCriacao = Util.getDia();
+        this.dataModificacao = Util.getDia();
     }
 
     public long getId() {
@@ -40,6 +40,7 @@ public class PagamentoMensalidade {
 
     public void setMensalidadeVigente(MensalidadeVigente mensalidadeVigente) {
         this.mensalidadeVigente = mensalidadeVigente;
+        this.dataModificacao = Util.getDia();
     }
 
     public String getDataVencimento() {
@@ -70,6 +71,7 @@ public class PagamentoMensalidade {
 
     public void setValorPago(double valorPago) {
         this.valorPago = valorPago;
+        this.dataModificacao = Util.getDia();
     }
 
     public String getData() {
@@ -85,6 +87,7 @@ public class PagamentoMensalidade {
     
     public void setPessoa (Pessoa pessoa) {
         this.pessoa = pessoa;
+        this.dataModificacao = Util.getDia();
     }
 
     public Pessoa getPessoa() {
@@ -97,6 +100,7 @@ public class PagamentoMensalidade {
 
     public void setModalidade(int modalidade) {
         this.modalidade = modalidade;
+        this.dataModificacao = Util.getDia();
     }
 
     public LocalDateTime getDataCriacao() {
@@ -108,7 +112,7 @@ public class PagamentoMensalidade {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = dataModificacao;
+        this.dataModificacao = Util.getDia();
     }
 
     @Override

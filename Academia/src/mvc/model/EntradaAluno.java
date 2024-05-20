@@ -15,8 +15,8 @@ public class EntradaAluno {
 
     public EntradaAluno() {
         this.id = ++EntradaAluno.aux;
-        this.dataCriacao = Util.getDiaAtual();
-        this.dataModificacao = Util.getDiaAtual();
+        this.dataCriacao = Util.getDia();
+        this.dataModificacao = Util.getDia();
     }
 
     public long getId() {
@@ -29,6 +29,7 @@ public class EntradaAluno {
 
     public void setEntrada(LocalDateTime entrada) {
         this.entrada = entrada;
+        this.dataModificacao = Util.getDia();
     }
 
     public LocalDateTime getDataCriacao() {
@@ -40,7 +41,8 @@ public class EntradaAluno {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = dataModificacao;
+        this.dataModificacao = Util.getDia();
+        
     }
 
     @Override
