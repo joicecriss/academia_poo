@@ -6,15 +6,15 @@ import java.time.LocalDateTime;
 public class PagamentoMensalidadeDAO {
     PagamentoMensalidade[] pagMensalidade = new PagamentoMensalidade[10];
     MensalidadeVigente[] mensVigente = new MensalidadeVigente[10];
-    Pessoa[] pessoa = new Pessoa[5];
+    Pessoa[] pessoa = new Pessoa[10];
     
     public PagamentoMensalidadeDAO() {
         PagamentoMensalidade pg1 = new PagamentoMensalidade();
         pg1.setMensalidadeVigente(mensVigente[0]);
-        pg1.setDataVencimento(LocalDate.now().plusMonths(-2));
-        pg1.setDataPagamento(LocalDate.now());
+        pg1.setDataVencimento("27/07/2024");
+        pg1.setDataPagamento("29/04/2024");
         pg1.setValorPago(99.90);
-        pg1.setData(LocalDate.now().plusWeeks(-7));
+        pg1.setData("17/05/2024");
         pg1.setPessoa(pessoa[0]);
         pg1.setModalidade(0);
         pg1.setDataModificacao(Util.getDiaAtual());
@@ -22,10 +22,10 @@ public class PagamentoMensalidadeDAO {
         
         PagamentoMensalidade pg2 = new PagamentoMensalidade();
         pg2.setMensalidadeVigente(mensVigente[1]);
-        pg2.setDataVencimento(LocalDate.now().plusMonths(-3));
-        pg2.setDataPagamento(LocalDate.now());
+        pg2.setDataVencimento("27/08/2024");
+        pg2.setDataPagamento("20/04/2024");
         pg2.setValorPago(139.90);
-        pg2.setData(LocalDate.now().plusWeeks(-5));
+        pg2.setData("19/05/2024");
         pg2.setPessoa(pessoa[1]);
         pg2.setModalidade(1);
         pg2.setDataModificacao(Util.getDiaAtual());
@@ -74,7 +74,7 @@ public class PagamentoMensalidadeDAO {
         }
     }
     
-    public boolean alteraDataVencimento (LocalDate dataVencimento, LocalDate novaDataVencimento) {
+    public boolean alteraDataVencimento (LocalDate dataVencimento, String novaDataVencimento) {
         for (PagamentoMensalidade pgm : pagMensalidade) {
             if (pgm != null && pgm.getDataVencimento().equals(novaDataVencimento)) {
                 pgm.setDataVencimento(novaDataVencimento);
@@ -84,7 +84,7 @@ public class PagamentoMensalidadeDAO {
         return false;
     }
     
-    public boolean alteraDataPagamento (LocalDate dataPagamento, LocalDate novaDataPagamento) {
+    public boolean alteraDataPagamento (LocalDate dataPagamento, String novaDataPagamento) {
         for (PagamentoMensalidade pgm : pagMensalidade) {
             if (pgm != null && pgm.getDataPagamento().equals(novaDataPagamento)) {
                 pgm.setDataPagamento(novaDataPagamento);
@@ -104,7 +104,7 @@ public class PagamentoMensalidadeDAO {
         return false;
     }
     
-    public boolean alteraData (LocalDate data, LocalDate novaData) {
+    public boolean alteraData (LocalDate data, String novaData) {
         for (PagamentoMensalidade pgm : pagMensalidade) {
             if (pgm != null && pgm.getData().equals(novaData)) {
                 pgm.setData(novaData);

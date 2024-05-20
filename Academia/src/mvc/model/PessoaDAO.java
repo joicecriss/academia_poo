@@ -116,6 +116,15 @@ public class PessoaDAO {
         return null;
     }
     
+    public Pessoa buscaPorId(Long id) {
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getId() == id) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
     public boolean remover(String cpf) {
         for (int i = 0; i < pessoas.length; i++) {
             if (pessoas[i] != null && pessoas[i].getCpf().equals(cpf)) {

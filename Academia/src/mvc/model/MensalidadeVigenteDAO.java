@@ -9,15 +9,15 @@ public class MensalidadeVigenteDAO {
     public MensalidadeVigenteDAO() {
         MensalidadeVigente mv1 = new MensalidadeVigente();
         mv1.setValor(99.90);
-        mv1.setInicio(LocalDate.now());
-        mv1.setTermino(LocalDate.now().plusMonths(1));
+        mv1.setInicio("14/02/2024");
+        mv1.setTermino("14/04/2024");
         mv1.setDataModificacao(Util.getDiaAtual());
         adiciona(mv1);
         
         MensalidadeVigente mv2 = new MensalidadeVigente();
         mv2.setValor(119.90);
-        mv2.setInicio(LocalDate.now());
-        mv2.setTermino(LocalDate.now().plusMonths(3));
+        mv2.setInicio("17/01/2024");
+        mv2.setTermino("25/03/2025");
         mv2.setDataModificacao(Util.getDiaAtual());
         adiciona(mv2);
     } 
@@ -94,7 +94,7 @@ public class MensalidadeVigenteDAO {
         return false;
     }
     
-    public boolean alteraInicio(LocalDate inicio, LocalDate novoInicio) {
+    public boolean alteraInicio(LocalDate inicio, String novoInicio) {
         for (MensalidadeVigente mv : mensVigente) {
             if (mv != null && mv.getInicio().equals(novoInicio)) {
                 mv.setInicio(novoInicio);
@@ -104,7 +104,7 @@ public class MensalidadeVigenteDAO {
         return false;
     }
     
-    public boolean alteraTermino(LocalDate termino, LocalDate novoTermino) {
+    public boolean alteraTermino(LocalDate termino, String novoTermino) {
         for (MensalidadeVigente mv : mensVigente) {
             if (mv != null && mv.getTermino().equals(novoTermino)) {
                 mv.setTermino(novoTermino);
