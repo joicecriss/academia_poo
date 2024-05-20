@@ -87,8 +87,10 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("\n Ate a proxima!!");
+                    break;
                 default:
                     System.out.println("\n Digite um numero valido!");
+                    break;
             }
         };        
 
