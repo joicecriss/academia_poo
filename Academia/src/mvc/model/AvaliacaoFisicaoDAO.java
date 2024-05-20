@@ -39,6 +39,19 @@ public class AvaliacaoFisicaoDAO {
         }
     }
     
+    public void mostrarTodosPorAluno(Pessoa p) {
+        boolean temAvaliacao = false;
+        for (AvaliacaoFisica aF : avaliacoesFisicas) {
+            if (aF != null && aF.getPessoa().getId() == p.getId()) {
+                System.out.println(aF);
+                temAvaliacao = true;
+            }
+        }
+        if (!temAvaliacao) {
+            System.out.println("Nao existe avaliacao fisica cadastrada!");
+        }
+    }
+    
     public boolean alterarUltimoTreino(Long id, String novoUltimoTreino) {
         for (AvaliacaoFisica aF : avaliacoesFisicas) {
             if (aF != null && aF.getId() == id) {
