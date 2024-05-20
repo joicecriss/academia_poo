@@ -20,6 +20,7 @@ import mvc.model.ExercicioAplicacaoDAO;
 import mvc.model.ExercicioDAO;
 import mvc.model.MensalidadeVigente;
 import mvc.model.MensalidadeVigenteDAO;
+import mvc.model.MovimentacaoFinanceiraDAO;
 import mvc.model.PagamentoMensalidade;
 import mvc.model.PagamentoRecorrente;
 import mvc.model.PessoaDAO;
@@ -690,32 +691,61 @@ public class GUI {
     public AvaliacaoFisica criaAvalicaoFisica() {
         AvaliacaoFisica aF = new AvaliacaoFisica();
         
-        /*System.out.println("Objetivo: ");
-        String objetivo = scanner.nextLine();
-        t.setObjetivo(objetivo);
-        System.out.println("Data de Inicio: ");
+        System.out.println("Digite o ID do aluno que deseja criar a avaliacao fisica: ");
+        Pessoa[] pessoas = new PessoaDAO().mostrarTodosAlunos(); 
+        for (int i = 0; i < pessoas.length; i++) {
+            System.out.println(pessoas[i].getNome() + " - ID: " + (i));
+        }
+        int pIndice = scanner.nextInt();
+        scanner.nextLine(); 
+        Pessoa aluno = pessoas[pIndice]; 
+        aF.setPessoa(aluno);
+        
+        System.out.println("Ultimo treino: ");
         System.out.println("\n Digite desta forma-> dd/MM/yyyy");
-        String dataInicio = scanner.nextLine();
-        t.setDataInicio(dataInicio);
-        System.out.println("Data de Termino: ");
-        String dataTermino = scanner.nextLine();
-        t.setDataTermino(dataTermino);*/
+        String ultimoTreino = scanner.nextLine();
+        aF.setUltimoTreino(ultimoTreino);
+        
+        System.out.println("Peso: ");
+        Double peso = Double.parseDouble(scanner.nextLine());
+        aF.setPeso(peso);
+        
+        System.out.println("Altura: ");
+        Double altura = Double.parseDouble(scanner.nextLine());
+        aF.setPeso(altura);
+        
+        double imc = aF.calcularIMC2(peso, altura);
+        aF.setImc(imc);
+        
+        System.out.println("Satisfacao: ");
+        int satisfacao = Integer.parseInt(scanner.nextLine());
+        aF.setSatisfacao(satisfacao);
+        
+        MovimentacaoFinanceira mF = new MovimentacaoFinanceira();
+        mF.setValor(20);
+        mF.setTipo(1);
+        mF.setDescricao("Avaliaçao Fisica - Aluno: " + aluno.getNome());
+        MovimentacaoFinanceiraDAO mDAO = new MovimentacaoFinanceiraDAO();
+        mDAO.adiciona(mF);
+        
         return aF;
     }
     
     public MovimentacaoFinanceira criaMovimentacaoFinanceira() {
         MovimentacaoFinanceira mF = new MovimentacaoFinanceira();
         
-        /*System.out.println("Objetivo: ");
-        String objetivo = scanner.nextLine();
-        t.setObjetivo(objetivo);
-        System.out.println("Data de Inicio: ");
-        System.out.println("\n Digite desta forma-> dd/MM/yyyy");
-        String dataInicio = scanner.nextLine();
-        t.setDataInicio(dataInicio);
-        System.out.println("Data de Termino: ");
-        String dataTermino = scanner.nextLine();
-        t.setDataTermino(dataTermino);*/
+        System.out.println("Valor: ");
+        Double valor = Double.parseDouble(scanner.nextLine());
+        mF.setValor(valor);
+        
+        System.out.println("Tipo: ");
+        System.out.println("\n Digite um numero-> 1- Entrada | 2- Saida");
+        int tipo = Integer.parseInt(scanner.nextLine());
+        mF.setTipo(tipo);
+        
+        System.out.println("Descricao: ");
+        String descricao = scanner.nextLine();
+        mF.setDescricao(descricao);
         return mF;
     
     }
