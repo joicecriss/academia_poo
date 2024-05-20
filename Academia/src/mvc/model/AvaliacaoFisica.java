@@ -107,6 +107,11 @@ public class AvaliacaoFisica {
         this.imc = this.peso / (this.altura * this.altura);
         return this.imc;
     }
+    
+    public double calcularIMC2(double altura, double peso) {
+        this.imc = peso / (altura * altura);
+        return this.imc;
+    }
 
     @Override
     public int hashCode() {
