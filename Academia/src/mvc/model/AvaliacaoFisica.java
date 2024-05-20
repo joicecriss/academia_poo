@@ -1,5 +1,6 @@
 package mvc.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -13,7 +14,7 @@ public class AvaliacaoFisica {
     private static long aux = 0;
     private long id;
     private Pessoa pessoa;
-    private String ultimoTreino;
+    private LocalDate ultimoTreino;
     private double peso;
     private double altura;
     private double imc;
@@ -34,13 +35,20 @@ public class AvaliacaoFisica {
     public Pessoa getPessoa() {
         return this.pessoa;
     }
+    
+    public void setPessoa(Pessoa p) {
+        this.pessoa = p;
+        this.dataModificacao = Util.getDia();
+    }
 
     public String getUltimoTreino() {
-        return this.ultimoTreino;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.ultimoTreino.format(formatter);
     }
 
     public void setUltimoTreino(String ultimoTreino) {
-        this.ultimoTreino = ultimoTreino;
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.ultimoTreino = LocalDate.parse(ultimoTreino, formatter);
         this.dataModificacao = Util.getDia();
     }
 

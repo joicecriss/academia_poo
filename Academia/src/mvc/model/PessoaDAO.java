@@ -8,8 +8,8 @@ public class PessoaDAO {
         p1.setNome("Joice Cristina");
         p1.setSexo("Feminino");
         p1.setNascimento("15/09/1998");
-        p1.setLogin("joice1509oliveira@gmail.com");
-        p1.setSenha("joice123");
+        p1.setLogin("joice");
+        p1.setSenha("joice");
         p1.setTipoUsuario(3);
         p1.setCpf("702.524.266-73");
         adiciona(p1);
@@ -33,6 +33,26 @@ public class PessoaDAO {
         p3.setTipoUsuario(3);
         p3.setCpf("000.000.000-00");
         adiciona(p3);
+        
+        Pessoa p4 = new Pessoa();
+        p4.setNome("Aluno 1");
+        p4.setSexo("Femino");
+        p4.setNascimento("14/05/2024");
+        p4.setLogin("aluno");
+        p4.setSenha("aluno");
+        p4.setTipoUsuario(1);
+        p4.setCpf("000.000.000-00");
+        adiciona(p4);
+        
+        Pessoa p5 = new Pessoa();
+        p5.setNome("Aluno 2");
+        p5.setSexo("Masculino");
+        p5.setNascimento("14/05/2024");
+        p5.setLogin("aluno");
+        p5.setSenha("aluno");
+        p5.setTipoUsuario(1);
+        p5.setCpf("000.000.000-00");
+        adiciona(p5);
     }
     
     public boolean adiciona(Pessoa p) {
@@ -78,14 +98,14 @@ public class PessoaDAO {
     }
     
     public Pessoa[] mostrarTodosERetornar() {
-        // Conta quantas divisoes de treino existem para criar o array com o tamanho exato
+        // Conta quantas pessoas existem para criar o array com o tamanho exato
         int count = 0;
         for (Pessoa p : pessoas) {
             if (p != null && p.getCpf().length() == 0) {
                 count++;
             }
         }
-        // Cria um array para armazenar as divisoes de treino existentes
+        // Cria um array para armazenar as pessoas existentes
         Pessoa[] result = new Pessoa[count];
         int index = 0;
         for (Pessoa p : pessoas) {
@@ -204,5 +224,23 @@ public class PessoaDAO {
             }
         }
         return false;
+    }
+    
+    public Pessoa[] mostrarTodosAlunos() {
+        int count = 0;
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getTipoUsuario() == 1) {
+                count++;
+            }
+        }
+        Pessoa[] result = new Pessoa[count];
+        int index = 0;
+        for (Pessoa p : pessoas) {
+            if (p != null && p.getTipoUsuario() == 1) {
+                result[index] = p;
+                index++;
+            }
+        }
+        return result;
     }
 }
