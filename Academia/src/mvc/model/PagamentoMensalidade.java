@@ -2,7 +2,9 @@ package mvc.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import javax.swing.text.DateFormatter;
 
 /*
 CRUD ALUNO PAGAMENTO MENSALIDADE. Informações importantes: id, 
@@ -40,20 +42,26 @@ public class PagamentoMensalidade {
         this.mensalidadeVigente = mensalidadeVigente;
     }
 
-    public LocalDate getDataVencimento() {
-        return dataVencimento;
+    public String getDataVencimento() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.dataVencimento.format(formatter);
     }
 
-    public void setDataVencimento(LocalDate dataVencimento) {
-        this.dataVencimento = dataVencimento;
+    public void setDataVencimento(String dataVencimento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.dataVencimento = LocalDate.parse(dataVencimento, formatter);
+        this.dataModificacao = Util.getDia();
     }
 
-    public LocalDate getDataPagamento() {
-        return dataPagamento;
+    public String getDataPagamento() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.dataPagamento.format(formatter);
     }
 
-    public void setDataPagamento(LocalDate dataPagamento) {
-        this.dataPagamento = dataPagamento;
+    public void setDataPagamento(String dataPagamento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.dataPagamento = LocalDate.parse(dataPagamento, formatter);
+        this.dataModificacao = Util.getDia();
     }
 
     public double getValorPago() {
@@ -64,12 +72,15 @@ public class PagamentoMensalidade {
         this.valorPago = valorPago;
     }
 
-    public LocalDate getData() {
-        return data;
+    public String getData() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.data.format(formatter);
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
+    public void setData(String data) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.data = LocalDate.parse(data, formatter);
+        this.dataModificacao = Util.getDia();
     }
     
     public void setPessoa (Pessoa pessoa) {

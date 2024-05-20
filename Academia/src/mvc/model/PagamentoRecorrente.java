@@ -2,6 +2,7 @@ package mvc.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /*
@@ -38,12 +39,15 @@ public class PagamentoRecorrente {
         this.pessoa = pessoa;
     }
 
-    public LocalDate getData() {
-        return data;
+    public String getData() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.data.format(formatter);
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
+    public void setData(String data) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.data = LocalDate.parse(data, formatter);
+        this.dataModificacao = Util.getDia();
     }
 
     public String getCartaoCredito() {
@@ -62,12 +66,15 @@ public class PagamentoRecorrente {
         this.valor = valor;
     }
 
-    public LocalDate getDataInicio() {
-        return dataInicio;
+    public String getDataInicio() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.dataInicio.format(formatter);
     }
 
-    public void setDataInicio(LocalDate dataInicio) {
-        this.dataInicio = dataInicio;
+    public void setDataInicio(String dataInicio) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.dataInicio = LocalDate.parse(dataInicio, formatter);
+        this.dataModificacao = Util.getDia();
     }
 
     public int getNumeroMeses() {
@@ -143,6 +150,5 @@ public class PagamentoRecorrente {
                 "\n| Data de Modificação: " + dataModificacao + 
                 "\n---------------------------------";
     }
-    
-    
+ 
 }

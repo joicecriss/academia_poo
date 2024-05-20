@@ -926,13 +926,13 @@ public class Main {
                         }
                         
                         System.out.println("Digite a nova data de inicio (ou pressione ENTER para manter a data atual): " + editar.getInicio());
-                        LocalDate inicio = LocalDate.parse(s.nextLine());
+                        String inicio = s.nextLine();
                         if(inicio != null) {
                             editar.setInicio(inicio);
                         }
                         
                         System.out.println("Digite a nova data de termino (ou pressione ENTER para manter a data atual): " + editar.getInicio());
-                        LocalDate termino = LocalDate.parse(s.nextLine());
+                        String termino = s.nextLine();
                         if(termino != null) {
                             editar.setTermino(termino);
                         }
@@ -1077,13 +1077,13 @@ public class Main {
                     
                     if(editar != null) {
                         System.out.println("Digite a nova data de vencimento (ou pressione ENTER para manter a data atual): " + editar.getDataVencimento());
-                        LocalDate dataVencimento = LocalDate.parse(s.nextLine());
+                        String dataVencimento = s.nextLine();
                         if(dataVencimento != null) {
                             editar.setDataVencimento(dataVencimento);
                         }
                         
                         System.out.println("Digite a nova data de pagamento (ou pressione ENTER para manter a data atual): " + editar.getDataPagamento());
-                        LocalDate dataPagamento = LocalDate.parse(s.nextLine());
+                        String dataPagamento = s.nextLine();
                         if(dataPagamento != null) {
                             editar.setDataPagamento(dataPagamento);
                         }
@@ -1095,7 +1095,7 @@ public class Main {
                         }
                         
                         System.out.println("Digite a nova data (ou pressione ENTER para manter a data atual): " + editar.getData());
-                        LocalDate data = LocalDate.parse(s.nextLine());
+                        String data = s.nextLine();
                         if(data != null) {
                             editar.setData(data);
                         }
@@ -1168,7 +1168,7 @@ public class Main {
                     
                     if(editar != null) {
                         System.out.println("Digite a nova data (ou pressione ENTER para manter a data atual): " + editar.getData());
-                        LocalDate data = LocalDate.parse(s.nextLine());
+                        String data = s.nextLine();
                         if(data != null) {
                             editar.setData(data);
                         }
@@ -1186,7 +1186,7 @@ public class Main {
                         }
                         
                         System.out.println("Digite a nova data de inicio (ou pressione ENTER para manter a data atual): " + editar.getDataInicio());
-                        LocalDate dataInicio = LocalDate.parse(s.nextLine());
+                        String dataInicio = s.nextLine();
                         if(dataInicio != null) {
                             editar.setDataInicio(dataInicio);
                         }

@@ -28,10 +28,14 @@ import mvc.model.Util;
 import mvc.model.Treino;
 import mvc.model.TreinoAplicacao;
 
+
+
 public class GUI {
     Scanner scanner = new Scanner(System.in);
     StringBuilder builder = new StringBuilder("");
     Util util = new Util();
+    PessoaDAO pDAO = new PessoaDAO();
+    MensalidadeVigenteDAO mensDAO = new MensalidadeVigenteDAO();
     
     // =-=-=-=-=MENUS PRINCIPAIS=-=-=-=-=-= //
     public int menuBoasVindas() {
@@ -483,10 +487,10 @@ public class GUI {
         Double valor = Double.parseDouble(scanner.nextLine());
         mv.setValor(valor);
         System.out.println("Data de inicio: ");
-        LocalDate inicio = LocalDate.parse(scanner.nextLine());
+        String inicio = scanner.nextLine();
         System.out.println("Data de termino: ");
         mv.setInicio(inicio);
-        LocalDate termino = LocalDate.parse(scanner.nextLine());
+        String termino = scanner.nextLine();
         mv.setTermino(termino);
         return mv;
     }
@@ -604,39 +608,36 @@ public class GUI {
     
     public PagamentoMensalidade criaPagMensalidade() {
         PagamentoMensalidade pgm = new PagamentoMensalidade();
+        MensalidadeVigente mv = new MensalidadeVigente();
+        Pessoa p = new Pessoa();
         
+        mensDAO.mostrarTodos();
         System.out.println("Digite o ID da mensalidade vigente que deseja : ");
-        MensalidadeVigente[] mensalidades = new MensalidadeVigenteDAO().mostrarTodosERetornar(); 
-        for (int i = 0; i < mensalidades.length; i++) {
-            System.out.println(mensalidades[i].getValor()+ " - ID: " + (i + 1));
-        }
-        int indice = scanner.nextInt() - 1;
-        scanner.nextLine(); // consome a quebra de linha pendente
-        MensalidadeVigente mensSelecionada = mensalidades[indice];
-        pgm.setMensalidadeVigente(mensSelecionada);
+        Long opc = Long.parseLong(scanner.nextLine());
+        mv = mensDAO.buscaPorId(opc);
+        pgm.setMensalidadeVigente(mv);
         
-        System.out.println("Data de vencimento: ");
-        LocalDate dataVencimento = LocalDate.parse(scanner.nextLine());
+        System.out.println("Data de vencimento:");
+        System.out.println("\nDigite desta forma-> dd/MM/yyyy");
+        String dataVencimento = scanner.nextLine();
         pgm.setDataVencimento(dataVencimento);
-        System.out.println("Data de pagamento: ");
-        LocalDate dataPagamento = LocalDate.parse(scanner.nextLine());
-        pgm.setDataPagamento(dataVencimento);
+        System.out.println("Data de pagamento:");
+        System.out.println("\nDigite desta forma-> dd/MM/yyyy");
+        String dataPagamento = scanner.nextLine();
+        pgm.setDataPagamento(dataPagamento);
         System.out.println("Valor pago: ");
         Double valorPago = Double.parseDouble(scanner.nextLine());
         pgm.setValorPago(valorPago);
-        System.out.println("Data: ");
-        LocalDate data = LocalDate.parse(scanner.nextLine());
+        System.out.println("Data:");
+        System.out.println("\nDigite desta forma-> dd/MM/yyyy");
+        String data = scanner.nextLine();
         pgm.setData(data);
         
-        System.out.println("Digite o ID da pessoa que deseja : ");
-        Pessoa[] pessoas = new PessoaDAO().mostrarTodosERetornar(); 
-        for (int i = 0; i < pessoas.length; i++) {
-            System.out.println(pessoas[i].getNome() + " - ID: " + (i + 1));
-        }
-        int indice2 = scanner.nextInt() - 1;
-        scanner.nextLine(); // consome a quebra de linha pendente
-        Pessoa pessoaSelecionada = pessoas[indice2];
-        pgm.setPessoa(pessoaSelecionada);
+        pDAO.mostrarTodos();
+        System.out.println("Escolha uma pessoa (por ID) : ");
+        Long opc2 = Long.parseLong(scanner.nextLine());
+        p = pDAO.buscaPorId(opc2);
+        pgm.setPessoa(p);
         
         System.out.println("Modalidade: ");
         System.out.println("\n\n1 - Dinheiro\n" + "2 - Pix\n" + "3 - Deb. Automatico\n" + "4 - Pag. Recorrente\n");
@@ -648,19 +649,16 @@ public class GUI {
     
     public PagamentoRecorrente criaPagRecorrente() {
         PagamentoRecorrente pr = new PagamentoRecorrente();
+        Pessoa p = new Pessoa();
         
-        System.out.println("Digite o ID da pessoa que deseja : ");
-        Pessoa[] pessoas = new PessoaDAO().mostrarTodosERetornar(); 
-        for (int i = 0; i < pessoas.length; i++) {
-            System.out.println(pessoas[i].getNome() + " - ID: " + (i + 1));
-        }
-        int indice = scanner.nextInt() - 1;
-        scanner.nextLine(); // consome a quebra de linha pendente
-        Pessoa pessoaSelecionada = pessoas[indice];
-        pr.setPessoa(pessoaSelecionada);
+        pDAO.mostrarTodos();
+        System.out.println("Escolha uma pessoa (por ID) : ");
+        Long opc = Long.parseLong(scanner.nextLine());
+        p = pDAO.buscaPorId(opc);
+        pr.setPessoa(p);
         
         System.out.println("Data: ");
-        LocalDate data = LocalDate.parse(scanner.nextLine());
+        String data = scanner.nextLine();
         pr.setData(data);
         System.out.println("Cartao de credito: ");
         String cartao = scanner.nextLine();
@@ -669,7 +667,7 @@ public class GUI {
         Double valor = Double.parseDouble(scanner.nextLine());
         pr.setValor(valor);
         System.out.println("Data de inicio: ");
-        LocalDate dataInicio = LocalDate.parse(scanner.nextLine());
+        String dataInicio = scanner.nextLine();
         pr.setDataInicio(dataInicio);
         System.out.println("Numero de meses: ");
         int meses = Integer.parseInt(scanner.nextLine());
