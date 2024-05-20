@@ -2,6 +2,7 @@ package mvc.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /*
@@ -34,20 +35,26 @@ public class MensalidadeVigente {
         this.valor = valor;
     }
 
-    public LocalDate getInicio() {
-        return inicio;
+    public String getInicio() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.inicio.format(formatter);
     }
 
-    public void setInicio(LocalDate inicio) {
-        this.inicio = inicio;
+    public void setInicio(String inicio) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.inicio = LocalDate.parse(inicio, formatter);
+        this.dataModificacao = Util.getDia();
     }
 
-    public LocalDate getTermino() {
-        return termino;
+    public String getTermino() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.termino.format(formatter);
     }
 
-    public void setTermino(LocalDate termino) {
-        this.termino = termino;
+    public void setTermino(String termino) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.termino = LocalDate.parse(termino, formatter);
+        this.dataModificacao = Util.getDia();
     }
 
     public LocalDateTime getDataCriacao() {
