@@ -137,11 +137,9 @@ public class Main {
                         menuPessoa();
                         break;
                     case 3:
-                        System.out.println("Exercicio");
                         menuExercicio();
                         break;
                     case 4:
-                        System.out.println("Exercicio Aplicado");
                         menuExAplicacao();
                         break;
                     case 5:
@@ -151,18 +149,17 @@ public class Main {
                         menuDivisaoTreinoMusculacao();
                         break;
                     case 7:
-                        //menuTreino();
+                        menuTreino();
                         break;
                     case 8:
-                        //menuTreinoAplicacao();
+                        menuTreinoAplicacao();
                         break;
                     case 9:
                         System.out.println("Avaliacao Fisica");
                         //menuAvaliacaoFisica();
                         break;
                     case 10:
-                        System.out.println("Entrada Aluno");
-                        //menuEntradaAluno();
+                        menuEntradaAluno();
                         break;
                     case 0:
                         System.out.println("0 - Sair");
@@ -187,10 +184,8 @@ public class Main {
                         menuPessoa();
                         break;
                     case 4:
-                        System.out.println("Exercicio");
                         menuExercicio();
                     case 5:
-                        System.out.println("Exercicio Aplicado");
                         menuExAplicacao();
                         break;
                     case 6:
@@ -200,29 +195,25 @@ public class Main {
                         menuDivisaoTreinoMusculacao();
                         break;
                     case 8:
-                        //menuTreino();
+                        menuTreino();
                         break;
                     case 9:
-                        //menuTreinoAplicacao();
+                        menuTreinoAplicacao();
                         break;
                     case 10:
                         System.out.println("Avaliacao Fisica");
                         //menuAvaliacaoFisica();
                         break;
                     case 11:
-                        System.out.println("Mensalidade Vigente");
                         menuMensVigente();
                         break;
                     case 12:
-                        System.out.println("Aluno Pagamento Mensalidade");
                         menuPagMensalidade();
                         break;
                     case 13:
-                        System.out.println("Pagamento Recorrente");
                         menuPagRecorrente();
                         break;
                     case 14:
-                        System.out.println("Entrada Aluno");
                         menuEntradaAluno();
                         break;
                     case 15:
@@ -979,17 +970,17 @@ public class Main {
             op = gui.opTreinoAplicacao();
             switch (op) {
                 case 1:
-                    DivisaoTreinoMusculacao[] dtm = gui.criaDivisaoTreinoMusculacao();
+                    TreinoAplicacao tA = gui.criaTreinoAplicacao();
 
-                    boolean divisaoInserida = divisaoTreinoMusculacaoDAO.adicionaArray(dtm);
-                    if (divisaoInserida) {
-                        System.out.println("\n Divisoes de Treino Musculacao inseridas com sucesso!");
+                    boolean treinoInserido = treinoAplicacaoDAO.adiciona(tA);
+                    if (treinoInserido) {
+                        System.out.println("\n Treino Aplicacao inserido com sucesso!");
                     } else {
-                        System.out.println("\n Divisoes de Treino nao foram inseridas!");
+                        System.out.println("\n Treino Aplicado nao foram inserido!");
                     }
                     break;
                 case 2:
-                    divisaoTreinoMusculacaoDAO.mostrarTodos();
+                    treinoAplicacaoDAO.mostrarTodos();
                     break;
                 case 3:
                     System.out.println("\n Digite o id da Divisao de Treino Musculacao: ");
