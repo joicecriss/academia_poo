@@ -129,10 +129,17 @@ public class Main {
                         }
                         break;
                     case 3:
-                        treinoAplicacaoDAO.mostrarTodos();
+                        boolean treino1 = treinoAplicacaoDAO.mostrarPorAluno(Util.getPessoaLogada());
+                        if(!treino1) {
+                            System.out.println("Voce nao tem treino, peca ao instrutor!");
+                        }
                         break;
                     case 4:
-                        treinoAplicacaoDAO.mostrarTodos();
+                        boolean treino2 = treinoAplicacaoDAO.mostrarPorAluno(Util.getPessoaLogada());
+                        if(treino2) {
+                            System.out.println("Fixa de Treino Imprimida!!"
+                                + "\nPegue na impressora!");
+                        }
                         break;
                     case 5:
                         avaliacaoFisicaDAO.mostrarTodosPorAluno(Util.getPessoaLogada());
@@ -1111,6 +1118,52 @@ public class Main {
                     } else {
                         System.out.println("\n Pagamento nao excluido!");
                     }
+                    break;
+                case 6:
+                    System.out.println("Digite o CPF da pessoa que deseja efetuar o pagamento: ");
+                    System.out.println("\n Ex: 000.000.000-00 ");
+                    String cpf = s.nextLine();
+                    Pessoa p = pessoaDAO.buscaPessoa(cpf);
+                    
+                    if(pagMensalidadeDAO.mostrarPorPessoa(p)) {
+                        System.out.println("\n Digite o ID do pagamento que deseja efetuar: ");
+                        Long idPg = Long.parseLong(s.nextLine());
+
+                        PagamentoMensalidade pagar = pagMensalidadeDAO.buscaPorId(idPg);
+                        PagamentoMensalidade semPagar = pagMensalidadeDAO.buscaPorId(idPg);
+
+                        if(pagar != null) {
+                            System.out.println("Digite a data de pagamento: ");
+                            System.out.println("\n Digite desta forma-> dd/MM/yyyy");
+                            String dataPagamento = s.nextLine();
+                            if(dataPagamento != null) {
+                                pagar.setDataPagamento(dataPagamento);
+                            }
+
+                            System.out.println("Digite o valor pago: ");
+                            Double valorPago = Double.parseDouble(s.nextLine());
+                            if(valorPago != null) {
+                                pagar.setValorPago(valorPago);
+                            }
+
+                            System.out.println("Digite a data: " + pagar.getData());
+                            System.out.println("\n Digite desta forma-> dd/MM/yyyy");
+                            String data = s.nextLine();
+                            if(data != null) {
+                                pagar.setData(data);
+                            }
+
+                            if(semPagar.equals(pagar)) {
+                                System.out.println("Pagamento nao salvo!");
+                            } else {
+                                System.out.println("Pagamento salvo com sucesso!");
+                            }
+
+                        } else {
+                            System.out.println("Pagamento nao encontrado!");
+                        }
+                    }
+                    
                     break;
                 case 0:
                     System.out.println("Saindo do modulo Pagamento Mensalidade!");

@@ -53,6 +53,11 @@ public class PagamentoMensalidade {
         this.dataVencimento = LocalDate.parse(dataVencimento, formatter);
         this.dataModificacao = Util.getDia();
     }
+    
+    public void setDataVencimento(LocalDate dataVencimento) {
+        this.dataVencimento = dataVencimento;
+        this.dataModificacao = Util.getDia();
+    }
 
     public String getDataPagamento() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

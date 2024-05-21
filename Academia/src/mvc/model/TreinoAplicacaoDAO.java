@@ -38,14 +38,34 @@ public class TreinoAplicacaoDAO {
             System.out.println("Nao existe treinos aplicacao cadastrado!");
         }
     }
+    
     public void mostrarPorId(Long id) {
+        boolean temTreino = false;
         for (TreinoAplicacao tA : treinosAplicao) {
             if (tA != null && tA.getId() == id) {
                 tA.visualizaTreinoAplicacao(tA);
+                temTreino = true;
             }
+        }
+        if (!temTreino) {
+            System.out.println("Nao existe treinos aplicacao cadastrado!");
         }
     }
     
+    public boolean mostrarPorAluno(Pessoa p) {
+        boolean temTreino = false;
+        for (TreinoAplicacao tA : treinosAplicao) {
+            if (tA != null && tA.getPessoa().getCpf().equals(p.getCpf()) ) {
+                tA.visualizaTreinoAplicacao(tA);
+                temTreino = true;
+            }
+        }
+        if (!temTreino) {
+            System.out.println("Nao existe treinos para voce, peca para algum instrutor!");
+            return false;
+        }
+        return true;
+    }
     
     public TreinoAplicacao buscaPorId(Long id) {
         for (TreinoAplicacao tA : treinosAplicao) {

@@ -5,30 +5,31 @@ import java.time.LocalDateTime;
 
 public class PagamentoMensalidadeDAO {
     PagamentoMensalidade[] pagMensalidade = new PagamentoMensalidade[10];
-    MensalidadeVigente[] mensVigente = new MensalidadeVigente[10];
-    Pessoa[] pessoa = new Pessoa[10];
+    
     
     public PagamentoMensalidadeDAO() {
         PagamentoMensalidade pg1 = new PagamentoMensalidade();
-        pg1.setMensalidadeVigente(mensVigente[0]);
+        MensalidadeVigente mensV1 = new MensalidadeVigenteDAO().buscaPorId(Long.parseLong("0"));
+        Pessoa p1 = new PessoaDAO().buscaPessoa("870.517.920-32");
+        pg1.setMensalidadeVigente(mensV1);
         pg1.setDataVencimento("27/07/2024");
         pg1.setDataPagamento("29/04/2024");
         pg1.setValorPago(99.90);
         pg1.setData("17/05/2024");
-        pg1.setPessoa(pessoa[0]);
+        pg1.setPessoa(p1);
         pg1.setModalidade(0);
-        pg1.setDataModificacao(Util.getDiaAtual());
         adiciona(pg1);
         
         PagamentoMensalidade pg2 = new PagamentoMensalidade();
-        pg2.setMensalidadeVigente(mensVigente[1]);
+        MensalidadeVigente mensV2 = new MensalidadeVigenteDAO().buscaPorId(Long.parseLong("1"));
+        Pessoa p2 = new PessoaDAO().buscaPessoa("870.517.920-32");
+        pg2.setMensalidadeVigente(mensV2);
         pg2.setDataVencimento("27/08/2024");
         pg2.setDataPagamento("20/04/2024");
         pg2.setValorPago(139.90);
         pg2.setData("19/05/2024");
-        pg2.setPessoa(pessoa[1]);
+        pg2.setPessoa(p2);
         pg2.setModalidade(1);
-        pg2.setDataModificacao(Util.getDiaAtual());
         adiciona(pg2);
         
     }
@@ -73,6 +74,21 @@ public class PagamentoMensalidadeDAO {
             System.out.println("Nao existe pagamento cadastrado!");
         }
     }
+    public boolean mostrarPorPessoa(Pessoa p) {
+        boolean temPagamento = false;
+        for (PagamentoMensalidade pM : pagMensalidade) {
+            if (pM != null && pM.getPessoa().getCpf().equals(p.getCpf())) {
+                pM.toString();
+                temPagamento = true;
+            }
+        }
+        if (!temPagamento) {
+            System.out.println("Nao existe pagamento para este aluno, crie!");
+            return false;
+        }
+        return true;
+    }
+    
     
     public boolean alteraDataVencimento (LocalDate dataVencimento, String novaDataVencimento) {
         for (PagamentoMensalidade pgm : pagMensalidade) {

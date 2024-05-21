@@ -1,8 +1,8 @@
 package mvc.view;
 
 //Importacoes
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.Scanner;
 import mvc.model.Util;
 import mvc.model.Academia;
@@ -23,6 +23,7 @@ import mvc.model.MensalidadeVigente;
 import mvc.model.MensalidadeVigenteDAO;
 import mvc.model.MovimentacaoFinanceiraDAO;
 import mvc.model.PagamentoMensalidade;
+import mvc.model.PagamentoMensalidadeDAO;
 import mvc.model.PagamentoRecorrente;
 import mvc.model.PessoaDAO;
 import mvc.model.Util;
@@ -37,6 +38,12 @@ public class GUI {
     Util util = new Util();
     PessoaDAO pDAO = new PessoaDAO();
     MensalidadeVigenteDAO mensDAO = new MensalidadeVigenteDAO();
+    PagamentoMensalidadeDAO pgMen = new PagamentoMensalidadeDAO();
+    MovimentacaoFinanceiraDAO mFinDAO = new MovimentacaoFinanceiraDAO();
+    AcademiaDAO academiaDAO = new AcademiaDAO();
+    DivisaoTreinoDAO divTreinoDAO = new DivisaoTreinoDAO();
+    ExercicioDAO exeDAO = new ExercicioDAO();
+    ExercicioAplicacaoDAO exeADAO = new ExercicioAplicacaoDAO();
     
     // =-=-=-=-=MENUS PRINCIPAIS=-=-=-=-=-= //
     public int menuBoasVindas() {
@@ -346,13 +353,14 @@ public class GUI {
     public int opPagamentoMensalidade() {
         builder.setLength(0);
         builder.append("\n----------------------------------------");
-        builder.append("\n|  * -> Pagamento Mensalidade (Aluno)   |");
+        builder.append("\n|  * -> Pagamento Mensalidade           |");
         builder.append("\n|                                       |");
         builder.append("\n|  1 - Cadastrar                        |");
         builder.append("\n|  2 - Mostrar todos os Pagamentos      |");
         builder.append("\n|  3 - Buscar Pagamento pelo ID         |");
         builder.append("\n|  4 - Alterar um Pagamento             |");
         builder.append("\n|  5 - Excluir pelo ID                  |");
+        builder.append("\n|  6 - Aluno Pagar                      |");
         builder.append("\n|  0 - Sair                             |");
         builder.append("\n|                                       |");
         builder.append("\n----------------------------------------");
@@ -444,6 +452,22 @@ public class GUI {
         System.out.println("\n Digite um numero-> 1- Aluno | 2- Professor | 3- Administrador");
         int tipo = Integer.parseInt(scanner.nextLine());
         a.setTipoUsuario(tipo);
+        
+        if(a.getTipoUsuario() == 1) {
+            MensalidadeVigente mv1 = new MensalidadeVigente();
+            mv1.setValor(99.90);
+            mv1.setInicio(Util.getDia2());
+            mv1.setTermino(Util.getDia2().plus(Period.ofMonths(1)));
+            mv1.setDataModificacao(Util.getDiaAtual());
+            mensDAO.adiciona(mv1);
+            
+            PagamentoMensalidade pg1 = new PagamentoMensalidade();
+            pg1.setMensalidadeVigente(mv1);
+            pg1.setDataVencimento(Util.getDia2().plus(Period.ofMonths(1)));
+            pg1.setPessoa(a);
+            pgMen.adiciona(pg1);
+        }
+        
         return a;
     }
     
@@ -497,7 +521,7 @@ public class GUI {
     
     public DivisaoTreinoMusculacao[] criaDivisaoTreinoMusculacao() {
         System.out.println("Digite o ID da divisao de treino que deseja descrever:");
-        DivisaoTreino[] divisoes = new DivisaoTreinoDAO().mostrarTodosERetornar();
+        DivisaoTreino[] divisoes = divTreinoDAO.mostrarTodosERetornar();
         for (int i = 0; i < divisoes.length; i++) {
             System.out.println(divisoes[i].getNome() + " - ID: " + (i));
         }
@@ -544,7 +568,7 @@ public class GUI {
         TreinoAplicacao tA = new TreinoAplicacao();
         
         System.out.println("Digite o ID do aluno que deseja criar o treino: ");
-        Pessoa[] pessoas = new PessoaDAO().mostrarTodosAlunos(); 
+        Pessoa[] pessoas = pDAO.mostrarTodosAlunos(); 
         for (int i = 0; i < pessoas.length; i++) {
             System.out.println(pessoas[i].getNome() + " - ID: " + (i));
         }
@@ -552,11 +576,11 @@ public class GUI {
         scanner.nextLine(); 
         Pessoa aluno = pessoas[pIndice]; 
         tA.setPessoa(aluno); //Aluno adicionado
-        Academia academia = new AcademiaDAO().buscaPorNome("Biotech Prime");
+        Academia academia = academiaDAO.buscaPorNome("Biotech Prime");
         tA.setAcademia(academia);
         
         System.out.println("Digite o ID da divisao do treino:");
-        DivisaoTreino[] divisoes = new DivisaoTreinoDAO().mostrarTodosERetornar(); 
+        DivisaoTreino[] divisoes = divTreinoDAO.mostrarTodosERetornar(); 
         for (int a = 0; a < divisoes.length; a++) {
             System.out.println(divisoes[a].getNome() + " - ID: " + (a));
         }
@@ -585,7 +609,7 @@ public class GUI {
             ExercicioAplicacao[] exerciciosAplicacao = new ExercicioAplicacao[eIndice];
             for(int o = 0; o < eIndice; o++) {
                 System.out.println("Digite o ID do exercicio que deseja adicionar: ");
-                Exercicio[] exercicios2 = new ExercicioDAO().mostrarTodosERetornar(); 
+                Exercicio[] exercicios2 = exeDAO.mostrarTodosERetornar(); 
                 for (int k = 0; k < exercicios2.length; k++) {
                     System.out.println(exercicios2[k].getNome() + " - ID: " + (k));
                 }
@@ -595,7 +619,7 @@ public class GUI {
                 exercicios[o] = exe;
                 
                 System.out.println("Digite o ID da aplicao que deseja adicionar neste exercicio: ");
-                ExercicioAplicacao[] exerciciosA = new ExercicioAplicacaoDAO().mostrarTodosERetornar(); 
+                ExercicioAplicacao[] exerciciosA = exeADAO.mostrarTodosERetornar(); 
                 for (int l = 0; l < exerciciosA.length; l++) {
                     System.out.println(exerciciosA[l].getDescricao() + " - ID: " + (l));
                 }
@@ -686,7 +710,7 @@ public class GUI {
         EntradaAluno e = new EntradaAluno();
         
         System.out.println("Digite o ID do aluno que deseja criar a entrada: ");
-        Pessoa[] pessoas = new PessoaDAO().mostrarTodosAlunos(); 
+        Pessoa[] pessoas = pDAO.mostrarTodosAlunos(); 
         for (int i = 0; i < pessoas.length; i++) {
             System.out.println(pessoas[i].getNome() + " - ID: " + (i));
         }
@@ -706,7 +730,7 @@ public class GUI {
         AvaliacaoFisica aF = new AvaliacaoFisica();
         
         System.out.println("Digite o ID do aluno que deseja criar a avaliacao fisica: ");
-        Pessoa[] pessoas = new PessoaDAO().mostrarTodosAlunos(); 
+        Pessoa[] pessoas = pDAO.mostrarTodosAlunos(); 
         for (int i = 0; i < pessoas.length; i++) {
             System.out.println(pessoas[i].getNome() + " - ID: " + (i));
         }
@@ -739,8 +763,7 @@ public class GUI {
         mF.setValor(20);
         mF.setTipo(1);
         mF.setDescricao("Avaliaçao Fisica - Aluno: " + aluno.getNome());
-        MovimentacaoFinanceiraDAO mDAO = new MovimentacaoFinanceiraDAO();
-        mDAO.adiciona(mF);
+        mFinDAO.adiciona(mF);
         
         return aF;
     }

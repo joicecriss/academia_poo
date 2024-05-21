@@ -46,6 +46,11 @@ public class MensalidadeVigente {
         this.inicio = LocalDate.parse(inicio, formatter);
         this.dataModificacao = Util.getDia();
     }
+    
+    public void setInicio(LocalDate inicio) {
+        this.inicio = inicio;
+        this.dataModificacao = Util.getDia();
+    }
 
     public String getTermino() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -55,6 +60,11 @@ public class MensalidadeVigente {
     public void setTermino(String termino) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.termino = LocalDate.parse(termino, formatter);
+        this.dataModificacao = Util.getDia();
+    }
+    
+    public void setTermino(LocalDate termino) {
+        this.termino = termino;
         this.dataModificacao = Util.getDia();
     }
 
