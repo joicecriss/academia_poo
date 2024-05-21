@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 import mvc.model.Util;
 import mvc.model.Academia;
+import mvc.model.AcademiaDAO;
 import mvc.model.AvaliacaoFisica;
 import mvc.model.Pessoa;
 import mvc.model.DivisaoTreino;
@@ -241,10 +242,9 @@ public class GUI {
         builder.append("\n|  * -> Treino Aplicacao       |");
         builder.append("\n|                              |");
         builder.append("\n|  1 - Criar Treino            |");
-        builder.append("\n|  2 - Mostrar todos           |");
+        builder.append("\n|  2 - Mostrar por id          |");
         builder.append("\n|  3 - Buscar pelo id          |");
-        builder.append("\n|  4 - Alterar                 |");
-        builder.append("\n|  5 - Excluir pelo id         |");
+        builder.append("\n|  4 - Excluir pelo id         |");
         builder.append("\n|  0 - Sair                    |");
         builder.append("\n|                              |");
         builder.append("\n--------------------------------");
@@ -497,16 +497,16 @@ public class GUI {
     
     public DivisaoTreinoMusculacao[] criaDivisaoTreinoMusculacao() {
         System.out.println("Digite o ID da divisao de treino que deseja descrever:");
-        DivisaoTreino[] divisoes = new DivisaoTreinoDAO().mostrarTodosERetornar(); // supondo que você tenha um método getAll() em DivisaoDeTreinoDAO
+        DivisaoTreino[] divisoes = new DivisaoTreinoDAO().mostrarTodosERetornar();
         for (int i = 0; i < divisoes.length; i++) {
             System.out.println(divisoes[i].getNome() + " - ID: " + (i));
         }
         int indice = scanner.nextInt();
-        scanner.nextLine(); // consome a quebra de linha pendente
+        scanner.nextLine();
 
         DivisaoTreino divisaoSelecionada = divisoes[indice];
 
-        int numPosicoes = divisaoSelecionada.getNome().length(); // o número de posições é determinado pelo nome da DivisaoDeTreino
+        int numPosicoes = divisaoSelecionada.getNome().length(); 
 
         DivisaoTreinoMusculacao[] dtms = new DivisaoTreinoMusculacao[numPosicoes];
         System.out.println("Voce escolheu a divisao de treino: " + divisaoSelecionada.getNome());
@@ -552,6 +552,8 @@ public class GUI {
         scanner.nextLine(); 
         Pessoa aluno = pessoas[pIndice]; 
         tA.setPessoa(aluno); //Aluno adicionado
+        Academia academia = new AcademiaDAO().buscaPorNome("Biotech Prime");
+        tA.setAcademia(academia);
         
         System.out.println("Digite o ID da divisao do treino:");
         DivisaoTreino[] divisoes = new DivisaoTreinoDAO().mostrarTodosERetornar(); 
@@ -575,11 +577,12 @@ public class GUI {
             dtm.setDescricao(descricao);
             dtm.setPosicao(String.valueOf((char) ('A' + i)));
             dtm.setDivisaoTreino(divisaoSelecionada);
-            dtms[i] = dtm;
+            
             
             System.out.println("\n Quantos exercicios voce deseja inserir para esta divisao de treino? ");
             int eIndice= scanner.nextInt();
             Exercicio[] exercicios = new Exercicio[eIndice];
+            ExercicioAplicacao[] exerciciosAplicacao = new ExercicioAplicacao[eIndice];
             for(int o = 0; o < eIndice; o++) {
                 System.out.println("Digite o ID do exercicio que deseja adicionar: ");
                 Exercicio[] exercicios2 = new ExercicioDAO().mostrarTodosERetornar(); 
@@ -589,7 +592,7 @@ public class GUI {
                 int eIndice2 = scanner.nextInt();
                 scanner.nextLine();
                 Exercicio exe = exercicios2[eIndice2];
-                tA.setExercicio(exe); //Adiciona Exercicio
+                exercicios[o] = exe;
                 
                 System.out.println("Digite o ID da aplicao que deseja adicionar neste exercicio: ");
                 ExercicioAplicacao[] exerciciosA = new ExercicioAplicacaoDAO().mostrarTodosERetornar(); 
@@ -599,8 +602,11 @@ public class GUI {
                 int eAIndice = scanner.nextInt();
                 scanner.nextLine();
                 ExercicioAplicacao exeA = exerciciosA[eAIndice];
-                tA.setExercicioAplicacao(exeA); //Adiciona Aplicacao do Exercicio
+                exerciciosAplicacao[o] = exeA;
             }
+            tA.setExercicio(exercicios); //Adiciona Exercicio
+            tA.setExercicioAplicacao(exerciciosAplicacao); //Adiciona Aplicacao do Exercicio
+            dtms[i] = dtm;
         }
         tA.setDivisaoTreinoMusculacao(dtms); //Adiciona Divisao Treino Musculacao
         return tA;

@@ -1,7 +1,6 @@
 package mvc.control;
 
 //Importacoes dos models
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 import javax.swing.JFrame;
@@ -985,7 +984,9 @@ public class Main {
                     }
                     break;
                 case 2:
-                    treinoAplicacaoDAO.mostrarTodos();
+                    System.out.println("\n Digite o id do Treino Aplicacao: ");
+                    Long idMostrar = Long.parseLong(s.nextLine());
+                    treinoAplicacaoDAO.mostrarPorId(idMostrar);
                     break;
                 case 3:
                     System.out.println("\n Digite o id do Treino Aplicacao: ");
@@ -998,30 +999,6 @@ public class Main {
                     }
                     break;
                 case 4:
-                    System.out.println("\n Digite o id do Treino Aplicacao que deseja alterar: ");
-                    Long idAchar = Long.parseLong(s.nextLine());
-                    
-                    TreinoAplicacao editar = treinoAplicacaoDAO.buscaPorId(idAchar);
-                    TreinoAplicacao semEditar = treinoAplicacaoDAO.buscaPorId(idAchar);
-                    
-                    if(editar != null) {
-                        /*System.out.println("\n Digite a nova descricao (ou pressione ENTER para manter a descricao atual): " + editar.getDescricao());
-                        String descricao = s.nextLine();
-                        if(!descricao.isEmpty()) {
-                            editar.setDescricao(descricao);
-                        }
-                        
-                        if(semEditar.equals(editar)) {
-                            System.out.println("Divisao de Treino Musculacao nao foi alterada!");
-                        } else {
-                            System.out.println("Divisao de Treino Musculacao alterado com sucesso, alteracoes: ");
-                            editar.toString();
-                        }*/
-                    } else {
-                        System.out.println("Treino Aplicacao nao encontrada para alterar!");
-                    }
-                    break;
-                case 5:
                     System.out.println("\n Digite o id do Treino Aplicacao que deseja excluir: ");
                     Long idExcluir = Long.parseLong(s.nextLine());
 

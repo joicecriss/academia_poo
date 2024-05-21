@@ -12,9 +12,10 @@ public class TreinoAplicacao {
   private long id;
   private static long aux;
   private Pessoa pessoa;
+  private Academia academia;
   private Treino treino;
-  private Exercicio exercicio;
-  private ExercicioAplicacao exercicioAplicacao;
+  private Exercicio[] exercicio;
+  private ExercicioAplicacao[] exercicioAplicacao;
   private DivisaoTreino divisaoTreino;
   private DivisaoTreinoMusculacao[] divisaoTreinoMusculacao;
   private LocalDateTime dataCriacao;
@@ -38,6 +39,15 @@ public class TreinoAplicacao {
         this.pessoa = pessoa;
         this.dataModificacao = Util.getDia();
     }
+    
+    public Academia getAcademia() {
+        return this.academia;
+    }
+
+    public void setAcademia(Academia academia) {
+        this.academia = academia;
+        this.dataModificacao = Util.getDia();
+    }
 
     public Treino getTreino() {
         return treino;
@@ -48,20 +58,20 @@ public class TreinoAplicacao {
         this.dataModificacao = Util.getDia();
     }
 
-    public Exercicio getExercicio() {
+    public Exercicio[] getExercicio() {
         return exercicio;
     }
 
-    public void setExercicio(Exercicio exercicio) {
+    public void setExercicio(Exercicio[] exercicio) {
         this.exercicio = exercicio;
         this.dataModificacao = Util.getDia();
     }
 
-    public ExercicioAplicacao getExercicioAplicacao() {
+    public ExercicioAplicacao[] getExercicioAplicacao() {
         return exercicioAplicacao;
     }
 
-    public void setExercicioAplicacao(ExercicioAplicacao exercicioAplicacao) {
+    public void setExercicioAplicacao(ExercicioAplicacao[] exercicioAplicacao) {
         this.exercicioAplicacao = exercicioAplicacao;
         this.dataModificacao = Util.getDia();
     }
@@ -156,5 +166,20 @@ public class TreinoAplicacao {
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
   
-    
+    public void visualizaTreinoAplicacao(TreinoAplicacao tA) {
+        System.out.println("ACADEMIA: " + tA.getAcademia().getNome());
+        System.out.println("FICHA DE TREINO");
+        System.out.println("Aluno(a): " + tA.getPessoa().getNome());
+        System.out.println("DIVISÃO DE TREINO: " + tA.getDivisaoTreino().getNome());
+        System.out.println("INÍCIO: ");
+        System.out.println("TÉRMINO: "  + " - 6 SEMANAS");
+
+        for (DivisaoTreinoMusculacao dtm : tA.getDivisaoTreinoMusculacao()) {
+            System.out.println(dtm.getPosicao());
+            for (int i = 0; i < tA.getExercicio().length; i++) {
+                System.out.println(tA.getExercicio()[i].getNome() + " - " + tA.getExercicioAplicacao()[i].getDescricao());
+            }
+        }
+    }
+
 }
