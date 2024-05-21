@@ -7,14 +7,15 @@ public class EntradaAlunoDAO {
     
     public EntradaAlunoDAO() {
         EntradaAluno e1 = new EntradaAluno();
-        e1.setEntrada(Util.getDiaAtual());
-        e1.setDataModificacao(Util.getDiaAtual());
+        Pessoa p1 = new PessoaDAO().buscaPessoa("870.517.920-32");
+        e1.setEntrada("20/05/2024 10:05");
         adiciona(e1);
         
         EntradaAluno e2 = new EntradaAluno();
-        e2.setEntrada(Util.getDiaAtual().plusHours(1));
-        e2.setDataModificacao(Util.getDiaAtual().plusHours(1));
-        adiciona(e1);
+        Pessoa p2 = new PessoaDAO().buscaPessoa("111.908.610-89");
+        e2.setEntrada("20/05/2024 16:10");
+        e2.setPessoa(p2);
+        adiciona(e2);
     }
     
     public boolean adiciona(EntradaAluno ea) {
@@ -59,9 +60,17 @@ public class EntradaAlunoDAO {
         }
     }
     
+    public void mostrarPorId(Long id) {
+        for (EntradaAluno e : entrada) {
+            if (e != null && e.getId() == id) {
+                e.toString();
+            }
+        }
+    }
+    
     public boolean alteraEntrada (LocalDateTime entry, LocalDateTime novaEntrada) {
         for (EntradaAluno ea : entrada) {
-            if (entrada != null && ea.getEntrada()== novaEntrada) {
+            if (entrada != null && ea.getEntradaDate() == novaEntrada) {
                 ea.setEntrada(novaEntrada);
                 return true;
             }

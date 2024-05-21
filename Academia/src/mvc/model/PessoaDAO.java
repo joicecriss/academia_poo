@@ -1,15 +1,15 @@
 package mvc.model;
 
 public class PessoaDAO {
-    Pessoa [] pessoas = new Pessoa[10];
+    Pessoa [] pessoas = new Pessoa[20];
 
     public PessoaDAO() {
         Pessoa p1 = new Pessoa();
         p1.setNome("Joice Cristina");
         p1.setSexo("Feminino");
         p1.setNascimento("15/09/1998");
-        p1.setLogin("joice");
-        p1.setSenha("joice");
+        p1.setLogin("joice@gmail.com");
+        p1.setSenha("joice123");
         p1.setTipoUsuario(3);
         p1.setCpf("702.524.266-73");
         adiciona(p1);
@@ -21,38 +21,58 @@ public class PessoaDAO {
         p2.setLogin("matheus@gmail.com");
         p2.setSenha("matheus123");
         p2.setTipoUsuario(3);
-        p2.setCpf("000.000.000-00");
+        p2.setCpf("799.231.190-68");
         adiciona(p2);
         
         Pessoa p3 = new Pessoa();
         p3.setNome("Admin");
-        p3.setSexo("Sem g�nero");
+        p3.setSexo("Sem genero");
         p3.setNascimento("14/05/2024");
         p3.setLogin("admin");
         p3.setSenha("admin");
         p3.setTipoUsuario(3);
-        p3.setCpf("000.000.000-00");
+        p3.setCpf("123.456.789-10");
         adiciona(p3);
         
         Pessoa p4 = new Pessoa();
-        p4.setNome("Aluno 1");
-        p4.setSexo("Femino");
-        p4.setNascimento("14/05/2024");
-        p4.setLogin("aluno");
-        p4.setSenha("aluno");
+        p4.setNome("Douglas da Silva");
+        p4.setSexo("Masculino");
+        p4.setNascimento("02/09/2001");
+        p4.setLogin("douglas@gmail.com");
+        p4.setSenha("douglas123");
         p4.setTipoUsuario(1);
-        p4.setCpf("000.000.000-00");
+        p4.setCpf("870.517.920-32");
         adiciona(p4);
         
         Pessoa p5 = new Pessoa();
-        p5.setNome("Aluno 2");
-        p5.setSexo("Masculino");
-        p5.setNascimento("14/05/2024");
-        p5.setLogin("aluno");
-        p5.setSenha("aluno");
+        p5.setNome("Julia Pereira Costa");
+        p5.setSexo("Feminino");
+        p5.setNascimento("28/05/2003");
+        p5.setLogin("julia@gmail.com");
+        p5.setSenha("julia123");
         p5.setTipoUsuario(1);
-        p5.setCpf("000.000.000-00");
+        p5.setCpf("111.908.610-89");
         adiciona(p5);
+        
+        Pessoa p6 = new Pessoa();
+        p6.setNome("Alan Monteiro Silva");
+        p6.setSexo("Masculino");
+        p6.setNascimento("01/05/1998");
+        p6.setLogin("alan@gmail.com");
+        p6.setSenha("alan123");
+        p6.setTipoUsuario(2);
+        p6.setCpf("975.025.030-30");
+        adiciona(p6);
+        
+        Pessoa p7 = new Pessoa();
+        p7.setNome("Fernanda Souza Alves");
+        p7.setSexo("Feminino");
+        p7.setNascimento("10/11/1996");
+        p7.setLogin("fernanda@gmail.com");
+        p7.setSenha("fernanda123");
+        p7.setTipoUsuario(2);
+        p7.setCpf("975.025.030-30");
+        adiciona(p7);
     }
     
     public boolean adiciona(Pessoa p) {

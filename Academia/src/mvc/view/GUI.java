@@ -61,10 +61,10 @@ public class GUI {
         builder.append("\n|   BEM VINDO ALUNO                    |");
         builder.append("\n|                                      |");
         builder.append("\n| 1 - Perfil                           |");
-        builder.append("\n| 2 - Visualizar Ficha de Treino       |");
-        builder.append("\n| 3 - Imprimir Ficha de Treino         |");
-        builder.append("\n| 4 - Visualizar Avaliacoes Fisicas    |");
-        builder.append("\n| 5 - Visualizar Pagamento Mensalidade |");
+        builder.append("\n| 2 - Realizar Entrada                 |");
+        builder.append("\n| 3 - Visualizar Ficha de Treino       |");
+        builder.append("\n| 4 - Imprimir Ficha de Treino         |");
+        builder.append("\n| 5 - Visualizar Avaliacoes Fisicas    |");
         builder.append("\n| 0 - Sair                             |");
         builder.append("\n|                                      |");
         builder.append("\n----------------------------------------");
@@ -684,6 +684,16 @@ public class GUI {
     
     public EntradaAluno criaEntrada() {
         EntradaAluno e = new EntradaAluno();
+        
+        System.out.println("Digite o ID do aluno que deseja criar a entrada: ");
+        Pessoa[] pessoas = new PessoaDAO().mostrarTodosAlunos(); 
+        for (int i = 0; i < pessoas.length; i++) {
+            System.out.println(pessoas[i].getNome() + " - ID: " + (i));
+        }
+        int pIndice = scanner.nextInt();
+        scanner.nextLine(); 
+        Pessoa aluno = pessoas[pIndice]; 
+        e.setPessoa(aluno);
         
         System.out.println("Entrada: ");
         System.out.println("Digite: dd/MM/aaa HH:MM ");

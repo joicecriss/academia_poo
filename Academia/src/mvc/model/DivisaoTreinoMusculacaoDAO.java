@@ -3,13 +3,9 @@ package mvc.model;
 public class DivisaoTreinoMusculacaoDAO {
     
     DivisaoTreinoMusculacao [] divisoesTreinosMusculacao = new DivisaoTreinoMusculacao[60];
-    DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
     
     public DivisaoTreinoMusculacaoDAO() {
-        DivisaoTreino divisaoTreino = new DivisaoTreino();
-        divisaoTreino.setNome("ABC");
-        divisaoTreino.setDescricao("ABC 2x e descansa 1x");
-        divisaoTreinoDAO.adiciona(divisaoTreino);
+        DivisaoTreino divisaoTreino = new DivisaoTreinoDAO().buscaPorId(Long.parseLong("0"));
         
         DivisaoTreinoMusculacao a = new DivisaoTreinoMusculacao();
         a.setDescricao("PEITO, OMBRO, TRÍCEPS");

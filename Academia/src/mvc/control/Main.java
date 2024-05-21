@@ -2,6 +2,7 @@ package mvc.control;
 
 //Importacoes dos models
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -116,12 +117,24 @@ public class Main {
                         Util.getPessoaLogada().perfil();
                         break;
                     case 2:
-                        treinoAplicacaoDAO.mostrarTodos();
+                        EntradaAluno entrada = new EntradaAluno();
+                        entrada.setPessoa(Util.getPessoaLogada());
+                        entrada.setEntrada(Util.getDia());
+                        boolean entrou = entradaAlunoDAO.adiciona(entrada);
+                        
+                        if(entrou) {
+                            System.out.println("Entrada efetuada com sucesso!");
+                        } else {
+                            System.out.println("Entrada falhou, consulte a recepcao!");
+                        }
                         break;
                     case 3:
                         treinoAplicacaoDAO.mostrarTodos();
                         break;
                     case 4:
+                        treinoAplicacaoDAO.mostrarTodos();
+                        break;
+                    case 5:
                         avaliacaoFisicaDAO.mostrarTodosPorAluno(Util.getPessoaLogada());
                         break;
                     case 0:

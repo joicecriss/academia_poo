@@ -5,6 +5,24 @@ public class AvaliacaoFisicaoDAO {
     
     public AvaliacaoFisicaoDAO() {
         AvaliacaoFisica t1 = new AvaliacaoFisica();
+        Pessoa p1 = new PessoaDAO().buscaPessoa("870.517.920-32");
+        t1.setPessoa(p1);
+        t1.setPeso(75.2);
+        t1.setAltura(1.80);
+        double imc = t1.calcularIMC();
+        t1.setImc(imc);
+        t1.setSatisfacao(8);
+        t1.setUltimoTreino("20/05/2024");
+        
+        AvaliacaoFisica t2 = new AvaliacaoFisica();
+        Pessoa p2 = new PessoaDAO().buscaPessoa("111.908.610-89");
+        t2.setPessoa(p2);
+        t2.setPeso(70.15);
+        t2.setAltura(1.69);
+        double imc2 = t2.calcularIMC();
+        t2.setImc(imc2);
+        t2.setSatisfacao(9);
+        t2.setUltimoTreino("21/05/2024");
     }
     
     public boolean adiciona(AvaliacaoFisica aF) {
