@@ -911,7 +911,6 @@ public class Main {
                     Long idAchar = Long.parseLong(s.nextLine());
                     
                     MensalidadeVigente editar = mensVigenteDAO.buscaPorId(idAchar);
-                    MensalidadeVigente semEditar = mensVigenteDAO.buscaPorId(idAchar);
                     
                     if(editar != null) {
                         System.out.println("Digite o novo valor (ou pressione ENTER para manter o valor atual): " + editar.getValor());
@@ -932,12 +931,7 @@ public class Main {
                             editar.setTermino(termino);
                         }
                         
-                        if(semEditar.equals(editar)) {
-                            System.out.println("Mensalidade Vigente nao foi alterada!");
-                        } else {
-                            System.out.println("Mensalidade Vigente alterada com sucesso, alteracoes: ");
-                            System.out.println(editar.toString());
-                        }
+                        System.out.println("Mensalidade Vigente alterada com sucesso!");
                              
                     } else {
                         System.out.println("Mensalidade Vigente nao encontrada para alterar!");
@@ -1073,12 +1067,7 @@ public class Main {
                             editar.setData(data);
                         }
                         
-                        if(semEditar.equals(editar)) {
-                            System.out.println("Pagamento nao foi alterado!");
-                        } else {
-                            System.out.println("Pagamento alterado com sucesso, alteracoes: ");
-                            System.out.println(editar.toString());
-                        }
+                        System.out.println("Pagamento alterado com sucesso!");
                             
                     } else {
                         System.out.println("Pagamento nao encontrada para alterar!");
@@ -1216,12 +1205,7 @@ public class Main {
                             editar.setNumeroMeses(meses);
                         }
 
-                        if(semEditar.equals(editar)) {
-                            System.out.println("Pagamento nao foi alterado!");
-                        } else {
-                            System.out.println("Pagamento alterado com sucesso, alteracoes: ");
-                            System.out.println(editar.toString());
-                        }
+                        System.out.println("Pagamento alterado com sucesso!");
                             
                     } else {
                         System.out.println("Pagamento nao encontrada para alterar!");
@@ -1289,12 +1273,7 @@ public class Main {
                             editar.setEntrada(entrada);
                         }
 
-                        if(semEditar.equals(editar)) {
-                            System.out.println("Entrada nao foi alterada!");
-                        } else {
-                            System.out.println("Entrada alterada com sucesso, alteracoes: ");
-                            System.out.println(editar.toString());
-                        }
+                        System.out.println("Entrada alterada com sucesso, alteracoes: ");
                             
                     } else {
                         System.out.println("Entrada nao encontrada para alterar!");
@@ -1455,12 +1434,7 @@ public class Main {
                             editar.setDescricao(descricao);
                         }
                         
-                        if(semEditar.equals(editar)) {
-                            System.out.println("Movimentacao Financeira nao foi alterada!");
-                        } else {
-                            System.out.println("Movimentacao Financeira alterada com sucesso, alteracoes: ");
-                            System.out.println(editar.toString());
-                        }
+                        System.out.println("Movimentacao Financeira alterada com sucesso!");
                     } else {
                         System.out.println("Movimentacao Financeira nao encontrada para alterar!");
                     }
