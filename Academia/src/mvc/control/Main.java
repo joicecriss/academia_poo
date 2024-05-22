@@ -1353,7 +1353,6 @@ public class Main {
                     Long idAchar = Long.parseLong(s.nextLine());
                     
                     AvaliacaoFisica editar = avaliacaoFisicaDAO.buscaPorId(idAchar);
-                    AvaliacaoFisica semEditar = avaliacaoFisicaDAO.buscaPorId(idAchar);
                     
                     if(editar != null) {
                         System.out.println("\n Digite a nova data do ultimo treino (ou pressione ENTER para manter a data atual): " + editar.getUltimoTreino());
@@ -1375,12 +1374,7 @@ public class Main {
                             editar.setAltura(altura);
                         }
                         
-                        if(semEditar.equals(editar)) {
-                            System.out.println("Avaliacao Fisica nao foi alterada!");
-                        } else {
-                            System.out.println("Avalicao Fisica alterada com sucesso, alteracoes: ");
-                            System.out.println(editar.toString());
-                        }
+                        System.out.println("Avalicao Fisica alterada com sucesso!");
                     } else {
                         System.out.println("Avaliacao Fisica nao encontrada para alterar!");
                     }
