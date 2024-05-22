@@ -588,7 +588,7 @@ public class GUI {
             System.out.println("Data inicio: " + treinos[i].getDataInicio() + "Data termino: " + treinos[i].getDataTermino() + " - ID: " + (treinos[i].getId()));
         }
         int tIndice = scanner.nextInt();
-        scanner.nextLine(); 
+        //scanner.nextLine(); 
         Treino treino = treinos[tIndice]; 
         tA.setTreino(treino);
         
