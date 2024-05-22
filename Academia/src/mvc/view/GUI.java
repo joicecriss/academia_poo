@@ -603,7 +603,7 @@ public class GUI {
             dtm.setDivisaoTreino(divisaoSelecionada);
             
             
-            System.out.println("\n Quantos exercicios voce deseja inserir para esta divisao de treino? ");
+            System.out.println("\nQuantos exercicios voce deseja inserir para esta divisao de treino? ");
             int eIndice= scanner.nextInt();
             Exercicio[] exercicios = new Exercicio[eIndice];
             ExercicioAplicacao[] exerciciosAplicacao = new ExercicioAplicacao[eIndice];

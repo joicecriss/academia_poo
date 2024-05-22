@@ -3,9 +3,27 @@ package mvc.model;
 public class TreinoAplicacaoDAO {
     TreinoAplicacao[] treinosAplicao = new TreinoAplicacao[60];
     
-    public TreinoAplicacaoDAO() {
+    
+    /*public TreinoAplicacaoDAO() {
         TreinoAplicacao t1 = new TreinoAplicacao();
-    }
+        Academia a1 = new AcademiaDAO().buscaPorNome("Biotech Prime");
+        t1.setAcademia(a1);
+        DivisaoTreino d1 = new DivisaoTreinoDAO().buscaPorId(Long.parseLong("0"));
+        t1.setDivisaoTreino(d1);
+        
+        DivisaoTreinoMusculacao [] dtms = new DivisaoTreinoMusculacao[3];
+        dtms[0] = new DivisaoTreinoMusculacaoDAO().buscaPorId(Long.parseLong("0"));
+        dtms[1] =  new DivisaoTreinoMusculacaoDAO().buscaPorId(Long.parseLong("1"));
+        dtms[2] =  new DivisaoTreinoMusculacaoDAO().buscaPorId(Long.parseLong("2"));
+        
+        t1.setDivisaoTreinoMusculacao(divisaoTreinoMusculacao);
+        t1.setExercicio(exercicio);
+        t1.setExercicioAplicacao(exercicioAplicacao);
+        Pessoa p1 = new PessoaDAO().buscaPessoa("870.517.920-32");
+        t1.setPessoa(p1);
+        Treino tr1 = new TreinoDAO().buscaPorId(Long.parseLong("0"));
+        t1.setTreino(tr1);
+    }*/
     
     public boolean adiciona(TreinoAplicacao tA) {
         int proximaPosicaoLivre = this.proximaPosicaoLivre();

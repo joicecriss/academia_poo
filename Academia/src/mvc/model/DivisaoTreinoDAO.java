@@ -13,6 +13,16 @@ public class DivisaoTreinoDAO {
         dt2.setNome("ABCD");
         dt2.setDescricao("ABCD 2x e descansa 1x");
         adiciona(dt2);
+        
+        DivisaoTreino dt3 = new DivisaoTreino();
+        dt3.setNome("ABC");
+        dt3.setDescricao("ABC 3x e descansa 1x");
+        adiciona(dt3);
+        
+        DivisaoTreino dt4 = new DivisaoTreino();
+        dt4.setNome("ABCD");
+        dt4.setDescricao("ABC 3x e descansa 1x");
+        adiciona(dt4);
     }
     
     public boolean adiciona(DivisaoTreino dt) {
