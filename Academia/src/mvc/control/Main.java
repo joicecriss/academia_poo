@@ -764,7 +764,7 @@ public class Main {
                         if(semEditar.equals(editar)) {
                             System.out.println("Exercicio-Aplicacao nao foi alterado!");
                         } else {
-                            System.out.println("Exercicio-Apliacao alterado com sucesso, alteracoes: ");
+                            System.out.println("Exercicio-Aplicacao alterado com sucesso, alteracoes: ");
                             System.out.println(editar.toString());
                         }
                     } else {
@@ -776,9 +776,9 @@ public class Main {
                     Long idExcluir = Long.parseLong(s.nextLine());
 
                     if (exAplicacaoDAO.remover(idExcluir)) {
-                        System.out.println("\n Exercicio-Aplicacao exclui­do!");
+                        System.out.println("\n Exercicio-Aplicacao excluido!");
                     } else {
-                        System.out.println("\n Exercicio-Aplicacao nao exclui­do!");
+                        System.out.println("\n Exercicio-Aplicacao nao excluido!");
                     }
                     break;
                 case 0:

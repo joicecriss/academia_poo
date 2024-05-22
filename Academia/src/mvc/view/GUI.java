@@ -118,7 +118,7 @@ public class GUI {
         builder.append("\n|  4 - Exercicio                   |");
         builder.append("\n|  5 - Exercio Aplicacao           |");
         builder.append("\n|  6 - Divisao de Treino           |");
-        builder.append("\n|  7 - Divisao de Treino-Muculacao |");
+        builder.append("\n|  7 - Divisao de Treino-Musculacao|");
         builder.append("\n|  8 - Treino                      |");
         builder.append("\n|  9 - Treino Aplicacao            |");
         builder.append("\n| 10 - Avaliacao Fisica            |");

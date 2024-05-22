@@ -5,25 +5,25 @@ public class DivisaoTreinoMusculacaoDAO {
     DivisaoTreinoMusculacao [] divisoesTreinosMusculacao = new DivisaoTreinoMusculacao[60];
     
     public DivisaoTreinoMusculacaoDAO() {
-        //DivisaoTreino divisaoTreino = new DivisaoTreinoDAO().buscaPorId(Long.parseLong("0"));
+        DivisaoTreino divisaoTreino = new DivisaoTreinoDAO().buscaPorId(Long.parseLong("0"));
         
         DivisaoTreinoMusculacao a = new DivisaoTreinoMusculacao();
         a.setDescricao("PEITO, OMBRO, TRÍCEPS");
         a.setPosicao("A");
-        //a.setDivisaoTreino(divisaoTreino);
+        a.setDivisaoTreino(divisaoTreino);
         adiciona(a);
         
 
         DivisaoTreinoMusculacao b = new DivisaoTreinoMusculacao();
         b.setDescricao("COSTAS, BÍCEPS");
         b.setPosicao("B");
-        //b.setDivisaoTreino(divisaoTreino);
+        b.setDivisaoTreino(divisaoTreino);
         adiciona(b);
 
         DivisaoTreinoMusculacao c = new DivisaoTreinoMusculacao();
         c.setDescricao("PERNA");
         c.setPosicao("C");
-        //c.setDivisaoTreino(divisaoTreino);
+        c.setDivisaoTreino(divisaoTreino);
         adiciona(c);
         
         DivisaoTreinoMusculacao [] dtm = new DivisaoTreinoMusculacao[3];

@@ -6,8 +6,9 @@ import java.util.Objects;
 
 /*
 CRUD DIVISAO DE TREINO-MUSCULO. Informações importantes: id, decricao,  divisao de treino, dataCriacao, dataModificacao.
-*/
+ */
 public class DivisaoTreinoMusculacao {
+
     private long id;
     private static long aux;
     private String descricao;
@@ -34,7 +35,7 @@ public class DivisaoTreinoMusculacao {
         this.descricao = descricao;
         this.dataModificacao = Util.getDia();
     }
-    
+
     public String getPosicao() {
         return this.posicao;
     }
@@ -47,7 +48,7 @@ public class DivisaoTreinoMusculacao {
     public DivisaoTreino getDivisaoTreino() {
         return divisaoTreino;
     }
-    
+
     public void setDivisaoTreino(DivisaoTreino divisaoTreino) {
         this.divisaoTreino = divisaoTreino;
         this.dataModificacao = Util.getDia();
@@ -95,15 +96,15 @@ public class DivisaoTreinoMusculacao {
 
     @Override
     public String toString() {
-        return "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
-               "\n| Divisao Treino Musculacao" + 
-               "\n| Id              : " + this.id + 
-               "\n| Descricao       : " + this.descricao + 
-               "\n| Treino          : " + this.posicao +
-               "\n| Data Criacao    : " + getDataCriacao() + 
-               "\n| Data Modificacao: " + getDataModificacao() + 
-               "\n|" + divisaoTreino.descResumida() + 
-               "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" ;
+        return "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
+                + "\n| Divisao Treino Musculacao"
+                + "\n| Id              : " + this.id
+                + "\n| Descricao       : " + this.descricao
+                + "\n| Treino          : " + this.posicao
+                + "\n| Data Criacao    : " + getDataCriacao()
+                + "\n| Data Modificacao: " + getDataModificacao()
+                + (this.divisaoTreino != null ? "\n|" + divisaoTreino.descResumida() : "")
+                + "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
-    
+
 }

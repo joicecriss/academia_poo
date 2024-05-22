@@ -78,11 +78,11 @@ public class ExercicioAplicacao {
     @Override
     public String toString() {
         return "\n---------------------------------" +
-               "\n| Exercício de Aplicação:" + 
+               "\n| Exercicio de Aplicacao:" + 
                "\n| Id: " + id + 
-               "\n| Descrição: " + descricao + 
-               "\n| Data de Criação: " + getDataCriacao() + 
-               "\n| Data de Modificação: " + getDataModificacao() + 
+               "\n| Descricao: " + descricao + 
+               "\n| Data de Criacao: " + getDataCriacao() + 
+               "\n| Data de Modificacao: " + getDataModificacao() + 
                "\n---------------------------------";
     }
     

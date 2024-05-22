@@ -99,15 +99,15 @@ public class DivisaoTreino {
                 "\n| Divisao de Treino: " + 
                 "\n| Id                 : " + this.id + 
                 "\n| Nome               : " + this.nome + 
-                "\n| Descriçao          : " + this.descricao + 
+                "\n| Descricao          : " + this.descricao + 
                 "\n| Data de Criacao    : " + this.getDataCriacao() + 
                 "\n| Data de Modificacao: " + this.getDataModificacao() +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
     
     public String descResumida() {
-        return  "\n| Divisão de Treino Id       : " + this.id + 
-                "\n| Divisão de Treino Nome     : " + this.nome + 
-                "\n| Divisão de Treino Descricao: " + this.descricao;
+        return  "\n| Divisao de Treino Id       : " + this.id + 
+                "\n| Divisao de Treino Nome     : " + this.nome + 
+                "\n| Divisao de Treino Descricao: " + this.descricao;
     }
 }
