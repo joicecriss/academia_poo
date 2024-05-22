@@ -114,7 +114,7 @@ public class Main {
                 opcaoPrincipal = gui.menuAluno();
                 switch (opcaoPrincipal) {
                     case 1:
-                        Util.getPessoaLogada().perfil();
+                        System.out.println(Util.getPessoaLogada().perfil());
                         break;
                     case 2:
                         EntradaAluno entrada = new EntradaAluno();
@@ -157,7 +157,7 @@ public class Main {
                 opcaoPrincipal = gui.menuProfessor();
                 switch (opcaoPrincipal) {
                     case 1:
-                        Util.getPessoaLogada().perfil();
+                        System.out.println(Util.getPessoaLogada().perfil());
                         break;
                     case 2:
                         menuPessoa();
@@ -200,7 +200,7 @@ public class Main {
                 opcaoPrincipal = gui.menuAdmin();
                 switch (opcaoPrincipal) {
                     case 1:
-                        Util.getPessoaLogada().perfil();
+                        System.out.println(Util.getPessoaLogada().perfil());
                         break;
                     case 2:
                         menuAcademia();
@@ -210,6 +210,7 @@ public class Main {
                         break;
                     case 4:
                         menuExercicio();
+                        break;
                     case 5:
                         menuExAplicacao();
                         break;
@@ -383,7 +384,8 @@ public class Main {
                             System.out.println("Academia nao foi alterada!");
                         } else {
                             System.out.println("Academia alterado com sucesso, alteracoes: ");
-                            editar.toString();
+                            editar.setDataModificacao(Util.getDia());
+                            System.out.println(editar.toString());
                         }
                     } else {
                         System.out.println("Academia nao encontrada para alterar!");
@@ -394,9 +396,9 @@ public class Main {
                     String nomeExclusao = s.nextLine();
 
                     if (academiaDAO.remover(nomeExclusao)) {
-                        System.out.println("\n Academia excluiÂ­da!");
+                        System.out.println("\n Academia exclui­da!");
                     } else {
-                        System.out.println("\n Academia nao excluiÂ­da!");
+                        System.out.println("\n Academia nao exclui­da!");
                     }
                     break;
                 case 0:
@@ -433,7 +435,7 @@ public class Main {
                     String cpf = s.nextLine();
                     Pessoa achou = pessoaDAO.buscaPessoa(cpf);
                     if(achou != null) {
-                        achou.toString();
+                        System.out.println(achou.toString());
                     } else {
                         System.out.println("Pessoa nao encontrada!");
                     }
@@ -480,7 +482,7 @@ public class Main {
                         System.out.println("\n Digite o novo tipo do usuario (ou pressione ENTER para manter o tipo atual): " + editar.getTipoUsuario());
                         System.out.println("\n Digite um numero-> 1- Aluno | 2- Professor | 3- Administrador");
                         String tipo = s.nextLine();
-                        if(tipo != null) {
+                        if(!tipo.isEmpty()) {
                             int num = Integer.parseInt(tipo);
                             editar.setTipoUsuario(num);
                         }
@@ -496,7 +498,8 @@ public class Main {
                             System.out.println("Pessoa nao foi alterada!");
                         } else {
                             System.out.println("Pessoa alterado com sucesso, alteracoes: ");
-                            editar.toString();
+                            editar.setDataModificacao(Util.getDia());
+                            System.out.println(editar.toString());
                         }
                     } else {
                         System.out.println("Pessoa nao encontrada para alterar!");
@@ -508,9 +511,9 @@ public class Main {
                     String cpfExclusao = s.nextLine();
 
                     if (pessoaDAO.remover(cpfExclusao)) {
-                        System.out.println("\n Pessoa excluiÂ­da!");
+                        System.out.println("\n Pessoa exclui­da!");
                     } else {
-                        System.out.println("\n Pessoa nao excluiÂ­da!");
+                        System.out.println("\n Pessoa nao exclui­da!");
                     }
                     break;
                 case 0:
@@ -546,7 +549,7 @@ public class Main {
                     Long id = Long.parseLong(s.nextLine());
                     DivisaoTreino achou = divisaoTreinoDAO.buscaPorId(id);
                     if(achou != null) {
-                        achou.toString();
+                        System.out.println(achou.toString());
                     } else {
                         System.out.println("Divisao de Treino nao encontrada!");
                     }
@@ -575,7 +578,7 @@ public class Main {
                             System.out.println("Divisao de Treino nao foi alterada!");
                         } else {
                             System.out.println("Divisao de Treino alterado com sucesso, alteracoes: ");
-                            editar.toString();
+                            System.out.println(editar.toString());
                         }
                     } else {
                         System.out.println("Divisao de Treino nao encontrada para alterar!");
@@ -624,7 +627,7 @@ public class Main {
                     Long id = Long.parseLong(s.nextLine());
                     Exercicio achou = exercicioDAO.buscaPorId(id);
                     if(achou != null) {
-                        achou.toString();
+                        System.out.println(achou.toString());
                     } else {
                         System.out.println("Exercicio nao encontrado!");
                     }
@@ -642,11 +645,18 @@ public class Main {
                         if(!nome.isEmpty()) {
                             editar.setNome(nome);
                         }
-                        if(semEditar.equals(editar)) {
+                        
+                        System.out.println("\n Digite a nova descricao (ou pressione ENTER para manter a descricao atual): " + editar.getDescricao());
+                        String descricao = s.nextLine();
+                        if(!descricao.isEmpty()) {
+                            editar.setDescricao(descricao);
+                        }
+                        
+                        if(semEditar == editar) {
                             System.out.println("Exercicio nao foi alterado!");
                         } else {
                             System.out.println("Exercicio alterado com sucesso, alteracoes: ");
-                            editar.toString();
+                            System.out.println(editar.toString());
                         }
                     } else {
                         System.out.println("Exercicio nao encontrado para alterar!");
@@ -695,7 +705,7 @@ public class Main {
                     Long id = Long.parseLong(s.nextLine());
                     DivisaoTreinoMusculacao achou = divisaoTreinoMusculacaoDAO.buscaPorId(id);
                     if(achou != null) {
-                        achou.toString();
+                        System.out.println(achou.toString());
                     } else {
                         System.out.println("Divisao de Treino Musculacao nao encontrada!");
                     }
@@ -718,7 +728,7 @@ public class Main {
                             System.out.println("Divisao de Treino Musculacao nao foi alterada!");
                         } else {
                             System.out.println("Divisao de Treino Musculacao alterado com sucesso, alteracoes: ");
-                            editar.toString();
+                            System.out.println(editar.toString());
                         }
                     } else {
                         System.out.println("Divisao de Treino Musculacao nao encontrada para alterar!");
@@ -767,7 +777,7 @@ public class Main {
                     Long id = Long.parseLong(s.nextLine());
                     ExercicioAplicacao achou = exAplicacaoDAO.buscaPorId(id);
                     if(achou != null) {
-                        achou.toString();
+                        System.out.println(achou.toString());
                     } else {
                         System.out.println("Exercicio-Aplicacao nao encontrado!");
                     }
@@ -790,7 +800,7 @@ public class Main {
                             System.out.println("Exercicio-Aplicacao nao foi alterado!");
                         } else {
                             System.out.println("Exercicio-Apliacao alterado com sucesso, alteracoes: ");
-                            editar.toString();
+                            System.out.println(editar.toString());
                         }
                     } else {
                         System.out.println("Exercicio-Aplicacao nao encontrado para alterar!");
@@ -839,7 +849,7 @@ public class Main {
                     Long id = Long.parseLong(s.nextLine());
                     Treino achou = treinoDAO.buscaPorId(id);
                     if(achou != null) {
-                        achou.toString();
+                        System.out.println(achou.toString());
                     } else {
                         System.out.println("Treino nao encontrado!");
                     }
@@ -876,7 +886,7 @@ public class Main {
                             System.out.println("Treino nao foi alterada!");
                         } else {
                             System.out.println("Treino alterado com sucesso, alteracoes: ");
-                            editar.toString();
+                            System.out.println(editar.toString());
                         }
                     } else {
                         System.out.println("Treino nao encontrada para alterar!");
@@ -926,7 +936,7 @@ public class Main {
                     Long id = Long.parseLong(s.nextLine());
                     MensalidadeVigente achou = mensVigenteDAO.buscaPorId(id);
                     if(achou != null) {
-                        achou.toString();
+                        System.out.println(achou.toString());
                     } else {
                         System.out.println("Mensalidade Vigente nao encontrada!");
                     }
@@ -961,7 +971,7 @@ public class Main {
                             System.out.println("Mensalidade Vigente nao foi alterada!");
                         } else {
                             System.out.println("Mensalidade Vigente alterada com sucesso, alteracoes: ");
-                            editar.toString();
+                            System.out.println(editar.toString());
                         }
                              
                     } else {
@@ -1013,7 +1023,7 @@ public class Main {
                     Long id = Long.parseLong(s.nextLine());
                     TreinoAplicacao achou = treinoAplicacaoDAO.buscaPorId(id);
                     if(achou != null) {
-                        achou.toString();
+                        System.out.println(achou.toString());
                     } else {
                         System.out.println("Treino Aplicacao nao encontrada!");
                     }
@@ -1061,7 +1071,7 @@ public class Main {
                     Long id = Long.parseLong(s.nextLine());
                     PagamentoMensalidade achou = pagMensalidadeDAO.buscaPorId(id);
                     if(achou != null) {
-                        achou.toString();
+                        System.out.println(achou.toString());
                     } else {
                         System.out.println("Pagamento nao encontrado!");
                     }
@@ -1102,7 +1112,7 @@ public class Main {
                             System.out.println("Pagamento nao foi alterado!");
                         } else {
                             System.out.println("Pagamento alterado com sucesso, alteracoes: ");
-                            editar.toString();
+                            System.out.println(editar.toString());
                         }
                             
                     } else {
@@ -1198,7 +1208,7 @@ public class Main {
                     Long id = Long.parseLong(s.nextLine());
                     PagamentoRecorrente achou = pagRecorrenteDAO.buscaPorId(id);
                     if(achou != null) {
-                        achou.toString();
+                        System.out.println(achou.toString());
                     } else {
                         System.out.println("Pagamento nao encontrado!");
                     }
@@ -1245,7 +1255,7 @@ public class Main {
                             System.out.println("Pagamento nao foi alterado!");
                         } else {
                             System.out.println("Pagamento alterado com sucesso, alteracoes: ");
-                            editar.toString();
+                            System.out.println(editar.toString());
                         }
                             
                     } else {
@@ -1295,7 +1305,7 @@ public class Main {
                     Long id = Long.parseLong(s.nextLine());
                     EntradaAluno achou = entradaAlunoDAO.buscaPorId(id);
                     if(achou != null) {
-                        achou.toString();
+                        System.out.println(achou.toString());
                     } else {
                         System.out.println("Entrada nao encontrada!");
                     }
@@ -1318,7 +1328,7 @@ public class Main {
                             System.out.println("Entrada nao foi alterada!");
                         } else {
                             System.out.println("Entrada alterada com sucesso, alteracoes: ");
-                            editar.toString();
+                            System.out.println(editar.toString());
                         }
                             
                     } else {
@@ -1368,7 +1378,7 @@ public class Main {
                     Long id = Long.parseLong(s.nextLine());
                     AvaliacaoFisica achou = avaliacaoFisicaDAO.buscaPorId(id);
                     if(achou != null) {
-                        achou.toString();
+                        System.out.println(achou.toString());
                     } else {
                         System.out.println("Avaliacao Fisica nao encontrada!");
                     }
@@ -1404,7 +1414,7 @@ public class Main {
                             System.out.println("Avaliacao Fisica nao foi alterada!");
                         } else {
                             System.out.println("Avalicao Fisica alterada com sucesso, alteracoes: ");
-                            editar.toString();
+                            System.out.println(editar.toString());
                         }
                     } else {
                         System.out.println("Avaliacao Fisica nao encontrada para alterar!");
@@ -1453,7 +1463,7 @@ public class Main {
                     Long id = Long.parseLong(s.nextLine());
                     MovimentacaoFinanceira achou = movimentacaoFDAO.buscaPorId(id);
                     if(achou != null) {
-                        achou.toString();
+                        System.out.println(achou.toString());
                     } else {
                         System.out.println("Movimentacao Financeira nao encontrada!");
                     }
@@ -1490,7 +1500,7 @@ public class Main {
                             System.out.println("Movimentacao Financeira nao foi alterada!");
                         } else {
                             System.out.println("Movimentacao Financeira alterada com sucesso, alteracoes: ");
-                            editar.toString();
+                            System.out.println(editar.toString());
                         }
                     } else {
                         System.out.println("Movimentacao Financeira nao encontrada para alterar!");

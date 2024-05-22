@@ -11,14 +11,12 @@ public class MensalidadeVigenteDAO {
         mv1.setValor(99.90);
         mv1.setInicio("14/02/2024");
         mv1.setTermino("14/04/2024");
-        mv1.setDataModificacao(Util.getDiaAtual());
         adiciona(mv1);
         
         MensalidadeVigente mv2 = new MensalidadeVigente();
         mv2.setValor(119.90);
         mv2.setInicio("17/01/2024");
         mv2.setTermino("25/03/2025");
-        mv2.setDataModificacao(Util.getDiaAtual());
         adiciona(mv2);
     } 
     

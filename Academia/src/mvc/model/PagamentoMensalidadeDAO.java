@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 
 public class PagamentoMensalidadeDAO {
     PagamentoMensalidade[] pagMensalidade = new PagamentoMensalidade[10];
-    
+    MovimentacaoFinanceiraDAO movDAO = new MovimentacaoFinanceiraDAO();
     
     public PagamentoMensalidadeDAO() {
         PagamentoMensalidade pg1 = new PagamentoMensalidade();
-        MensalidadeVigente mensV1 = new MensalidadeVigenteDAO().buscaPorId(Long.parseLong("0"));
+        MensalidadeVigente mensV1 = new MensalidadeVigenteDAO().buscaPorId(Long.parseLong("7"));
         Pessoa p1 = new PessoaDAO().buscaPessoa("870.517.920-32");
         pg1.setMensalidadeVigente(mensV1);
         pg1.setDataVencimento("27/07/2024");
@@ -20,8 +20,14 @@ public class PagamentoMensalidadeDAO {
         pg1.setModalidade(0);
         adiciona(pg1);
         
+        MovimentacaoFinanceira m1 = new MovimentacaoFinanceira();
+        m1.setValor(99.90);
+        m1.setTipo(1);
+        m1.setDescricao("Pamento mensalidade Aluno: " + p1.toString());
+        movDAO.adiciona(m1);
+        
         PagamentoMensalidade pg2 = new PagamentoMensalidade();
-        MensalidadeVigente mensV2 = new MensalidadeVigenteDAO().buscaPorId(Long.parseLong("1"));
+        MensalidadeVigente mensV2 = new MensalidadeVigenteDAO().buscaPorId(Long.parseLong("8"));
         Pessoa p2 = new PessoaDAO().buscaPessoa("870.517.920-32");
         pg2.setMensalidadeVigente(mensV2);
         pg2.setDataVencimento("27/08/2024");
@@ -31,6 +37,12 @@ public class PagamentoMensalidadeDAO {
         pg2.setPessoa(p2);
         pg2.setModalidade(1);
         adiciona(pg2);
+        
+        MovimentacaoFinanceira m2 = new MovimentacaoFinanceira();
+        m2.setValor(139.90);
+        m2.setTipo(1);
+        m2.setDescricao("Pamento mensalidade Aluno: " + p2.toString());
+        movDAO.adiciona(m2);
         
     }
     

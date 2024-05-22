@@ -687,6 +687,12 @@ public class GUI {
         int modalidade = Integer.parseInt( scanner.nextLine());
         pgm.setModalidade(modalidade);
         
+        MovimentacaoFinanceira mF = new MovimentacaoFinanceira();
+        mF.setValor(20);
+        mF.setTipo(1);
+        mF.setDescricao("Pagamento Mensalidade Aluno: " + p.getNome());
+        mFinDAO.adiciona(mF);
+        
         return pgm;
     }
     
@@ -775,7 +781,7 @@ public class GUI {
         MovimentacaoFinanceira mF = new MovimentacaoFinanceira();
         mF.setValor(20);
         mF.setTipo(1);
-        mF.setDescricao("Avaliaçao Fisica - Aluno: " + aluno.getNome());
+        mF.setDescricao("Avaliaçao Fisica Aluno: " + aluno.getNome());
         mFinDAO.adiciona(mF);
         
         return aF;

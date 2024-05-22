@@ -1,6 +1,7 @@
 package mvc.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /*
@@ -34,12 +35,14 @@ public class ExercicioAplicacao {
         this.dataModificacao = Util.getDia();
     }
 
-    public LocalDateTime getDataCriacao() {
-        return dataCriacao;
+    public String getDataCriacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataCriacao.format(formatter);
     }
 
-    public LocalDateTime getDataModificacao() {
-        return dataModificacao;
+    public String getDataModificacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataModificacao.format(formatter);
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
@@ -78,8 +81,8 @@ public class ExercicioAplicacao {
                "\n| Exercício de Aplicação:" + 
                "\n| Id: " + id + 
                "\n| Descrição: " + descricao + 
-               "\n| Data de Criação: " + dataCriacao + 
-               "\n| Data de Modificação: " + dataModificacao + 
+               "\n| Data de Criação: " + getDataCriacao() + 
+               "\n| Data de Modificação: " + getDataModificacao() + 
                "\n---------------------------------";
     }
     

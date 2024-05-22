@@ -88,12 +88,14 @@ public class PagamentoRecorrente {
         this.dataModificacao = Util.getDia();
     }
 
-    public LocalDateTime getDataCriacao() {
-        return dataCriacao;
+    public String getDataCriacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataCriacao.format(formatter);
     }
 
-    public LocalDateTime getDataModificacao() {
-        return dataModificacao;
+    public String getDataModificacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataModificacao.format(formatter);
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
@@ -143,14 +145,14 @@ public class PagamentoRecorrente {
         return  "\n---------------------------------" +
                 "\n| Pagamento Recorrente: " + 
                 "\n| Id: " + id + 
-                "\n| " + pessoa.toString() + 
                 "\n| Data: " + data + 
                 "\n| Cartao de Crédito: " + cartaoCredito + 
                 "\n| Valor: " + valor + 
                 "\n| Data de Início: " + dataInicio + 
                 "\n| Número de Meses Autotizados: " + numeroMeses + 
-                "\n| Data de Criação: " + dataCriacao + 
-                "\n| Data de Modificação: " + dataModificacao + 
+                "\n| Data de Criação: " + getDataCriacao() + 
+                "\n| Data de Modificação: " + getDataModificacao() + 
+                "\n| " + pessoa.toString() + 
                 "\n---------------------------------";
     }
  

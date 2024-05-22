@@ -148,7 +148,7 @@ public class PessoaDAO {
     }
     
     public Pessoa buscaPessoa(String cpf) {
-         for (Pessoa p : pessoas) {
+        for (Pessoa p : pessoas) {
             if (p != null && p.getCpf().equals(cpf)) {
                 return p;
             }

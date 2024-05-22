@@ -89,8 +89,8 @@ public class Exercicio {
                "\n| Id: " + id + 
                "\n| Nome: " + nome + 
                "\n| Descrição: " + descricao + 
-               "\n| Data de Criação: " + dataCriacao + 
-               "\n| Data de Modificação: " + dataModificacao + 
+               "\n| Data de Criação: " + getDataCriacao() + 
+               "\n| Data de Modificação: " + getDataModificacao() + 
                "\n---------------------------------";
     }
     

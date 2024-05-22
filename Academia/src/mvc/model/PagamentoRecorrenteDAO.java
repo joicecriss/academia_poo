@@ -8,23 +8,25 @@ public class PagamentoRecorrenteDAO {
     
     public PagamentoRecorrenteDAO() {
         PagamentoRecorrente pg1 = new PagamentoRecorrente();
-        pg1.setPessoa(pessoa[0]);
+        Pessoa p1 = new PessoaDAO().buscaPessoa("870.517.920-32");
+        pg1.setPessoa(p1);
         pg1.setData("14/05/2024");
         pg1.setCartaoCredito("5400 8556 6321 8888");
         pg1.setValor(99.90);
         pg1.setDataInicio("14/04/2024");
         pg1.setNumeroMeses(12);
-        pg1.setDataModificacao(Util.getDiaAtual());
+        pg1.setDataModificacao(Util.getDia());
         adiciona(pg1);
         
         PagamentoRecorrente pg2 = new PagamentoRecorrente();
-        pg1.setPessoa(pessoa[1]);
+        Pessoa p2 = new PessoaDAO().buscaPessoa("111.908.610-89");
+        pg1.setPessoa(p2);
         pg1.setData("13/04/2024");
         pg1.setCartaoCredito("8411 0041 9641 9044");
         pg1.setValor(139.90);
         pg1.setDataInicio("25/03/2024");
         pg1.setNumeroMeses(6);
-        pg1.setDataModificacao(Util.getDiaAtual());
+        pg1.setDataModificacao(Util.getDia());
         adiciona(pg2);
     }
     

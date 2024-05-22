@@ -108,12 +108,14 @@ public class PagamentoMensalidade {
         this.dataModificacao = Util.getDia();
     }
 
-    public LocalDateTime getDataCriacao() {
-        return dataCriacao;
+    public String getDataCriacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataCriacao.format(formatter);
     }
 
-    public LocalDateTime getDataModificacao() {
-        return dataModificacao;
+    public String getDataModificacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataModificacao.format(formatter);
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
@@ -162,12 +164,12 @@ public class PagamentoMensalidade {
                "\n| Mensalidade Vigente: " + mensalidadeVigente + 
                "\n| Data de Vencimento: " + dataVencimento + 
                "\n| Data de Pagamento: " + dataPagamento + 
-               "\n| Valor Pago: " + valorPago + 
+               "\n| Valor Pago: R$" + valorPago + 
                "\n| Modalidade: " + modalidade + 
-               "\n| Data: " + data + 
+               "\n| Data: " + getData() + 
+               "\n| Data de Criação: " + getDataCriacao() + 
+               "\n| Data de Modificação: " + getDataModificacao() + 
                "\n| " + pessoa.toString() + 
-               "\n| Data de Criação: " + dataCriacao + 
-               "\n| Data de Modificação: " + dataModificacao + 
                "\n---------------------------------";
     }
     
