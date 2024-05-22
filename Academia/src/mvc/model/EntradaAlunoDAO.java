@@ -9,6 +9,7 @@ public class EntradaAlunoDAO {
         EntradaAluno e1 = new EntradaAluno();
         Pessoa p1 = new PessoaDAO().buscaPessoa("870.517.920-32");
         e1.setEntrada("20/05/2024 10:05");
+        e1.setPessoa(p1);
         adiciona(e1);
         
         EntradaAluno e2 = new EntradaAluno();
@@ -16,6 +17,16 @@ public class EntradaAlunoDAO {
         e2.setEntrada("20/05/2024 16:10");
         e2.setPessoa(p2);
         adiciona(e2);
+        
+        EntradaAluno e3 = new EntradaAluno();
+        e3.setEntrada("21/05/2024 09:20");
+        e3.setPessoa(p1);
+        adiciona(e3);
+        
+        EntradaAluno e4 = new EntradaAluno();
+        e4.setEntrada("21/05/2024 15:40");
+        e4.setPessoa(p2);
+        adiciona(e4);
     }
     
     public boolean adiciona(EntradaAluno ea) {
@@ -61,10 +72,14 @@ public class EntradaAlunoDAO {
     }
     
     public void mostrarPorId(Long id) {
+        boolean temEntrada = false;
         for (EntradaAluno e : entrada) {
             if (e != null && e.getId() == id) {
                 e.toString();
             }
+        }
+        if (!temEntrada) {
+            System.out.println("Nao existe entrada cadastrada!");
         }
     }
     

@@ -42,6 +42,10 @@ public class Treino {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return this.dataInicio.format(formatter);
     }
+    
+    public LocalDate getDataInicioDate() {
+        return this.dataInicio;
+    }
 
     public void setDataInicio(String dataInicio) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -53,6 +57,10 @@ public class Treino {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return this.dataTermino.format(formatter);
     }
+    public LocalDate getDataTerminoDate() {
+        return this.dataTermino;
+    }
+    
 
     public void setDataTermino(String dataTermino) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

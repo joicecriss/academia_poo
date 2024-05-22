@@ -26,6 +26,7 @@ import mvc.model.PagamentoMensalidade;
 import mvc.model.PagamentoMensalidadeDAO;
 import mvc.model.PagamentoRecorrente;
 import mvc.model.PessoaDAO;
+import mvc.model.TreinoDAO;
 import mvc.model.Util;
 import mvc.model.Treino;
 import mvc.model.TreinoAplicacao;
@@ -44,6 +45,7 @@ public class GUI {
     DivisaoTreinoDAO divTreinoDAO = new DivisaoTreinoDAO();
     ExercicioDAO exeDAO = new ExercicioDAO();
     ExercicioAplicacaoDAO exeADAO = new ExercicioAplicacaoDAO();
+    TreinoDAO treinoDAO = new TreinoDAO();
     
     // =-=-=-=-=MENUS PRINCIPAIS=-=-=-=-=-= //
     public int menuBoasVindas() {
@@ -576,8 +578,19 @@ public class GUI {
         scanner.nextLine(); 
         Pessoa aluno = pessoas[pIndice]; 
         tA.setPessoa(aluno); //Aluno adicionado
+        
         Academia academia = academiaDAO.buscaPorNome("Biotech Prime");
         tA.setAcademia(academia);
+        
+        System.out.println("Digite o ID do treino que deseja: ");
+        Treino[] treinos = treinoDAO.mostrarTodosERetornar(); 
+        for (int i = 0; i < treinos.length; i++) {
+            System.out.println("Data inicio: " + treinos[i].getDataInicio() + "Data termino: " + treinos[i].getDataTermino() + " - ID: " + (treinos[i].getId()));
+        }
+        int tIndice = scanner.nextInt();
+        scanner.nextLine(); 
+        Treino treino = treinos[tIndice]; 
+        tA.setTreino(treino);
         
         System.out.println("Digite o ID da divisao do treino:");
         DivisaoTreino[] divisoes = divTreinoDAO.mostrarTodosERetornar(); 
@@ -715,14 +728,14 @@ public class GUI {
             System.out.println(pessoas[i].getNome() + " - ID: " + (i));
         }
         int pIndice = scanner.nextInt();
-        scanner.nextLine(); 
+        scanner.nextLine();
         Pessoa aluno = pessoas[pIndice]; 
         e.setPessoa(aluno);
         
         System.out.println("Entrada: ");
         System.out.println("Digite: dd/MM/aaa HH:MM ");
         LocalDateTime entrada = LocalDateTime.parse(scanner.nextLine());
-
+        e.setEntrada(entrada);
         return e;
     }
     

@@ -1,7 +1,9 @@
 package mvc.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 /*
@@ -112,6 +114,13 @@ public class TreinoAplicacao {
     public void setDataModificacao(LocalDateTime dataModificacao) {
         this.dataModificacao = Util.getDia();
     }
+    
+    public String calcularSemana(LocalDate dataInicio, LocalDate dataTermino) {
+        long diferencaEmDias = ChronoUnit.DAYS.between(dataInicio, dataTermino);
+        long numeroDeSemanas = diferencaEmDias / 7;
+        
+        return numeroDeSemanas + " semana(s)";
+    }
 
     @Override
     public int hashCode() {
@@ -171,9 +180,9 @@ public class TreinoAplicacao {
         System.out.println("FICHA DE TREINO");
         System.out.println("Aluno(a): " + tA.getPessoa().getNome());
         System.out.println("DIVISÃO DE TREINO: " + tA.getDivisaoTreino().getNome());
-        System.out.println("INÍCIO: ");
-        System.out.println("TÉRMINO: "  + " - 6 SEMANAS");
-
+        System.out.println("INÍCIO: " + tA.getTreino().getDataInicio());
+        System.out.println("TÉRMINO: "  + tA.getTreino().getDataTermino());
+        System.out.print(" - " + this.calcularSemana(tA.getTreino().getDataInicioDate(), tA.getTreino().getDataTerminoDate()) + " SEMANAS");
         for (DivisaoTreinoMusculacao dtm : tA.getDivisaoTreinoMusculacao()) {
             System.out.println(dtm.getPosicao());
             for (int i = 0; i < tA.getExercicio().length; i++) {

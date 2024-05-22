@@ -73,6 +73,24 @@ public class TreinoDAO {
         }
     }
     
+    public Treino[] mostrarTodosERetornar() {
+        int count = 0;
+        for (Treino dt : treinos) {
+            if (dt != null) {
+                count++;
+            }
+        }
+        Treino[] result = new Treino[count];
+        int index = 0;
+        for (Treino dt : treinos) {
+            if (dt != null) {
+                result[index] = dt;
+                index++;
+            }
+        }
+        return result;
+    }
+    
     public boolean alterarObjetivo(Long id, String novoObjetivo) {
         for (Treino t : treinos) {
             if (t != null && t.getId() == id) {
