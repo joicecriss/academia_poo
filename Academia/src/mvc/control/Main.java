@@ -358,8 +358,6 @@ public class Main {
                     String academia = s.nextLine();
                     
                     Academia editar = academiaDAO.buscaPorNome(academia);
-                    Academia semEditar = academiaDAO.buscaPorNome(academia);
-                    
                     if(editar != null) {
                         System.out.println("\n Digite o novo nome (ou pressione ENTER para manter o nome atual): " + editar.getNome());
                         String nome = s.nextLine();
@@ -380,13 +378,7 @@ public class Main {
                             editar.setCnpj(cnpj);
                         }
                         
-                        if(semEditar.equals(editar)) {
-                            System.out.println("Academia nao foi alterada!");
-                        } else {
-                            System.out.println("Academia alterado com sucesso, alteracoes: ");
-                            editar.setDataModificacao(Util.getDia());
-                            System.out.println(editar.toString());
-                        }
+                        System.out.println("Academia alterado com sucesso!");
                     } else {
                         System.out.println("Academia nao encontrada para alterar!");
                     }
@@ -445,8 +437,6 @@ public class Main {
                     String pessoa = s.nextLine();
                     
                     Pessoa editar = pessoaDAO.buscaPessoa(pessoa);
-                    Pessoa semEditar = pessoaDAO.buscaPessoa(pessoa);
-                    
                     if(editar != null) {
                         System.out.println("\n Digite o novo nome (ou pressione ENTER para manter o nome atual): " + editar.getNome());
                         String nome = s.nextLine();
@@ -494,13 +484,7 @@ public class Main {
                             editar.setNascimento(cpfNovo);
                         }
                         
-                        if(semEditar.equals(editar)) {
-                            System.out.println("Pessoa nao foi alterada!");
-                        } else {
-                            System.out.println("Pessoa alterado com sucesso, alteracoes: ");
-                            editar.setDataModificacao(Util.getDia());
-                            System.out.println(editar.toString());
-                        }
+                        System.out.println("Pessoa alterado com sucesso!");
                     } else {
                         System.out.println("Pessoa nao encontrada para alterar!");
                     }                    
@@ -559,8 +543,6 @@ public class Main {
                     Long idAchar = Long.parseLong(s.nextLine());
                     
                     DivisaoTreino editar = divisaoTreinoDAO.buscaPorId(idAchar);
-                    DivisaoTreino semEditar = divisaoTreinoDAO.buscaPorId(idAchar);
-                    
                     if(editar != null) {
                         System.out.println("\n Digite o novo nome (ou pressione ENTER para manter o nome atual): " + editar.getNome());
                         String nome = s.nextLine();
@@ -574,12 +556,7 @@ public class Main {
                             editar.setDescricao(descricao);
                         }
                         
-                        if(semEditar.equals(editar)) {
-                            System.out.println("Divisao de Treino nao foi alterada!");
-                        } else {
-                            System.out.println("Divisao de Treino alterado com sucesso, alteracoes: ");
-                            System.out.println(editar.toString());
-                        }
+                        System.out.println("Divisao de Treino alterado com sucesso!");
                     } else {
                         System.out.println("Divisao de Treino nao encontrada para alterar!");
                     }
@@ -637,8 +614,6 @@ public class Main {
                     Long idAchar = Long.parseLong(s.nextLine());
                     
                     Exercicio editar = exercicioDAO.buscaPorId(idAchar);
-                    Exercicio semEditar = exercicioDAO.buscaPorId(idAchar);
-                    
                     if(editar != null) {
                         System.out.println("\n Digite o novo nome (ou pressione ENTER para manter o nome atual): " + editar.getNome());
                         String nome = s.nextLine();
@@ -652,12 +627,7 @@ public class Main {
                             editar.setDescricao(descricao);
                         }
                         
-                        if(semEditar == editar) {
-                            System.out.println("Exercicio nao foi alterado!");
-                        } else {
-                            System.out.println("Exercicio alterado com sucesso, alteracoes: ");
-                            System.out.println(editar.toString());
-                        }
+                        System.out.println("Exercicio alterado com sucesso!");
                     } else {
                         System.out.println("Exercicio nao encontrado para alterar!");
                     }
@@ -724,12 +694,7 @@ public class Main {
                             editar.setDescricao(descricao);
                         }
                         
-                        if(semEditar.equals(editar)) {
-                            System.out.println("Divisao de Treino Musculacao nao foi alterada!");
-                        } else {
-                            System.out.println("Divisao de Treino Musculacao alterado com sucesso, alteracoes: ");
-                            System.out.println(editar.toString());
-                        }
+                        System.out.println("Divisao de Treino Musculacao alterado com sucesso!");
                     } else {
                         System.out.println("Divisao de Treino Musculacao nao encontrada para alterar!");
                     }
@@ -738,7 +703,7 @@ public class Main {
                     System.out.println("\n Digite o id da Divisao de Treino Musculaco que deseja excluir: ");
                     Long idExcluir = Long.parseLong(s.nextLine());
 
-                    if (divisaoTreinoDAO.remover(idExcluir)) {
+                    if (divisaoTreinoMusculacaoDAO.remover(idExcluir)) {
                         System.out.println("\n Divisao de Treino Musculaco exclui­da!");
                     } else {
                         System.out.println("\n Divisao de Treino Musculacao nao exclui­da!");

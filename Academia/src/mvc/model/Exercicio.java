@@ -1,6 +1,7 @@
 package mvc.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /*
@@ -44,12 +45,14 @@ public class Exercicio {
         this.dataModificacao = Util.getDia();
     }
 
-    public LocalDateTime getDataCriacao() {
-        return dataCriacao;
+    public String getDataCriacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataCriacao.format(formatter);
     }
 
-    public LocalDateTime getDataModificacao() {
-        return dataModificacao;
+    public String getDataModificacao() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return this.dataModificacao.format(formatter);
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
@@ -57,10 +60,23 @@ public class Exercicio {
     }
 
     @Override
+    public String toString() {
+        return "\n---------------------------------" +
+               "\n| Exercício: " + 
+               "\n| Id: " + id + 
+               "\n| Nome: " + nome + 
+               "\n| Descrição: " + descricao + 
+               "\n| Data de Criação: " + getDataCriacao() + 
+               "\n| Data de Modificação: " + getDataModificacao() + 
+               "\n---------------------------------";
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 97 * hash + Objects.hashCode(this.nome);
+        int hash = 5;
+        hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 37 * hash + Objects.hashCode(this.nome);
+        hash = 37 * hash + Objects.hashCode(this.descricao);
         return hash;
     }
 
@@ -79,19 +95,9 @@ public class Exercicio {
         if (this.id != other.id) {
             return false;
         }
-        return Objects.equals(this.nome, other.nome);
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        return Objects.equals(this.descricao, other.descricao);
     }
-
-    @Override
-    public String toString() {
-        return "\n---------------------------------" +
-               "\n| Exercício: " + 
-               "\n| Id: " + id + 
-               "\n| Nome: " + nome + 
-               "\n| Descrição: " + descricao + 
-               "\n| Data de Criação: " + getDataCriacao() + 
-               "\n| Data de Modificação: " + getDataModificacao() + 
-               "\n---------------------------------";
-    }
-    
 }

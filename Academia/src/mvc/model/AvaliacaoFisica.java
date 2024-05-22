@@ -152,13 +152,13 @@ public class AvaliacaoFisica {
         return "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
                "\n| Avaliação Física: " + 
                "\n| Id                 : " + this.id + 
-               "\n| Pessoa             : " + this.pessoa + 
                "\n| Último Treino      : " + this.ultimoTreino + 
                "\n| Peso               : " + this.peso + 
                "\n| Altura             : " + this.altura + 
                "\n| Imc                : " + this.imc + 
-               "\n| Data de Criação    : " + this.dataCriacao + 
-               "\n| Data de Modificação: " + this.dataModificacao +
+               "\n| Data de Criação    : " + getDataCriacao() + 
+               "\n| Data de Modificação: " + getDataModificacao() +
+                this.pessoa +
                "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
     

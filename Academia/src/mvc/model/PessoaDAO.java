@@ -71,7 +71,7 @@ public class PessoaDAO {
         p7.setLogin("fernanda@gmail.com");
         p7.setSenha("fernanda123");
         p7.setTipoUsuario(2);
-        p7.setCpf("975.025.030-30");
+        p7.setCpf("012.325.030-30");
         adiciona(p7);
     }
     
