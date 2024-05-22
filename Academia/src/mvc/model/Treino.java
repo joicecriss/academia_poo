@@ -131,7 +131,7 @@ public class Treino {
                 "\n| Data de Termino    : " + dataTermino + 
                 "\n| Data de Criacao    : " + dataCriacao + 
                 "\n| Data de Modificacao: " + dataModificacao + 
-                this.divisaoTreino.descResumida() + 
+                (this.divisaoTreino != null ? "\n|" + divisaoTreino.descResumida() : "") +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 }
