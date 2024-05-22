@@ -152,7 +152,7 @@ public class PagamentoRecorrente {
                 "\n| Número de Meses Autotizados: " + numeroMeses + 
                 "\n| Data de Criação: " + getDataCriacao() + 
                 "\n| Data de Modificação: " + getDataModificacao() + 
-                "\n| " + pessoa.toString() + 
+                "\n| " + (pessoa != null ? "\n|" + pessoa.toString() : "") + 
                 "\n---------------------------------";
     }
  

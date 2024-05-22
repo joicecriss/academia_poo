@@ -170,7 +170,7 @@ public class TreinoAplicacao {
                 treino + 
                 exercicio + 
                 exercicioAplicacao + 
-                divisaoTreino.descResumida() + 
+                (this.divisaoTreino != null ? "\n|" + divisaoTreino.descResumida() : "") +
                 divisaoTreinoMusculacao + 
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
