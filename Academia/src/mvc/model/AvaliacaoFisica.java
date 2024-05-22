@@ -158,8 +158,7 @@ public class AvaliacaoFisica {
                "\n| Imc                : " + this.imc + 
                "\n| Data de Criação    : " + getDataCriacao() + 
                "\n| Data de Modificação: " + getDataModificacao() +
-                this.pessoa +
-               "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
+                this.pessoa;
     }
     
 }
