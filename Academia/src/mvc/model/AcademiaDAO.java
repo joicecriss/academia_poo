@@ -20,6 +20,16 @@ public class AcademiaDAO {
             return false;
         }
     }
+    
+    public Academia adiciona(Academia elemento) {
+        String sql = "INSERT INTO ACADEMIA "
+                + "(nome, endereco, cnpj)" + " values (?,?,?)";
+        
+        try (ConexoesBanco conexao = new ConexoesBanco().getConexoesBanco();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+            
+        }
+    }
 
     public boolean ehVazio() {
         for (Academia academia : academias) {
