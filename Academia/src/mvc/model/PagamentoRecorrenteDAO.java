@@ -1,10 +1,15 @@
 package mvc.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Scanner;
 
 public class PagamentoRecorrenteDAO {
     PagamentoRecorrente[] pagRecorrente = new PagamentoRecorrente[10];
     Pessoa[] pessoa = new Pessoa[5];
+    PagamentoMensalidade[] pagMensalidade = new PagamentoMensalidade[10];
+    LocalDate dataAtual;
     
     public PagamentoRecorrenteDAO() {
         PagamentoRecorrente pg1 = new PagamentoRecorrente();
@@ -89,5 +94,28 @@ public class PagamentoRecorrenteDAO {
         }
         return false;
 
+    }
+           
+    public void verificarMensalidadesVencidas(PagamentoMensalidadeDAO pgm, LocalDate dataAtual, Scanner scanner) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        System.out.println("Verificando mensalidades vencidas em " + dtf.format(dataAtual));
+        String dataAtualString = dtf.format(dataAtual);
+                
+        for (PagamentoMensalidade pMensalidade : pagMensalidade) {
+            if (/*pgm.getDataVencimento().isBefore(dataAtual) && */!pgm.isPago()) {
+                System.out.println("Aluno: " + pgm.getPessoa().getNome());
+                System.out.println("Valor da Mensalidade Vencida: " + pgm.getMensalidadeVigente().getValor());
+                System.out.print("Deseja pagar a mensalidade? (S/N): ");
+                String resposta = scanner.nextLine();
+                if (resposta.equalsIgnoreCase("S")) {
+                    pgm.setPago(true);
+                    pgm.setDataPagamento(dataAtualString);
+                    System.out.println("Mensalidade paga com sucesso!");
+                }
+            }
+            else {
+                System.out.println("Não há mensalidades vencidas nessa data!");
+            }
+        }
     }
 }

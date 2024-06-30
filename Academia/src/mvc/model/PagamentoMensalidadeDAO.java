@@ -13,11 +13,12 @@ public class PagamentoMensalidadeDAO {
         Pessoa p1 = new PessoaDAO().buscaPessoa("870.517.920-32");
         pg1.setMensalidadeVigente(mensV1);
         pg1.setDataVencimento("27/07/2024");
-        pg1.setDataPagamento("29/04/2024");
+        pg1.setDataPagamento("31/12/1969");
         pg1.setValorPago(99.90);
         pg1.setData("17/05/2024");
         pg1.setPessoa(p1);
         pg1.setModalidade(0);
+        pg1.setPago(false);
         adiciona(pg1);
         
         MovimentacaoFinanceira m1 = new MovimentacaoFinanceira();
@@ -36,6 +37,7 @@ public class PagamentoMensalidadeDAO {
         pg2.setData("19/05/2024");
         pg2.setPessoa(p2);
         pg2.setModalidade(1);
+        pg2.setPago(true);
         adiciona(pg2);
         
         MovimentacaoFinanceira m2 = new MovimentacaoFinanceira();

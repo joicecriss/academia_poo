@@ -381,6 +381,24 @@ public class GUI {
         builder.append("\n|  3 - Buscar Pagamento pelo ID         |");
         builder.append("\n|  4 - Alterar um Pagamento             |");
         builder.append("\n|  5 - Excluir pelo ID                  |");
+        builder.append("\n|  6 - Entrar no Calendario             |");
+        builder.append("\n|  0 - Sair                             |");
+        builder.append("\n|                                       |");
+        builder.append("\n----------------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
+    public int opCalendario() {
+        builder.setLength(0);
+        builder.append("\n----------------------------------------");
+        builder.append("\n|  * -> Calendario                      |");
+        builder.append("\n|                                       |");
+        builder.append("\n|  1 - Avancar dias                     |");
+        builder.append("\n|  2 - Retroceder dias                  |");
+        builder.append("\n|  3 - Definir data                     |");
+        builder.append("\n|  4 - Verificar mensalidades vencidas  |");
         builder.append("\n|  0 - Sair                             |");
         builder.append("\n|                                       |");
         builder.append("\n----------------------------------------");

@@ -20,7 +20,8 @@ public class PagamentoMensalidade {
     private double valorPago;
     private LocalDate data;
     private Pessoa pessoa;
-    private int modalidade; // dinheiro, pix, débito automático, pagamento recorrente
+    private int modalidade;
+    private boolean pago = false;// dinheiro, pix, débito automático, pagamento recorrente
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
@@ -29,7 +30,7 @@ public class PagamentoMensalidade {
         this.dataCriacao = Util.getDia();
         this.dataModificacao = Util.getDia();
     }
-
+    
     public long getId() {
         return id;
     }
@@ -108,6 +109,14 @@ public class PagamentoMensalidade {
         this.dataModificacao = Util.getDia();
     }
 
+    public boolean isPago() {
+        return pago;
+    }
+
+    public void setPago(boolean pago) {
+        this.pago = pago;
+    }
+        
     public String getDataCriacao() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dataCriacao.format(formatter);
