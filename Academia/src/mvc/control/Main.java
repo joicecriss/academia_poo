@@ -108,17 +108,6 @@ public class Main {
     }
     
     public static void main(String[] args) {
-        
-        //Verificar pagamentos recorrentes 
-        //Criar função que cria todos os pagamentos mensalidades dos pagamentos recorrentes que venceram 
-        //do dia que rodou o projeto pra trás, sem valorPago e dataPagamento
-        
-        
-        
-        //Criar ao inves de um menu calendario dentro de pagamento recorrente, 
-        //criar uma opção de ja ver as mensalidades vencidas na Main e dentro dele ter a opcao de ver pela data atual
-        //ou digitar uma data 
-        
         Main main = new Main();
     }
     
