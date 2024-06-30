@@ -10,40 +10,46 @@ CRUD ENTRADA ALUNO. Informações importantes: id, data e horário, dataCriacao, da
 */
 public class EntradaAluno {
     private long id;
-    private static long aux;
     private Pessoa pessoa;
     private LocalDateTime entrada;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public EntradaAluno() {
-        this.id = ++EntradaAluno.aux;
-        this.dataCriacao = Util.getDia();
-        this.dataModificacao = Util.getDia();
-    }
-
     public long getId() {
         return id;
     }
     
+    public void setId(long id){
+        this.id = id;
+    }
+    
     public String getEntrada() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return this.entrada.format(formatter);
     }
     
-    public LocalDateTime getEntradaDate() {
-        return this.entrada;
-    }
-
-    public void setEntrada(String entrada) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        this.entrada = LocalDateTime.parse(entrada, formatter);
-        this.dataModificacao = Util.getDia();
+    public String getEntradaDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return formatter.format(this.entrada);
     }
     
+    public String getEntradaDate2() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return formatter.format(this.entrada);
+    }
+
     public void setEntrada(LocalDateTime entrada) {
-        this.entrada = entrada;
-        this.dataModificacao = Util.getDia();
+        this.entrada =  entrada;
+    }
+    
+    public void setEntrada2(String entrada) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        this.entrada = LocalDateTime.parse(entrada, formatter);
+    }
+    
+    public void setEntrada3(String entrada) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        this.entrada =  LocalDateTime.parse(entrada, formatter);
     }
     
     public Pessoa getPessoa() {
@@ -52,7 +58,10 @@ public class EntradaAluno {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
-        this.dataModificacao = Util.getDia();
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public String getDataCriacao() {
@@ -66,7 +75,7 @@ public class EntradaAluno {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = dataModificacao;
         
     }
 
@@ -100,10 +109,10 @@ public class EntradaAluno {
     public String toString() {
         return "\n---------------------------------" +
                "\n| Entrada do Aluno: " + this.getPessoa().getNome() +
-               "\n| Id: " + id + 
-               "\n| Entrada: " + entrada + 
-               "\n| Data de Criação: " + dataCriacao + 
-               "\n| Data de Modificação: " + dataModificacao + 
+               "\n| Id                 : " + id + 
+               "\n| Entrada            : " + this.getEntradaDate2()+ 
+               "\n| Data de Criação    : " + this.getDataCriacao() + 
+               "\n| Data de Modificação: " + this.getDataModificacao() + 
                "\n---------------------------------";
     }
     

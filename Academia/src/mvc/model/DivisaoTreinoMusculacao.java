@@ -5,35 +5,32 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /*
-CRUD DIVISAO DE TREINO-MUSCULO. Informações importantes: id, decricao,  divisao de treino, dataCriacao, dataModificacao.
+CRUD DIVISAO DE TREINO-MUSCULO. Informacoes importantes: id, decricao,  divisao de treino, dataCriacao, dataModificacao.
  */
 public class DivisaoTreinoMusculacao {
 
     private long id;
-    private static long aux;
+    private long idMusculacao;
     private String descricao;
     private String posicao;
     private DivisaoTreino divisaoTreino;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public DivisaoTreinoMusculacao() {
-        this.id = DivisaoTreinoMusculacao.aux++;
-        this.dataCriacao = Util.getDia();
-        this.dataModificacao = Util.getDia();
-    }
-
     public long getId() {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+    
     public String getDescricao() {
         return descricao;
     }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getPosicao() {
@@ -42,7 +39,14 @@ public class DivisaoTreinoMusculacao {
 
     public void setPosicao(String posicao) {
         this.posicao = posicao;
-        this.dataModificacao = Util.getDia();
+    }
+    
+    public long getIdMusculacao() {
+        return idMusculacao;
+    }
+
+    public void setIdMusculacao(long idMusculacao) {
+        this.idMusculacao = idMusculacao;
     }
 
     public DivisaoTreino getDivisaoTreino() {
@@ -51,12 +55,15 @@ public class DivisaoTreinoMusculacao {
 
     public void setDivisaoTreino(DivisaoTreino divisaoTreino) {
         this.divisaoTreino = divisaoTreino;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getDataCriacao() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dataCriacao.format(formatter);
+    }    
+    
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public String getDataModificacao() {
@@ -65,7 +72,7 @@ public class DivisaoTreinoMusculacao {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = dataModificacao;
     }
 
     @Override

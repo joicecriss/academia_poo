@@ -1,266 +1,205 @@
 package mvc.model;
 
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 public class PessoaDAO {
-    Pessoa [] pessoas = new Pessoa[20];
 
-    public PessoaDAO() {
-        Pessoa p1 = new Pessoa();
-        p1.setNome("Joice Cristina");
-        p1.setSexo("Feminino");
-        p1.setNascimento("15/09/1998");
-        p1.setLogin("joice@gmail.com");
-        p1.setSenha("joice123");
-        p1.setTipoUsuario(3);
-        p1.setCpf("702.524.266-73");
-        adiciona(p1);
-        
-        Pessoa p2 = new Pessoa();
-        p2.setNome("Matheus Henrique");
-        p2.setSexo("Masculino");
-        p2.setNascimento("23/04/1996");
-        p2.setLogin("matheus@gmail.com");
-        p2.setSenha("matheus123");
-        p2.setTipoUsuario(3);
-        p2.setCpf("799.231.190-68");
-        adiciona(p2);
-        
-        Pessoa p3 = new Pessoa();
-        p3.setNome("Admin");
-        p3.setSexo("Sem genero");
-        p3.setNascimento("14/05/2024");
-        p3.setLogin("admin");
-        p3.setSenha("admin");
-        p3.setTipoUsuario(3);
-        p3.setCpf("123.456.789-10");
-        adiciona(p3);
-        
-        Pessoa p4 = new Pessoa();
-        p4.setNome("Douglas da Silva");
-        p4.setSexo("Masculino");
-        p4.setNascimento("02/09/2001");
-        p4.setLogin("douglas@gmail.com");
-        p4.setSenha("douglas123");
-        p4.setTipoUsuario(1);
-        p4.setCpf("870.517.920-32");
-        adiciona(p4);
-        
-        Pessoa p5 = new Pessoa();
-        p5.setNome("Julia Pereira Costa");
-        p5.setSexo("Feminino");
-        p5.setNascimento("28/05/2003");
-        p5.setLogin("julia@gmail.com");
-        p5.setSenha("julia123");
-        p5.setTipoUsuario(1);
-        p5.setCpf("111.908.610-89");
-        adiciona(p5);
-        
-        Pessoa p6 = new Pessoa();
-        p6.setNome("Alan Monteiro Silva");
-        p6.setSexo("Masculino");
-        p6.setNascimento("01/05/1998");
-        p6.setLogin("alan@gmail.com");
-        p6.setSenha("alan123");
-        p6.setTipoUsuario(2);
-        p6.setCpf("975.025.030-30");
-        adiciona(p6);
-        
-        Pessoa p7 = new Pessoa();
-        p7.setNome("Fernanda Souza Alves");
-        p7.setSexo("Feminino");
-        p7.setNascimento("10/11/1996");
-        p7.setLogin("fernanda@gmail.com");
-        p7.setSenha("fernanda123");
-        p7.setTipoUsuario(2);
-        p7.setCpf("012.325.030-30");
-        adiciona(p7);
-    }
-    
-    public boolean adiciona(Pessoa p) {
-        int proximaPosicaoLivre = this.proximaPosicaoLivre();
-        if (proximaPosicaoLivre != -1) {
-            pessoas[proximaPosicaoLivre] = p;
-            return true;
-        } else {
-            return false;
+    public boolean adiciona(Pessoa pessoa) {
+        String sql = "INSERT INTO pessoa (nome, sexo, nascimento, login, senha, tipoUsuario, cpf, dataCriacao, dataModificacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, pessoa.getNome());
+            stmt.setString(2, pessoa.getSexo());
+            stmt.setDate(3, java.sql.Date.valueOf(pessoa.getNascimento3()));
+            stmt.setString(4, pessoa.getLogin());
+            stmt.setString(5, pessoa.getSenha());
+            stmt.setInt(6, pessoa.getTipoUsuario());
+            stmt.setString(7, pessoa.getCpf());
+            stmt.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
+
+            stmt.executeUpdate();
+
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    //pessoa.setId(rs.getLong(1));
+                    return true;
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao adicionar pessoa", e);
         }
+
+        return false;
     }
 
-    public boolean ehVazio() {
-        for (Pessoa p : pessoas) {
-            if (p != null) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    private int proximaPosicaoLivre() {
-        for (int i = 0; i < pessoas.length; i++) {
-            if (pessoas[i] == null) {
-                return i;
-            }
-        }
-        return -1;
+    public Pessoa buscaPorId(long id) {
+        String sql = "SELECT * FROM pessoa WHERE id = ?";
 
-    }
-    
-    public void mostrarTodos() {
-        boolean temPessoa = false;
-        for (Pessoa p : pessoas) {
-            if (p != null) {
-                System.out.println(p);
-                temPessoa = true;
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return map(rs);
+                }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar pessoa por ID", e);
         }
-        if (!temPessoa) {
-            System.out.println("Nao existe pessoa cadastrada!");
-        }
-    }
-    
-    public Pessoa[] mostrarTodosERetornar() {
-        // Conta quantas pessoas existem para criar o array com o tamanho exato
-        int count = 0;
-        for (Pessoa p : pessoas) {
-            if (p != null && p.getCpf().length() == 0) {
-                count++;
-            }
-        }
-        // Cria um array para armazenar as pessoas existentes
-        Pessoa[] result = new Pessoa[count];
-        int index = 0;
-        for (Pessoa p : pessoas) {
-            if (p != null && p.getCpf().length() == 0) {
-                result[index] = p;
-                index++;
-            }
-        }
-        return result;
-    }
-    
-    public Pessoa buscaPessoaLogin(String email, String senha) {
-         for (Pessoa p : pessoas) {
-            if (p != null && p.getLogin().equals(email) &&
-                    p.getSenha().equals(senha)) {
-                return p;
-            }
-        }
+
         return null;
     }
     
     public Pessoa buscaPessoa(String cpf) {
-        for (Pessoa p : pessoas) {
-            if (p != null && p.getCpf().equals(cpf)) {
-                return p;
-            }
-        }
-        return null;
-    }
-    
-    public Pessoa buscaPorId(Long id) {
-        for (Pessoa p : pessoas) {
-            if (p != null && p.getId() == id) {
-                return p;
-            }
-        }
-        return null;
-    }
-    
-    public boolean remover(String cpf) {
-        for (int i = 0; i < pessoas.length; i++) {
-            if (pessoas[i] != null && pessoas[i].getCpf().equals(cpf)) {
-                pessoas[i] = null;
-                return true;
-            }
-        }
-        return false;
+        String sql = "SELECT * FROM pessoa WHERE cpf = ?";
 
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, cpf);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return map(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar pessoa por CPF", e);
+        }
+
+        return null;
     }
     
-    public boolean alterarNome(String cpf, String novoNome) {
-        for (Pessoa p : pessoas) {
-            if (p != null && p.getCpf().equals(cpf)) {
-                p.setNome(novoNome);
-                return true;
+    public Pessoa buscaPessoaLogin(String email, String senha) {
+        String sql = "SELECT * FROM pessoa WHERE login = ? AND senha = ?";
+        Pessoa obj = null;
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            stmt.setString(2, senha);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    obj = new Pessoa();
+                    obj.setId(rs.getLong("id"));
+                    obj.setNome(rs.getString("nome"));
+                    obj.setLogin(rs.getString("login"));
+                    obj.setSenha(rs.getString("senha"));
+                    obj.setSexo(rs.getString("sexo"));
+                    obj.setNascimento(rs.getString("nascimento"));
+                    obj.setTipoUsuario(rs.getInt("tipoUsuario"));
+                    obj.setCpf(rs.getString("cpf"));
+                    obj.setDataCriacao(rs.getTimestamp("dataCriacao").toLocalDateTime());
+                    obj.setDataModificacao(rs.getTimestamp("dataModificacao").toLocalDateTime());
+                    return obj;
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Erro de SQL: " + e.getMessage());
             }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar pessoa para login", e);
         }
-        return false;
+
+        return null;
+    }
+
+    public List<Pessoa> buscaTodas() {
+        String sql = "SELECT * FROM pessoa";
+        List<Pessoa> pessoas = new ArrayList<>();
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                pessoas.add(map(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar todas as pessoas", e);
+        }
+
+        return pessoas;
     }
     
-    public boolean alterarSexo(String cpf, String novoSexo) {
-        for (Pessoa p : pessoas) {
-            if (p != null && p.getCpf().equals(cpf)) {
-                p.setSexo(novoSexo);
-                return true;
+    public List<Pessoa> buscaTodosAlunos() {
+        String sql = "SELECT * FROM pessoa WHERE tipoUsuario = 1";
+        List<Pessoa> pessoas = new ArrayList<>();
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                pessoas.add(map(rs));
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar todos os alunos", e);
         }
-        return false;
+
+        return pessoas;
     }
-    
-    public boolean alterarNascimento(String cpf, String novoNascimento) {
-        for (Pessoa p : pessoas) {
-            if (p != null && p.getCpf().equals(cpf)) {
-                p.setNascimento(novoNascimento);
-                return true;
-            }
+
+    public Pessoa altera(Pessoa pessoa) {
+        String sql = "UPDATE pessoa SET nome = ?, sexo = ?, nascimento = ?, login = ?, senha = ?, tipoUsuario = ?, cpf = ?, dataModificacao = ? WHERE id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, pessoa.getNome());
+            stmt.setString(2, pessoa.getSexo());
+            stmt.setDate(3, java.sql.Date.valueOf(pessoa.getNascimento3()));
+            stmt.setString(4, pessoa.getLogin());
+            stmt.setString(5, pessoa.getSenha());
+            stmt.setInt(6, pessoa.getTipoUsuario());
+            stmt.setString(7, pessoa.getCpf());
+            stmt.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setLong(9, pessoa.getId());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao alterar pessoa", e);
         }
-        return false;
+
+        return pessoa;
     }
-    
-    public boolean alterarEmail(String cpf, String novoEmail) {
-        for (Pessoa p : pessoas) {
-            if (p != null && p.getCpf().equals(cpf)) {
-                p.setLogin(novoEmail);
-                return true;
-            }
+
+    public boolean exclui(String cpf) {
+        int excluir = 0;
+        String sql = "DELETE FROM pessoa WHERE cpf = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, cpf);
+            excluir = stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao excluir pessoa", e);
         }
-        return false;
+        
+        return excluir > 0;
     }
-    
-    public boolean alterarSenha(String cpf, String novaSenha) {
-        for (Pessoa p : pessoas) {
-            if (p != null && p.getCpf().equals(cpf)) {
-                p.setSenha(novaSenha);
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean alterarTipoUsuario(String cpf, int novoTipo) {
-        for (Pessoa p : pessoas) {
-            if (p != null && p.getCpf().equals(cpf)) {
-                p.setTipoUsuario(novoTipo);
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean alterarCpf(String cpf, String novaCpf) {
-        for (Pessoa p : pessoas) {
-            if (p != null && p.getCpf().equals(cpf)) {
-                p.setCpf(novaCpf);
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public Pessoa[] mostrarTodosAlunos() {
-        int count = 0;
-        for (Pessoa p : pessoas) {
-            if (p != null && p.getTipoUsuario() == 1) {
-                count++;
-            }
-        }
-        Pessoa[] result = new Pessoa[count];
-        int index = 0;
-        for (Pessoa p : pessoas) {
-            if (p != null && p.getTipoUsuario() == 1) {
-                result[index] = p;
-                index++;
-            }
-        }
-        return result;
+
+    private Pessoa map(ResultSet rs) throws SQLException {
+        Pessoa pessoa = new Pessoa();
+        pessoa.setId(rs.getLong("id"));
+        pessoa.setNome(rs.getString("nome"));
+        pessoa.setSexo(rs.getString("sexo"));
+        pessoa.setNascimento(rs.getString("nascimento"));
+        pessoa.setLogin(rs.getString("login"));
+        pessoa.setSenha(rs.getString("senha"));
+        pessoa.setTipoUsuario(rs.getInt("tipoUsuario"));
+        pessoa.setCpf(rs.getString("cpf"));
+        pessoa.setDataCriacao(rs.getTimestamp("dataCriacao").toLocalDateTime());
+        pessoa.setDataModificacao(rs.getTimestamp("dataModificacao").toLocalDateTime());
+        return pessoa;
     }
 }

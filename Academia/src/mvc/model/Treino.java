@@ -11,22 +11,19 @@ divisao de treino, dataCriacao, dataModificacao.
 */
 public class Treino {
     private long id;
-    private static long aux;
     private String objetivo;
     private LocalDate dataInicio;
     private LocalDate dataTermino;
-    private DivisaoTreino divisaoTreino;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public Treino() {
-        this.id = ++Treino.aux;
-        this.dataCriacao = Util.getDia();
-        this.dataModificacao = Util.getDia();
-    }
 
     public long getId() {
         return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getObjetivo() {
@@ -35,7 +32,6 @@ public class Treino {
 
     public void setObjetivo(String objetivo) {
         this.objetivo = objetivo;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getDataInicio() {
@@ -46,40 +42,53 @@ public class Treino {
     public LocalDate getDataInicioDate() {
         return this.dataInicio;
     }
+    
+    public String getDataInicio3() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return formatter.format(this.dataInicio);
+    }
 
     public void setDataInicio(String dataInicio) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.dataInicio = LocalDate.parse(dataInicio, formatter);
+    }
+    
+    public void setDataInicio2(String dataInicio) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.dataInicio = LocalDate.parse(dataInicio, formatter);
-        this.dataModificacao = Util.getDia();
     }
 
     public String getDataTermino() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return this.dataTermino.format(formatter);
     }
+    
     public LocalDate getDataTerminoDate() {
         return this.dataTermino;
     }
     
+    public String getDataTermino3() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return formatter.format(this.dataTermino);
+    }
 
     public void setDataTermino(String dataTermino) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.dataTermino = LocalDate.parse(dataTermino, formatter);
+    }
+    
+    public void setDataTermino2(String dataTermino) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.dataTermino = LocalDate.parse(dataTermino, formatter);
-        this.dataModificacao = Util.getDia();
-    }
-
-    public DivisaoTreino getDivisaoTreino() {
-        return divisaoTreino;
-    }
-
-    public void setDivisaoTreino(DivisaoTreino divisaoTreino) {
-        this.divisaoTreino = divisaoTreino;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getDataCriacao() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dataCriacao.format(formatter);
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public String getDataModificacao() {
@@ -88,7 +97,7 @@ public class Treino {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = dataModificacao;
     }
 
     @Override
@@ -127,11 +136,10 @@ public class Treino {
                 "\n| Treino:" + 
                 "\n| Id                 : " + id + 
                 "\n| Objetivo           : " + objetivo + 
-                "\n| Data de Inicio     : " + dataInicio + 
-                "\n| Data de Termino    : " + dataTermino + 
-                "\n| Data de Criacao    : " + dataCriacao + 
-                "\n| Data de Modificacao: " + dataModificacao + 
-                (this.divisaoTreino != null ? "\n|" + divisaoTreino.descResumida() : "") +
+                "\n| Data de Inicio     : " + getDataInicio() + 
+                "\n| Data de Termino    : " + getDataTermino() + 
+                "\n| Data de Criacao    : " + getDataCriacao() + 
+                "\n| Data de Modificacao: " + getDataModificacao() + 
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 }

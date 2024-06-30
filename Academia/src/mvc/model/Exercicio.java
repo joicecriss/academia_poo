@@ -11,21 +11,20 @@ EXEMPLO: supino reto, agachamento livre, ...
 */
 public class Exercicio {
     private long id;
-    private static long aux;
     private String nome;
     private String descricao;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-     public Exercicio() {
-        this.id = ++Exercicio.aux;
-        this.dataCriacao = Util.getDia();
-        this.dataModificacao = Util.getDia();
-    }
     
     public long getId() {
         return id;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+    
 
     public String getNome() {
         return nome;
@@ -33,7 +32,6 @@ public class Exercicio {
 
     public void setNome(String nome) {
         this.nome = nome;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getDescricao() {
@@ -42,7 +40,6 @@ public class Exercicio {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getDataCriacao() {
@@ -50,23 +47,28 @@ public class Exercicio {
         return this.dataCriacao.format(formatter);
     }
 
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+    
+
     public String getDataModificacao() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dataModificacao.format(formatter);
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = dataModificacao;
     }
 
     @Override
     public String toString() {
         return "\n---------------------------------" +
                "\n| Exercício: " + 
-               "\n| Id: " + id + 
-               "\n| Nome: " + nome + 
-               "\n| Descrição: " + descricao + 
-               "\n| Data de Criação: " + getDataCriacao() + 
+               "\n| Id                 : " + id + 
+               "\n| Nome               : " + nome + 
+               "\n| Descrição          : " + descricao + 
+               "\n| Data de Criação    : " + getDataCriacao() + 
                "\n| Data de Modificação: " + getDataModificacao() + 
                "\n---------------------------------";
     }

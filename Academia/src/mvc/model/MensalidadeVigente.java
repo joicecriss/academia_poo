@@ -10,21 +10,19 @@ CRUD MENSALIDADE VIGENTE. Informações importantes: id, valor, início, término, d
 */
 public class MensalidadeVigente {
     private long id;
-    private static long aux;
     private double valor;
     private LocalDate inicio;
     private LocalDate termino;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public MensalidadeVigente() {
-        this.id = ++MensalidadeVigente.aux;
-        this.dataCriacao = Util.getDia();
-        this.dataModificacao = Util.getDia();
-    }
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public double getValor() {
@@ -33,44 +31,56 @@ public class MensalidadeVigente {
 
     public void setValor(double valor) {
         this.valor = valor;
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = LocalDateTime.now();
     }
 
     public String getInicio() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return this.inicio.format(formatter);
+    }
+    
+    public String getInicio2() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return this.inicio.format(formatter);
     }
 
-    public void setInicio(String inicio) {
+     public void setInicio(String inicio) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.inicio = LocalDate.parse(inicio, formatter);
-        this.dataModificacao = Util.getDia();
     }
     
-    public void setInicio(LocalDate inicio) {
-        this.inicio = inicio;
-        this.dataModificacao = Util.getDia();
+    public void setInicio2(String inicio) {
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+       this.inicio = LocalDate.parse(inicio, formatter);
     }
 
     public String getTermino() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return this.termino.format(formatter);
+    }
+    
+    public String getTermino2() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return this.termino.format(formatter);
     }
-
+    
     public void setTermino(String termino) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.termino = LocalDate.parse(termino, formatter);
-        this.dataModificacao = Util.getDia();
     }
     
-    public void setTermino(LocalDate termino) {
-        this.termino = termino;
-        this.dataModificacao = Util.getDia();
+    public void setTermino2(String termino) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.termino = LocalDate.parse(termino, formatter);
     }
 
     public String getDataCriacao() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dataCriacao.format(formatter);
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public String getDataModificacao() {
@@ -79,7 +89,7 @@ public class MensalidadeVigente {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = dataModificacao;
     }
 
     @Override
@@ -115,15 +125,21 @@ public class MensalidadeVigente {
     @Override
     public String toString() {
         return "\n---------------------------------" +
-               "\n| Mensalidade Vigente:" + 
-               "\n| Id: " + id + 
-               "\n| Valor: " + valor + 
-               "\n| Início: " + inicio + 
-               "\n| Término: " + termino + 
-               "\n| Data de Criação: " + getDataCriacao() + 
+               "\n| Mensalidade Vigente" + 
+               "\n| Id                 : " + id + 
+               "\n| Valor              : " + valor + 
+               "\n| Início             : " + getInicio2() + 
+               "\n| Término            : " + getTermino2() + 
+               "\n| Data de Criação    : " + getDataCriacao() + 
                "\n| Data de Modificação: " + getDataModificacao() + 
                "\n---------------------------------";
     }
     
+    public String mensResumida() {
+        return  "\n| Mensalidade Vigente Id     : " + this.id + 
+                "\n| Mensalidade Vigente Valor  : " + this.valor + 
+                "\n| Mensalidade Vigente Início : " + this.inicio +
+                "\n| Mensalidade Vigente Término: " + this.termino;
+    }
     
 }

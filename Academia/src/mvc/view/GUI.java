@@ -1,10 +1,11 @@
 package mvc.view;
 
 //Importacoes
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.Scanner;
-import mvc.model.Util;
+//import mvc.model.Util;
 import mvc.model.Academia;
 import mvc.model.AcademiaDAO;
 import mvc.model.AvaliacaoFisica;
@@ -12,7 +13,7 @@ import mvc.model.Pessoa;
 import mvc.model.DivisaoTreino;
 import mvc.model.DivisaoTreinoDAO;
 import mvc.model.DivisaoTreinoMusculacao;
-import mvc.model.DivisaoTreinoMusculacaoDAO;
+//import mvc.model.DivisaoTreinoMusculacaoDAO;
 import mvc.model.EntradaAluno;
 import mvc.model.MovimentacaoFinanceira;
 import mvc.model.Exercicio;
@@ -30,8 +31,10 @@ import mvc.model.TreinoDAO;
 import mvc.model.Util;
 import mvc.model.Treino;
 import mvc.model.TreinoAplicacao;
-
-
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.UUID;
 
 public class GUI {
     Scanner scanner = new Scanner(System.in);
@@ -50,14 +53,14 @@ public class GUI {
     // =-=-=-=-=MENUS PRINCIPAIS=-=-=-=-=-= //
     public int menuBoasVindas() {
         builder.setLength(0);
-        builder.append("\n----------------------------");
-        builder.append("\n|   BEM VINDO A ACADEMIA   |");
-        builder.append("\n|                          |");
-        builder.append("\n| 1 - Login                |");
-        builder.append("\n| 2 - Cadastrar            |");
-        builder.append("\n| 3 - Sair do programa     |");
-        builder.append("\n|                          |");
-        builder.append("\n----------------------------");
+        builder.append("\n---------------------------------------");
+        builder.append("\n|         BEM VINDO A ACADEMIA         |");
+        builder.append("\n|                                      |");
+        builder.append("\n|     1 - Login                        |");
+        builder.append("\n|     2 - Cadastrar                    |");
+        builder.append("\n|     3 - Sair do programa             |");
+        builder.append("\n|                                      |");
+        builder.append("\n---------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -85,22 +88,22 @@ public class GUI {
     public int menuProfessor() {
         /* O professor/instrutor pode fazer o crud de aluno e treino e as operacoes do aluno. */
         builder.setLength(0);
-        builder.append("\n-------------------------------------");
-        builder.append("\n|        BEM VINDO INSTRUTOR        |");
-        builder.append("\n|                                   |");
-        builder.append("\n|  1 - Perfil                       |");
-        builder.append("\n|  2 - Usuarios                     |");
-        builder.append("\n|  3 - Exercicio                    |");
-        builder.append("\n|  4 - Exercicio Aplicacao          |");
-        builder.append("\n|  5 - Divisao de Treino            |");
-        builder.append("\n|  6 - Divisao de Treino-Musculacao |");
-        builder.append("\n|  7 - Treino                       |");
-        builder.append("\n|  8 - Treino Aplicacao             |");
-        builder.append("\n|  9 - Avaliacao Fisica             |");
-        builder.append("\n| 10 - Entrada Aluno                |");
-        builder.append("\n|  0 - Sair                         |");
-        builder.append("\n|                                   |");
-        builder.append("\n-------------------------------------");
+        builder.append("\n---------------------------------------");
+        builder.append("\n|        BEM VINDO INSTRUTOR          |");
+        builder.append("\n|                                     |");
+        builder.append("\n|  1 - Perfil                         |");
+        builder.append("\n|  2 - Usuarios                       |");
+        builder.append("\n|  3 - Exercicio                      |");
+        builder.append("\n|  4 - Exercicio Aplicacao            |");
+        builder.append("\n|  5 - Divisao de Treino              |");
+        builder.append("\n|  6 - Divisao de Treino-Musculacao   |");
+        builder.append("\n|  7 - Treino                         |");
+        builder.append("\n|  8 - Treino Aplicacao               |");
+        builder.append("\n|  9 - Avaliacao Fisica               |");
+        builder.append("\n| 10 - Entrada Aluno                  |");
+        builder.append("\n|  0 - Sair                           |");
+        builder.append("\n|                                     |");
+        builder.append("\n---------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -109,27 +112,28 @@ public class GUI {
     public int menuAdmin() {
         /* O administrador pode fazer tudo que o professor faz e movimentacoes financeiras. */
         builder.setLength(0);
-        builder.append("\n------------------------------------");
-        builder.append("\n|       BEM VINDO ADMINISTRADOR    |");
-        builder.append("\n|                                  |");
-        builder.append("\n|  1 - Perfil                      |");
-        builder.append("\n|  2 - Academia                    |");
-        builder.append("\n|  3 - Usuarios                    |");
-        builder.append("\n|  4 - Exercicio                   |");
-        builder.append("\n|  5 - Exercio Aplicacao           |");
-        builder.append("\n|  6 - Divisao de Treino           |");
-        builder.append("\n|  7 - Divisao de Treino-Musculacao|");
-        builder.append("\n|  8 - Treino                      |");
-        builder.append("\n|  9 - Treino Aplicacao            |");
-        builder.append("\n| 10 - Avaliacao Fisica            |");
-        builder.append("\n| 11 - Mensalidade Vigente         |");
-        builder.append("\n| 12 - Aluno Pagamento Mensalidade |");
-        builder.append("\n| 13 - Pagamento Recorrente        |");
-        builder.append("\n| 14 - Entrada Aluno               |");
-        builder.append("\n| 15 - Movimentacao Financeira     |");
-        builder.append("\n|  0 - Sair                        |");
-        builder.append("\n|                                  |");
-        builder.append("\n-----------------------------------");
+        builder.append("\n----------------------------------------");
+        builder.append("\n|       BEM VINDO ADMINISTRADOR        |");
+        builder.append("\n|                                      |");
+        builder.append("\n|  1 - Perfil                          |");
+        builder.append("\n|  2 - Academia                        |");
+        builder.append("\n|  3 - Usuarios                        |");
+        builder.append("\n|  4 - Exercicio                       |");
+        builder.append("\n|  5 - Exercio Aplicacao               |");
+        builder.append("\n|  6 - Divisao de Treino               |");
+        builder.append("\n|  7 - Divisao de Treino-Musculacao    |");
+        builder.append("\n|  8 - Treino                          |");
+        builder.append("\n|  9 - Treino Aplicacao                |");
+        builder.append("\n| 10 - Avaliacao Fisica                |");
+        builder.append("\n| 11 - Mensalidade Vigente             |");
+        builder.append("\n| 12 - Aluno Pagamento Mensalidade     |");
+        builder.append("\n| 13 - Pagamento Recorrente            |");
+        builder.append("\n| 14 - Entrada Aluno                   |");
+        builder.append("\n| 15 - Movimentacao Financeira         |");
+        builder.append("\n| 16 - Pagamentos Recorrentes Vencidos |");
+        builder.append("\n|  0 - Sair                            |");
+        builder.append("\n|                                      |");
+        builder.append("\n----------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -137,16 +141,16 @@ public class GUI {
      
     public int menuPrincipal() {
         builder.setLength(0);
-        builder.append("\n-----------------------------------");
-        builder.append("\n|             MENU                |");
-        builder.append("\n|     Usuario sem tipo valido!    |");
-        builder.append("\n|                                 |");
-        builder.append("\n| 1 - Perfil                      |");
-        builder.append("\n| 2 - Alterar Cadastro            |");
-        builder.append("\n| 3 - Tentar Novamente            |");
-        builder.append("\n| 0 - Sair                        |");
-        builder.append("\n|                                 |");
-        builder.append("\n-----------------------------------");
+        builder.append("\n-----------------------------------------");
+        builder.append("\n|             MENU                      |");
+        builder.append("\n|     Usuario sem tipo valido!          |");
+        builder.append("\n|                                       |");
+        builder.append("\n| 1 - Perfil                            |");
+        builder.append("\n| 2 - Alterar Cadastro                  |");
+        builder.append("\n| 3 - Tentar Novamente                  |");
+        builder.append("\n| 0 - Sair                              |");
+        builder.append("\n|                                       |");
+        builder.append("\n-----------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -158,17 +162,17 @@ public class GUI {
     // =-=-=-=-=MENUS DAS CLASSES INDIVIDUALMENTE=-=-=-=-=-= //
     public int opPessoa() {
         builder.setLength(0);
-        builder.append("\n-----------------------------------");
-        builder.append("\n|  * -> Pessoa                     |");
-        builder.append("\n|                                  |");
-        builder.append("\n|  1 - Cadastrar                   |");
-        builder.append("\n|  2 - Mostrar todas               |");
-        builder.append("\n|  3 - Buscar pelo CPF             |");
-        builder.append("\n|  4 - Alterar uma Pessoa          |");
-        builder.append("\n|  5 - Excluir pelo CPF            |");
-        builder.append("\n|  0 - Sair                        |");
-        builder.append("\n|                                  |");
-        builder.append("\n-----------------------------------");
+        builder.append("\n----------------------------------------");
+        builder.append("\n|  * -> Pessoa                         |");
+        builder.append("\n|                                      |");
+        builder.append("\n|  1 - Cadastrar                       |");
+        builder.append("\n|  2 - Mostrar todas                   |");
+        builder.append("\n|  3 - Buscar pelo CPF                 |");
+        builder.append("\n|  4 - Alterar uma Pessoa              |");
+        builder.append("\n|  5 - Excluir pelo CPF                |");
+        builder.append("\n|  0 - Sair                            |");
+        builder.append("\n|                                      |");
+        builder.append("\n----------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -176,16 +180,16 @@ public class GUI {
      
     public int opAcademia() {
         builder.setLength(0);
-        builder.append("\n-----------------------------------");
-        builder.append("\n|  * -> Academia                   |");
-        builder.append("\n|                                  |");
-        builder.append("\n|  1 - Cadastrar                   |");
-        builder.append("\n|  2 - Mostrar todas               |");
-        builder.append("\n|  3 - Alterar uma Academia        |");
-        builder.append("\n|  4 - Excluir pelo nome           |");
-        builder.append("\n|  0 - Sair                        |");
-        builder.append("\n|                                  |");
-        builder.append("\n-----------------------------------");
+        builder.append("\n-----------------------------------------");
+        builder.append("\n|   * -> Academia                       |");
+        builder.append("\n|                                       |");
+        builder.append("\n|   1 - Cadastrar                       |");
+        builder.append("\n|   2 - Mostrar todas                   |");
+        builder.append("\n|   3 - Alterar uma Academia            |");
+        builder.append("\n|   4 - Excluir pelo nome               |");
+        builder.append("\n|   0 - Sair                            |");
+        builder.append("\n|                                       |");
+        builder.append("\n-----------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -193,17 +197,17 @@ public class GUI {
     
     public int opDivisaoTreino() {
         builder.setLength(0);
-        builder.append("\n--------------------------------");
-        builder.append("\n|  * -> Divisao Treino         |");
-        builder.append("\n|                              |");
-        builder.append("\n|  1 - Cadastrar               |");
-        builder.append("\n|  2 - Mostrar todas           |");
-        builder.append("\n|  3 - Buscar pelo id          |");
-        builder.append("\n|  4 - Alterar uma Divisao     |");
-        builder.append("\n|  5 - Excluir pelo id         |");
-        builder.append("\n|  0 - Sair                    |");
-        builder.append("\n|                              |");
-        builder.append("\n--------------------------------");
+        builder.append("\n------------------------------------------");
+        builder.append("\n|  * -> Divisao Treino                   |");
+        builder.append("\n|                                        |");
+        builder.append("\n|  1 - Cadastrar                         |");
+        builder.append("\n|  2 - Mostrar todas                     |");
+        builder.append("\n|  3 - Buscar pelo id                    |");
+        builder.append("\n|  4 - Alterar uma Divisao               |");
+        builder.append("\n|  5 - Excluir pelo id                   |");
+        builder.append("\n|  0 - Sair                              |");
+        builder.append("\n|                                        |");
+        builder.append("\n------------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -211,17 +215,17 @@ public class GUI {
     
     public int opDivisaoTreinoMusculacao() {
         builder.setLength(0);
-        builder.append("\n-------------------------------------");
-        builder.append("\n|   * -> Divisao Treino Musculacao   |");
-        builder.append("\n|                                    |");
-        builder.append("\n|   1 - Cadastrar                    |");
-        builder.append("\n|   2 - Mostrar todas                |");
-        builder.append("\n|   3 - Buscar pelo id               |");
-        builder.append("\n|   4 - Alterar uma Divisao          |");
-        builder.append("\n|   5 - Excluir pelo id              |");
-        builder.append("\n|   0 - Sair                         |");
-        builder.append("\n|                                    |");
-        builder.append("\n-------------------------------------");
+        builder.append("\n-----------------------------------------");
+        builder.append("\n|   * -> Divisao Treino Musculacao       |");
+        builder.append("\n|                                        |");
+        builder.append("\n|   1 - Cadastrar                        |");
+        builder.append("\n|   2 - Mostrar todas                    |");
+        builder.append("\n|   3 - Buscar pelo id                   |");
+        builder.append("\n|   4 - Alterar uma Divisao              |");
+        builder.append("\n|   5 - Excluir pelo id                  |");
+        builder.append("\n|   0 - Sair                             |");
+        builder.append("\n|                                        |");
+        builder.append("\n-----------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -229,17 +233,17 @@ public class GUI {
     
     public int opTreino() {
         builder.setLength(0);
-        builder.append("\n--------------------------------");
-        builder.append("\n|  * -> Treino                 |");
-        builder.append("\n|                              |");
-        builder.append("\n|  1 - Cadastrar               |");
-        builder.append("\n|  2 - Mostrar todos           |");
-        builder.append("\n|  3 - Buscar pelo id          |");
-        builder.append("\n|  4 - Alterar um Treino       |");
-        builder.append("\n|  5 - Excluir pelo id         |");
-        builder.append("\n|  0 - Sair                    |");
-        builder.append("\n|                              |");
-        builder.append("\n--------------------------------");
+        builder.append("\n------------------------------------------");
+        builder.append("\n|  * -> Treino                           |");
+        builder.append("\n|                                        |");
+        builder.append("\n|  1 - Cadastrar                         |");
+        builder.append("\n|  2 - Mostrar todos                     |");
+        builder.append("\n|  3 - Buscar pelo id                    |");
+        builder.append("\n|  4 - Alterar um Treino                 |");
+        builder.append("\n|  5 - Excluir pelo id                   |");
+        builder.append("\n|  0 - Sair                              |");
+        builder.append("\n|                                        |");
+        builder.append("\n------------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -247,16 +251,16 @@ public class GUI {
     
     public int opTreinoAplicacao() {
         builder.setLength(0);
-        builder.append("\n--------------------------------");
-        builder.append("\n|  * -> Treino Aplicacao       |");
-        builder.append("\n|                              |");
-        builder.append("\n|  1 - Criar Treino            |");
-        builder.append("\n|  2 - Mostrar por id          |");
-        builder.append("\n|  3 - Buscar pelo id          |");
-        builder.append("\n|  4 - Excluir pelo id         |");
-        builder.append("\n|  0 - Sair                    |");
-        builder.append("\n|                              |");
-        builder.append("\n--------------------------------");
+        builder.append("\n------------------------------------------");
+        builder.append("\n|  * -> Treino Aplicacao                 |");
+        builder.append("\n|                                        |");
+        builder.append("\n|  1 - Criar Treino                      |");
+        builder.append("\n|  2 - Mostrar por id                    |");
+        builder.append("\n|  3 - Buscar pelo id                    |");
+        builder.append("\n|  4 - Excluir pelo id                   |");
+        builder.append("\n|  0 - Sair                              |");
+        builder.append("\n|                                        |");
+        builder.append("\n------------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -264,17 +268,17 @@ public class GUI {
     
     public int opAvaliacaoFisica() {
         builder.setLength(0);
-        builder.append("\n--------------------------------");
-        builder.append("\n|  * -> Avalicao Fisica        |");
-        builder.append("\n|                              |");
-        builder.append("\n|  1 - Cadastrar               |");
-        builder.append("\n|  2 - Mostrar todos           |");
-        builder.append("\n|  3 - Buscar pelo id          |");
-        builder.append("\n|  4 - Alterar                 |");
-        builder.append("\n|  5 - Excluir pelo id         |");
-        builder.append("\n|  0 - Sair                    |");
-        builder.append("\n|                              |");
-        builder.append("\n--------------------------------");
+        builder.append("\n------------------------------------------");
+        builder.append("\n|  * -> Avalicao Fisica                  |");
+        builder.append("\n|                                        |");
+        builder.append("\n|  1 - Cadastrar                         |");
+        builder.append("\n|  2 - Mostrar todos                     |");
+        builder.append("\n|  3 - Buscar pelo id                    |");
+        builder.append("\n|  4 - Alterar                           |");
+        builder.append("\n|  5 - Excluir pelo id                   |");
+        builder.append("\n|  0 - Sair                              |");
+        builder.append("\n|                                        |");
+        builder.append("\n------------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -300,17 +304,17 @@ public class GUI {
     
     public int opMovimentacaoFinanceira() {
         builder.setLength(0);
-        builder.append("\n--------------------------------");
-        builder.append("\n|  * -> Movimentacao Financeira|");
-        builder.append("\n|                              |");
-        builder.append("\n|  1 - Cadastrar               |");
-        builder.append("\n|  2 - Mostrar todos           |");
-        builder.append("\n|  3 - Buscar pelo id          |");
-        builder.append("\n|  4 - Alterar                 |");
-        builder.append("\n|  5 - Excluir pelo id         |");
-        builder.append("\n|  0 - Sair                    |");
-        builder.append("\n|                              |");
-        builder.append("\n--------------------------------");
+        builder.append("\n-----------------------------------------");
+        builder.append("\n|  * -> Movimentacao Financeira         |");
+        builder.append("\n|                                       |");
+        builder.append("\n|  1 - Cadastrar                        |");
+        builder.append("\n|  2 - Mostrar todos                    |");
+        builder.append("\n|  3 - Buscar pelo id                   |");
+        builder.append("\n|  4 - Alterar                          |");
+        builder.append("\n|  5 - Excluir pelo id                  |");
+        builder.append("\n|  0 - Sair                             |");
+        builder.append("\n|                                       |");
+        builder.append("\n-----------------------------------------");
         builder.append("\n\nQual sua opcao? R: ");
         System.out.print(builder.toString());
         return Integer.parseInt(scanner.nextLine());
@@ -390,10 +394,29 @@ public class GUI {
         return Integer.parseInt(scanner.nextLine());
     }
     
+    public int opMensalidadesVencidas() {
+        builder.setLength(0);
+        builder.append("\n----------------------------------------");
+        builder.append("\n|  * -> Pagamentos Recorrentes Vencidos |");
+        builder.append("\n|                                       |");
+        builder.append("\n|  1 - Verificar pelo dia atual         |");
+        builder.append("\n|  2 - Verificar por um dia especifico  |");
+        builder.append("\n|  futuro                               |");
+        builder.append("\n|  0 - Sair                             |");
+        builder.append("\n|                                       |");
+        builder.append("\n----------------------------------------");
+        builder.append("\n\nQual sua opcao? R: ");
+        System.out.print(builder.toString());
+        return Integer.parseInt(scanner.nextLine());
+    }
+    
     public int opCalendario() {
         builder.setLength(0);
         builder.append("\n----------------------------------------");
-        builder.append("\n|  * -> Calendario                      |");
+        builder.append("\n|  * -> Verificar por um dia especifico |");
+        builder.append("\n|                                       |");
+        builder.append("\n|  Obs: Se nao for definido uma data    |");
+        builder.append("\n|  vai ser considerado a data atual     |");
         builder.append("\n|                                       |");
         builder.append("\n|  1 - Avancar dias                     |");
         builder.append("\n|  2 - Retroceder dias                  |");
@@ -458,7 +481,7 @@ public class GUI {
         System.out.println("\n Data de Nascimento:");
         System.out.println("\n Digite desta forma-> dd/MM/yyyy");
         String data = scanner.nextLine();
-        a.setNascimento(data);
+        a.setNascimento2(data);
         System.out.println("\n Sexo: ");
         String sexo = scanner.nextLine();
         a.setSexo(sexo);
@@ -475,15 +498,17 @@ public class GUI {
         
         if(a.getTipoUsuario() == 1) {
             MensalidadeVigente mv1 = new MensalidadeVigente();
+            LocalDateTime diaHora = LocalDateTime.now();
             mv1.setValor(99.90);
-            mv1.setInicio(Util.getDia2());
-            mv1.setTermino(Util.getDia2().plus(Period.ofMonths(1)));
-            mv1.setDataModificacao(Util.getDiaAtual());
+            mv1.setInicio(diaHora.toString());
+            mv1.setTermino(diaHora.plus(Period.ofMonths(1)).toString());
+            mv1.setDataModificacao(diaHora);
             mensDAO.adiciona(mv1);
             
             PagamentoMensalidade pg1 = new PagamentoMensalidade();
+            LocalDate dia = LocalDate.now();
             pg1.setMensalidadeVigente(mv1);
-            pg1.setDataVencimento(Util.getDia2().plus(Period.ofMonths(1)));
+            pg1.setDataVencimento(dia.plus(Period.ofMonths(1)).toString());
             pg1.setPessoa(a);
             pgMen.adiciona(pg1);
         }
@@ -539,20 +564,29 @@ public class GUI {
         return mv;
     }
     
-    public DivisaoTreinoMusculacao[] criaDivisaoTreinoMusculacao() {
+    public List<DivisaoTreinoMusculacao> criaDivisaoTreinoMusculacao() {
+        List<DivisaoTreinoMusculacao> dtms = new ArrayList<>();
+
         System.out.println("Digite o ID da divisao de treino que deseja descrever:");
-        DivisaoTreino[] divisoes = divTreinoDAO.mostrarTodosERetornar();
-        for (int i = 0; i < divisoes.length; i++) {
-            System.out.println(divisoes[i].getNome() + " - ID: " + (i));
+        List<DivisaoTreino> divisoes = divTreinoDAO.buscaTodos();
+        for (int i = 0; i < divisoes.size(); i++) {
+            System.out.println(divisoes.get(i).getNome() + ": " + divisoes.get(i).getDescricao()+ " - ID: " + divisoes.get(i).getId());
         }
         int indice = scanner.nextInt();
         scanner.nextLine();
 
-        DivisaoTreino divisaoSelecionada = divisoes[indice];
+        DivisaoTreino divisaoSelecionada = divisoes.get(indice - 1);
 
-        int numPosicoes = divisaoSelecionada.getNome().length(); 
-
-        DivisaoTreinoMusculacao[] dtms = new DivisaoTreinoMusculacao[numPosicoes];
+        int numPosicoes = divisaoSelecionada.getNome().length();
+        
+        Random random = new Random();
+        int limit = 1000;
+        int idRandom = random.nextInt(limit);
+        while (idRandom < 100) {
+            idRandom *= 10;
+        }
+        long idMusculacao = idRandom;
+        
         System.out.println("Voce escolheu a divisao de treino: " + divisaoSelecionada.getNome());
         for (int i = 0; i < numPosicoes; i++) {
             System.out.println("Digite a descricao da Posicao " + (char) ('A' + i) + ":");
@@ -560,11 +594,11 @@ public class GUI {
 
             DivisaoTreinoMusculacao dtm = new DivisaoTreinoMusculacao();
             dtm.setDescricao(descricao);
-            dtm.setPosicao(String.valueOf((char) ('A' + i))); // A, B, C, ...
+            dtm.setPosicao(String.valueOf((char) ('A' + i)));
             dtm.setDivisaoTreino(divisaoSelecionada);
-            dtms[i] = dtm;
+            dtm.setIdMusculacao(idMusculacao);
+            dtms.add(dtm);
         }
-        divisaoSelecionada.setMusculacao(dtms);
         return dtms;
     }
     
@@ -577,10 +611,10 @@ public class GUI {
         System.out.println("Data de Inicio: ");
         System.out.println("\n Digite desta forma-> dd/MM/yyyy");
         String dataInicio = scanner.nextLine();
-        t.setDataInicio(dataInicio);
+        t.setDataInicio2(dataInicio);
         System.out.println("Data de Termino: ");
         String dataTermino = scanner.nextLine();
-        t.setDataTermino(dataTermino);
+        t.setDataTermino2(dataTermino);
         return t;
     }
     
@@ -588,42 +622,43 @@ public class GUI {
         TreinoAplicacao tA = new TreinoAplicacao();
         
         System.out.println("Digite o ID do aluno que deseja criar o treino: ");
-        Pessoa[] pessoas = pDAO.mostrarTodosAlunos(); 
-        for (int i = 0; i < pessoas.length; i++) {
-            System.out.println(pessoas[i].getNome() + " - ID: " + (i));
+        
+        List<Pessoa> pessoas = pDAO.buscaTodosAlunos(); 
+        for (int i = 0; i < pessoas.size(); i++) {
+            System.out.println(pessoas.get(i).getNome() + " - ID: " + (i));
         }
         int pIndice = scanner.nextInt();
-        scanner.nextLine(); 
-        Pessoa aluno = pessoas[pIndice]; 
-        tA.setPessoa(aluno); //Aluno adicionado
+        scanner.nextLine();
+        Pessoa aluno = pessoas.get(pIndice); 
+        tA.setPessoa(aluno);
         
         Academia academia = academiaDAO.buscaPorNome("Biotech Prime");
         tA.setAcademia(academia);
         
         System.out.println("Digite o ID do treino que deseja: ");
-        Treino[] treinos = treinoDAO.mostrarTodosERetornar(); 
-        for (int i = 0; i < treinos.length; i++) {
-            System.out.println("Data inicio: " + treinos[i].getDataInicio() + "Data termino: " + treinos[i].getDataTermino() + " - ID: " + (treinos[i].getId()));
+        List<Treino> treinos = treinoDAO.buscaTodos(); 
+        for (int i = 0; i < treinos.size(); i++) {
+            System.out.println("Data inicio: " + treinos.get(i).getDataInicio() + "Data termino: " + treinos.get(i).getDataTermino() + " - ID: " + (treinos.get(i).getId()));
         }
         int tIndice = scanner.nextInt();
         //scanner.nextLine(); 
-        Treino treino = treinos[tIndice]; 
+        Treino treino = treinos.get(tIndice); 
         tA.setTreino(treino);
         
         System.out.println("Digite o ID da divisao do treino:");
-        DivisaoTreino[] divisoes = divTreinoDAO.mostrarTodosERetornar(); 
-        for (int a = 0; a < divisoes.length; a++) {
-            System.out.println(divisoes[a].getNome() + " - ID: " + (a));
+        List<DivisaoTreino> divisoes = divTreinoDAO.buscaTodos(); 
+        for (int a = 0; a < divisoes.size(); a++) {
+            System.out.println(divisoes.get(a).getNome() + " - ID: " + (a));
         }
         int dindice = scanner.nextInt();
         scanner.nextLine();
-        DivisaoTreino div = divisoes[dindice];
+        DivisaoTreino div = divisoes.get(dindice);
         tA.setDivisaoTreino(div); //Divisao Treino Adicionada
         
-        DivisaoTreino divisaoSelecionada = divisoes[dindice];
+        DivisaoTreino divisaoSelecionada = divisoes.get(dindice);
         int numPosicoes = divisaoSelecionada.getNome().length();
 
-        DivisaoTreinoMusculacao[] dtms = new DivisaoTreinoMusculacao[numPosicoes];
+        List<DivisaoTreinoMusculacao> dtms = new ArrayList<>();
         System.out.println("Voce escolheu a divisao de treino: " + divisaoSelecionada.getNome());
         for (int i = 0; i < numPosicoes; i++) {
             System.out.println("Digite a descricao da Posicao " + (char) ('A' + i) + ":");
@@ -636,79 +671,83 @@ public class GUI {
             
             System.out.println("\nQuantos exercicios voce deseja inserir para esta divisao de treino? ");
             int eIndice= scanner.nextInt();
-            Exercicio[] exercicios = new Exercicio[eIndice];
-            ExercicioAplicacao[] exerciciosAplicacao = new ExercicioAplicacao[eIndice];
+            List<Exercicio> exercicios = new ArrayList<>();
+            List<ExercicioAplicacao> exerciciosAplicacao = new ArrayList<>();
             for(int o = 0; o < eIndice; o++) {
                 System.out.println("Digite o ID do exercicio que deseja adicionar: ");
-                Exercicio[] exercicios2 = exeDAO.mostrarTodosERetornar(); 
-                for (int k = 0; k < exercicios2.length; k++) {
-                    System.out.println(exercicios2[k].getNome() + " - ID: " + (k));
+                List<Exercicio> exercicios2 = exeDAO.buscaTodos(); 
+                for (int k = 0; k < exercicios2.size(); k++) {
+                    System.out.println(exercicios2.get(k).getNome() + " - ID: " + (k));
                 }
                 int eIndice2 = scanner.nextInt();
                 scanner.nextLine();
-                Exercicio exe = exercicios2[eIndice2];
-                exercicios[o] = exe;
+                Exercicio exe = exercicios2.get(eIndice2);
+                exercicios.set(o, exe);
                 
                 System.out.println("Digite o ID da aplicao que deseja adicionar neste exercicio: ");
-                ExercicioAplicacao[] exerciciosA = exeADAO.mostrarTodosERetornar(); 
-                for (int l = 0; l < exerciciosA.length; l++) {
-                    System.out.println(exerciciosA[l].getDescricao() + " - ID: " + (l));
+                List<ExercicioAplicacao> exerciciosA = exeADAO.buscaTodos(); 
+                for (int l = 0; l < exerciciosA.size(); l++) {
+                    System.out.println(exerciciosA.get(l).getDescricao() + " - ID: " + (l));
                 }
                 int eAIndice = scanner.nextInt();
                 scanner.nextLine();
-                ExercicioAplicacao exeA = exerciciosA[eAIndice];
-                exerciciosAplicacao[o] = exeA;
+                ExercicioAplicacao exeA = exerciciosA.get(eAIndice);
+                exerciciosAplicacao.set(o, exeA);
             }
-            tA.setExercicio(exercicios); //Adiciona Exercicio
-            tA.setExercicioAplicacao(exerciciosAplicacao); //Adiciona Aplicacao do Exercicio
-            dtms[i] = dtm;
+            tA.setExercicio((ArrayList<Exercicio>)exercicios); //Adiciona Exercicio
+            tA.setExercicioAplicacao((ArrayList<ExercicioAplicacao>)exerciciosAplicacao); //Adiciona Aplicacao do Exercicio
+            dtms.set(i, dtm);
         }
-        tA.setDivisaoTreinoMusculacao(dtms); //Adiciona Divisao Treino Musculacao
+        tA.setDivisaoTreinoMusculacao((ArrayList<DivisaoTreinoMusculacao>)dtms); //Adiciona Divisao Treino Musculacao
         return tA;
     }
     
     public PagamentoMensalidade criaPagMensalidade() {
         PagamentoMensalidade pgm = new PagamentoMensalidade();
         MensalidadeVigente mv = new MensalidadeVigente();
-        Pessoa p = new Pessoa();
         
-        mensDAO.mostrarTodos();
+        System.out.println(mensDAO.buscaTodas());
+        
         System.out.println("Digite o ID da mensalidade vigente que deseja : ");
         Long opc = Long.parseLong(scanner.nextLine());
         mv = mensDAO.buscaPorId(opc);
         pgm.setMensalidadeVigente(mv);
         
         System.out.println("Data de vencimento:");
-        System.out.println("\nDigite desta forma-> dd/MM/yyyy");
+        System.out.println("Digite desta forma-> dd/MM/yyyy");
         String dataVencimento = scanner.nextLine();
         pgm.setDataVencimento(dataVencimento);
         System.out.println("Data de pagamento:");
-        System.out.println("\nDigite desta forma-> dd/MM/yyyy");
+        System.out.println("Digite desta forma-> dd/MM/yyyy");
         String dataPagamento = scanner.nextLine();
         pgm.setDataPagamento(dataPagamento);
         System.out.println("Valor pago: ");
         Double valorPago = Double.parseDouble(scanner.nextLine());
         pgm.setValorPago(valorPago);
         System.out.println("Data:");
-        System.out.println("\nDigite desta forma-> dd/MM/yyyy");
+        System.out.println("Digite desta forma-> dd/MM/yyyy");
         String data = scanner.nextLine();
         pgm.setData(data);
         
-        pDAO.mostrarTodos();
-        System.out.println("Escolha uma pessoa (por ID) : ");
-        Long opc2 = Long.parseLong(scanner.nextLine());
-        p = pDAO.buscaPorId(opc2);
-        pgm.setPessoa(p);
+        System.out.println("Digite o ID do aluno que deseja criar a avaliacao fisica: ");
+        List<Pessoa> pessoas = pDAO.buscaTodosAlunos(); 
+        for (int i = 0; i < pessoas.size(); i++) {
+            System.out.println(pessoas.get(i).getNome() + " - ID: " + (i));
+        }
+        int pIndice = scanner.nextInt();
+        scanner.nextLine(); 
+        Pessoa aluno = pessoas.get(pIndice); 
+        pgm.setPessoa(aluno);
         
         System.out.println("Modalidade: ");
-        System.out.println("\n\n1 - Dinheiro\n" + "2 - Pix\n" + "3 - Deb. Automatico\n" + "4 - Pag. Recorrente\n");
+        System.out.println("\n1 - Dinheiro\n" + "2 - Pix\n" + "3 - Debito Automatico\n" + "4 - Pagamento Recorrente\n");
         int modalidade = Integer.parseInt( scanner.nextLine());
         pgm.setModalidade(modalidade);
         
         MovimentacaoFinanceira mF = new MovimentacaoFinanceira();
         mF.setValor(20);
         mF.setTipo(1);
-        mF.setDescricao("Pagamento Mensalidade Aluno: " + p.getNome());
+        mF.setDescricao("Pagamento Mensalidade Aluno: " + aluno.getNome());
         mFinDAO.adiciona(mF);
         
         return pgm;
@@ -718,7 +757,8 @@ public class GUI {
         PagamentoRecorrente pr = new PagamentoRecorrente();
         Pessoa p = new Pessoa();
         
-        pDAO.mostrarTodos();
+        System.out.println(pDAO.buscaTodas());
+        
         System.out.println("Escolha uma pessoa (por ID) : ");
         Long opc = Long.parseLong(scanner.nextLine());
         p = pDAO.buscaPorId(opc);
@@ -747,19 +787,19 @@ public class GUI {
         EntradaAluno e = new EntradaAluno();
         
         System.out.println("Digite o ID do aluno que deseja criar a entrada: ");
-        Pessoa[] pessoas = pDAO.mostrarTodosAlunos(); 
-        for (int i = 0; i < pessoas.length; i++) {
-            System.out.println(pessoas[i].getNome() + " - ID: " + (i));
+        List<Pessoa> pessoas = pDAO.buscaTodosAlunos(); 
+        for (int i = 0; i < pessoas.size(); i++) {
+            System.out.println(pessoas.get(i).getNome() + " - ID: " + (i));
         }
         int pIndice = scanner.nextInt();
         scanner.nextLine();
-        Pessoa aluno = pessoas[pIndice]; 
+        Pessoa aluno = pessoas.get(pIndice); 
         e.setPessoa(aluno);
         
         System.out.println("Entrada: ");
         System.out.println("Digite: dd/MM/aaa HH:MM ");
-        LocalDateTime entrada = LocalDateTime.parse(scanner.nextLine());
-        e.setEntrada(entrada);
+        String entrada = scanner.nextLine();
+        e.setEntrada3(entrada);
         return e;
     }
     
@@ -767,13 +807,13 @@ public class GUI {
         AvaliacaoFisica aF = new AvaliacaoFisica();
         
         System.out.println("Digite o ID do aluno que deseja criar a avaliacao fisica: ");
-        Pessoa[] pessoas = pDAO.mostrarTodosAlunos(); 
-        for (int i = 0; i < pessoas.length; i++) {
-            System.out.println(pessoas[i].getNome() + " - ID: " + (i));
+        List<Pessoa> pessoas = pDAO.buscaTodosAlunos(); 
+        for (int i = 0; i < pessoas.size(); i++) {
+            System.out.println(pessoas.get(i).getNome() + " - ID: " + (i));
         }
         int pIndice = scanner.nextInt();
         scanner.nextLine(); 
-        Pessoa aluno = pessoas[pIndice]; 
+        Pessoa aluno = pessoas.get(pIndice); 
         aF.setPessoa(aluno);
         
         System.out.println("Ultimo treino: ");
@@ -787,7 +827,7 @@ public class GUI {
         
         System.out.println("Altura: ");
         Double altura = Double.parseDouble(scanner.nextLine());
-        aF.setPeso(altura);
+        aF.setAltura(altura);
         
         double imc = aF.calcularIMC2(altura, peso);
         aF.setImc(imc);

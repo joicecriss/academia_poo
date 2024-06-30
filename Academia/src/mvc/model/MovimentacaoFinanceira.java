@@ -10,21 +10,19 @@ tipo (entrada ou saída), descricao, dataCriacao, dataModificacao.
 */
 public class MovimentacaoFinanceira {
     private long id;
-    private static long aux;
     private double valor;
     private int tipo; //(Entrada ou Saida)
     private String descricao;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public MovimentacaoFinanceira() {
-        this.id = ++MovimentacaoFinanceira.aux;
-        this.dataCriacao = Util.getDia();
-        this.dataModificacao = Util.getDia();
-    }
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public double getValor() {
@@ -33,7 +31,7 @@ public class MovimentacaoFinanceira {
 
     public void setValor(double valor) {
         this.valor = valor;
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = LocalDateTime.now();
     }
 
     public int getTipo() {
@@ -42,7 +40,7 @@ public class MovimentacaoFinanceira {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = LocalDateTime.now();
     }
 
     public String getDescricao() {
@@ -51,12 +49,16 @@ public class MovimentacaoFinanceira {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = LocalDateTime.now();
     }
 
     public String getDataCriacao() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dataCriacao.format(formatter);
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public String getDataModificacao() {
@@ -65,7 +67,7 @@ public class MovimentacaoFinanceira {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = LocalDateTime.now();
     }
     
     public String tipo(int tipo) {
@@ -117,8 +119,8 @@ public class MovimentacaoFinanceira {
                "\n| Valor              : " + valor + 
                "\n| Tipo               : " + tipo(this.tipo) + 
                "\n| Descrição          : " + descricao + 
-               "\n| Data de Criação    : " + dataCriacao + 
-               "\n| Data de Modificação: " + dataModificacao + 
+               "\n| Data de Criação    : " + getDataCriacao() + 
+               "\n| Data de Modificação: " + getDataModificacao() + 
                "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 }

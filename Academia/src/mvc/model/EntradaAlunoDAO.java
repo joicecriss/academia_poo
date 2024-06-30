@@ -1,115 +1,122 @@
 package mvc.model;
 
+import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EntradaAlunoDAO {
-    EntradaAluno[] entrada = new EntradaAluno[10];
-    
-    public EntradaAlunoDAO() {
-        EntradaAluno e1 = new EntradaAluno();
-        Pessoa p1 = new PessoaDAO().buscaPessoa("870.517.920-32");
-        e1.setEntrada("20/05/2024 10:05");
-        e1.setPessoa(p1);
-        adiciona(e1);
-        
-        EntradaAluno e2 = new EntradaAluno();
-        Pessoa p2 = new PessoaDAO().buscaPessoa("111.908.610-89");
-        e2.setEntrada("20/05/2024 16:10");
-        e2.setPessoa(p2);
-        adiciona(e2);
-        
-        EntradaAluno e3 = new EntradaAluno();
-        e3.setEntrada("21/05/2024 09:20");
-        e3.setPessoa(p1);
-        adiciona(e3);
-        
-        EntradaAluno e4 = new EntradaAluno();
-        e4.setEntrada("21/05/2024 15:40");
-        e4.setPessoa(p2);
-        adiciona(e4);
-    }
-    
-    public boolean adiciona(EntradaAluno ea) {
-        int proximaPosicaoLivre = this.proximaPosicaoLivre();
-        if (proximaPosicaoLivre != -1) {
-            entrada[proximaPosicaoLivre] = ea;
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    public boolean ehVazio() {
-        for (EntradaAluno ea : entrada) {
-            if (ea != null) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    private int proximaPosicaoLivre() {
-        for (int i = 0; i < entrada.length; i++) {
-            if (entrada[i] == null) {
-                return i;
-            }
-        }
-        return -1;
 
-    }
-    
-    public void mostrarTodos() {
-        boolean temEntrada = false;
-        for (EntradaAluno ea : entrada) {
-            if (ea != null) {
-                System.out.println(ea);
-                temEntrada = true;
+    public boolean adiciona(EntradaAluno entradaAluno) {
+        String sql = "INSERT INTO entrada_aluno (pessoa_id, entrada, dataCriacao, dataModificacao) VALUES (?, ?, ?, ?)";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setLong(1, entradaAluno.getPessoa().getId());
+            stmt.setTimestamp(2, java.sql.Timestamp.valueOf(entradaAluno.getEntradaDate()));
+            stmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+
+            stmt.executeUpdate();
+
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    //entradaAluno.setId(rs.getLong(1));
+                    return true;
+                }
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao adicionar entrada de aluno", e);
         }
-        if (!temEntrada) {
-            System.out.println("Nao existe entrada cadastrada!");
-        }
-    }
-    
-    public void mostrarPorId(Long id) {
-        boolean temEntrada = false;
-        for (EntradaAluno e : entrada) {
-            if (e != null && e.getId() == id) {
-                e.toString();
-            }
-        }
-        if (!temEntrada) {
-            System.out.println("Nao existe entrada cadastrada!");
-        }
-    }
-    
-    public boolean alteraEntrada (LocalDateTime entry, LocalDateTime novaEntrada) {
-        for (EntradaAluno ea : entrada) {
-            if (entrada != null && ea.getEntradaDate() == novaEntrada) {
-                ea.setEntrada(novaEntrada);
-                return true;
-            }
-        }
+
         return false;
     }
-    
-    public EntradaAluno buscaPorId(Long id) {
-        for (EntradaAluno ea : entrada) {
-            if (ea != null && ea.getId() == id) {
-                return ea;
-            }
-        }
-        return null;
-    }
-    
-    public boolean remover(Long id) {
-        for (int i = 0; i < entrada.length; i++) {
-            if (entrada[i] != null && entrada[i].getId() == id) {
-                entrada[i] = null;
-                return true;
-            }
-        }
-        return false;
 
+    public EntradaAluno buscaPorId(long id) {
+        String sql = "SELECT * FROM entrada_aluno WHERE id = ?";
+        EntradaAluno entradaAluno = null;
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    entradaAluno = map(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar entrada de aluno por ID", e);
+        }
+
+        return entradaAluno;
+    }
+
+    public List<EntradaAluno> buscaTodos() {
+        String sql = "SELECT * FROM entrada_aluno";
+        List<EntradaAluno> entradas = new ArrayList<>();
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                entradas.add(map(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar todas as entradas de alunos", e);
+        }
+
+        return entradas;
+    }
+
+    public EntradaAluno altera(EntradaAluno entradaAluno) {
+        String sql = "UPDATE entrada_aluno SET pessoa_id = ?, entrada = ?, dataModificacao = ? WHERE id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, entradaAluno.getPessoa().getId());
+            stmt.setTimestamp(2, Timestamp.valueOf(entradaAluno.getEntradaDate()));
+            stmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setLong(4, entradaAluno.getId());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao alterar entrada de aluno", e);
+        }
+
+        return entradaAluno;
+    }
+
+    public boolean exclui(long id) {
+        int excluir = 0;
+        String sql = "DELETE FROM entrada_aluno WHERE id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+            excluir = stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao excluir entrada de aluno", e);
+        }
+        
+        return excluir > 0;
+    }
+
+    private EntradaAluno map(ResultSet rs) throws SQLException {
+        EntradaAluno entradaAluno = new EntradaAluno();
+        PessoaDAO pessoaDAO = new PessoaDAO();
+        
+        entradaAluno.setId(rs.getLong("id"));
+        entradaAluno.setPessoa(pessoaDAO.buscaPorId(rs.getLong("pessoa_id")));
+        entradaAluno.setEntrada(rs.getTimestamp("entrada").toLocalDateTime());
+        entradaAluno.setDataCriacao(rs.getTimestamp("dataCriacao").toLocalDateTime());
+        entradaAluno.setDataModificacao(rs.getTimestamp("dataModificacao").toLocalDateTime());
+
+        return entradaAluno;
     }
 }

@@ -15,16 +15,14 @@ public class Academia {
     private String cnpj;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
-    private static long aux = 0;
-    
-    public Academia() {
-        this.id = ++Academia.aux;
-        this.dataCriacao = Util.getDia();
-        this.dataModificacao = Util.getDia();
-    }
+
     
     public long getId() {
         return this.id;
+    }
+    
+    public void setId(long id){
+        this.id = id;
     }
 
     public String getNome() {
@@ -33,7 +31,6 @@ public class Academia {
 
     public void setNome(String nome) {
         this.nome = nome;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getEndereco() {
@@ -42,7 +39,6 @@ public class Academia {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
-        this.dataModificacao = Util.getDia();
     }
     
     public String getCnpj() {
@@ -51,7 +47,6 @@ public class Academia {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getDataCriacao() {
@@ -63,9 +58,13 @@ public class Academia {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dataModificacao.format(formatter);
     }
+    
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = dataModificacao;
     }
 
     @Override

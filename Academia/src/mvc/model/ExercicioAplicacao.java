@@ -5,39 +5,40 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /*
-CRUD EXERCÍCIO APLICACAO.
-Informações importantes: id, descricao, dataCriacao, dataModificacao.
+CRUD EXERCICIO APLICACAO.
+Informacoes importantes: id, descricao, dataCriacao, dataModificacao.
 EXEMPLO.: 4x12, 4x10, 12 reps com rest pause, 5 x 5, ....
 */
 public class ExercicioAplicacao {
     private long id;
-    private static long aux;
     private String descricao;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public ExercicioAplicacao() {
-        this.id = ++ExercicioAplicacao.aux;
-        this.dataCriacao = Util.getDia();
-        this.dataModificacao = Util.getDia();
-    }
     
     public long getId() {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+    
     public String getDescricao() {
         return descricao;
     }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getDataCriacao() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dataCriacao.format(formatter);
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public String getDataModificacao() {
@@ -46,7 +47,7 @@ public class ExercicioAplicacao {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = dataModificacao;
     }
 
     @Override

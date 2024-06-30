@@ -2,6 +2,7 @@ package mvc.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /*
@@ -9,21 +10,17 @@ CRUD DIVISAO DE TREINO. Informações importantes: id, nome, descricao, dataCriaca
 */
 public class DivisaoTreino {
     private long id;
-    private static long aux;
     private String nome;
     private String descricao;
-    private DivisaoTreinoMusculacao[] musculacao;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public DivisaoTreino() {
-        this.id = DivisaoTreino.aux++;
-        this.dataCriacao = Util.getDia();
-        this.dataModificacao = Util.getDia();
-    }
-
     public long getId() {
         return this.id;
+    }
+    
+    public void setId(long id){
+        this.id = id;
     }
 
     public String getNome() {
@@ -32,7 +29,6 @@ public class DivisaoTreino {
 
     public void setNome(String nome) {
         this.nome = nome;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getDescricao() {
@@ -41,21 +37,15 @@ public class DivisaoTreino {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-        this.dataModificacao = Util.getDia();
-    }
-    
-    public DivisaoTreinoMusculacao[] getMusculacao() {
-        return this.musculacao;
-    }
-
-    public void setMusculacao(DivisaoTreinoMusculacao[] musculacao) {
-        this.musculacao = musculacao;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getDataCriacao() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dataCriacao.format(formatter);
+    }
+    
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public String getDataModificacao() {
@@ -64,7 +54,7 @@ public class DivisaoTreino {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = dataModificacao;
     }
 
     @Override

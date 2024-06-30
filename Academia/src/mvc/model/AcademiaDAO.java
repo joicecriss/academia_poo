@@ -1,105 +1,139 @@
 package mvc.model;
 
+import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 public class AcademiaDAO {
-    Academia [] academias = new Academia[5];
     
-    public AcademiaDAO() {
-        Academia a1 = new Academia();
-        a1.setNome("Biotech Prime");
-        a1.setEndereco("Rua Ceara, nº 1571, bairro Santa Maria");
-        a1.setCnpj("31.810.569/0001-46");
-        this.adiciona(a1);
-    }
-    
-    public boolean adiciona(Academia a) {
-        int proximaPosicaoLivre = this.proximaPosicaoLivre();
-        if (proximaPosicaoLivre != -1) {
-            academias[proximaPosicaoLivre] = a;
-            return true;
-        } else {
-            return false;
-        }
-    }
+    public boolean adiciona(Academia academia) {
+        String sql = "INSERT INTO academia (nome, endereco, cnpj, dataCriacao, dataModificacao) VALUES (?, ?, ?, ?, ?)";
 
-    public boolean ehVazio() {
-        for (Academia academia : academias) {
-            if (academia != null) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    private int proximaPosicaoLivre() {
-        for (int i = 0; i < academias.length; i++) {
-            if (academias[i] == null) {
-                return i;
-            }
-        }
-        return -1;
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, academia.getNome());
+            stmt.setString(2, academia.getEndereco());
+            stmt.setString(3, academia.getCnpj());
+            stmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
 
-    }
+            stmt.executeUpdate();
 
-    public void mostrarTodos() {
-        boolean temAcademia = false;
-        for (Academia a : academias) {
-            if (a != null) {
-                System.out.println(a);
-                temAcademia = true;
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    //academia.setId(rs.getLong(1));
+                    return true;
+                }
             }
-        }
-        if (!temAcademia) {
-            System.out.println("Nao existe academia cadastrada!");
-        }
-    }
 
-    public boolean alterarNome(String nome, String novoNome) {
-        for (Academia academia : academias) {
-            if (academia != null && academia.getNome().equals(nome)) {
-                academia.setNome(novoNome);
-                return true;
-            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao adicionar academia", e);
         }
-        return false;
-    }
-    
-    public boolean alterarEndereco(String nome, String novoEndereco) {
-        for (Academia academia : academias) {
-            if (academia != null && academia.getNome().equals(nome)) {
-                academia.setEndereco(novoEndereco);
-                return true;
-            }
-        }
+
         return false;
     }
 
-    public boolean alterarCnpj(String nome, String novoCnpj) {
-        for (Academia academia : academias) {
-            if (academia != null && academia.getNome().equals(nome)) {
-                academia.setEndereco(novoCnpj);
-                return true;
+    public Academia buscaPorId(long id) {
+        String sql = "SELECT * FROM academia WHERE id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return map(rs);
+                }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar academia por ID", e);
         }
-        return false;
-    }
-    
-    public Academia buscaPorNome(String nome) {
-        for (Academia a : academias) {
-            if (a != null && a.getNome().equals(nome)) {
-                return a;
-            }
-        }
+
         return null;
     }
+    public Academia buscaPorNome(String nome) {
+        String sql = "SELECT * FROM academia WHERE nome = ?";
 
-    public boolean remover(String nome) {
-        for (int i = 0; i < academias.length; i++) {
-            if (academias[i] != null && academias[i].getNome().equals(nome)) {
-                academias[i] = null;
-                return true;
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, nome);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return map(rs);
+                }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar academia por nome", e);
         }
-        return false;
 
+        return null;
+    }
+    
+    public List<Academia> buscaTodas() {
+        String sql = "SELECT * FROM academia";
+        List<Academia> academias = new ArrayList<>();
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                academias.add(map(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar todas as academias", e);
+        }
+
+        return academias;
+    }
+
+    public Academia altera(Academia academia) {
+        String sql = "UPDATE academia SET nome = ?, endereco = ?, cnpj = ?, dataModificacao = ? WHERE id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, academia.getNome());
+            stmt.setString(2, academia.getEndereco());
+            stmt.setString(3, academia.getCnpj());
+            stmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setLong(5, academia.getId());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao alterar academia", e);
+        }
+
+        return academia;
+    }
+
+    public boolean exclui(String nome) {
+        int excluir = 0;
+        String sql = "DELETE FROM academia WHERE nome = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, nome);
+            excluir = stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao excluir academia", e);
+        }
+        
+        return excluir > 0;
+    }
+
+    private Academia map(ResultSet rs) throws SQLException {
+        Academia academia = new Academia();
+        academia.setId(rs.getLong("id"));
+        academia.setNome(rs.getString("nome"));
+        academia.setEndereco(rs.getString("endereco"));
+        academia.setCnpj(rs.getString("cnpj"));
+        academia.setDataCriacao(rs.getTimestamp("dataCriacao").toLocalDateTime());
+        academia.setDataModificacao(rs.getTimestamp("dataModificacao").toLocalDateTime());
+        return academia;
     }
 }

@@ -11,24 +11,22 @@ cartao de credito, valor, data de início, número de meses autorizados, dataCriac
 */
 public class PagamentoRecorrente {
     private long id;
-    private static long aux;
     private Pessoa pessoa;
     private LocalDate data;
     private String cartaoCredito;
     private double valor;
     private LocalDate dataInicio;
     private int numeroMeses;
+    private PagamentoMensalidade pagMensalidade;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public PagamentoRecorrente() {
-        this.id = ++PagamentoRecorrente.aux;
-        this.dataCriacao = Util.getDia();
-        this.dataModificacao = Util.getDia();
-    }
-
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Pessoa getPessoa() {
@@ -37,16 +35,31 @@ public class PagamentoRecorrente {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = LocalDateTime.now();
     }
 
     public String getData() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return this.data.format(formatter);
+    }
+    
+    public String getData2() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return this.data.format(formatter);
+    }
+    
+    public LocalDate getData3() {
+        return this.data;
     }
 
     public void setData(String data) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.data = LocalDate.parse(data, formatter);
+        this.dataModificacao = Util.getDia();
+    }
+    
+    public void setData2(String data) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.data = LocalDate.parse(data, formatter);
         this.dataModificacao = Util.getDia();
     }
@@ -57,7 +70,7 @@ public class PagamentoRecorrente {
 
     public void setCartaoCredito(String cartaoCredito) {
         this.cartaoCredito = cartaoCredito;
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = LocalDateTime.now();
     }
 
     public double getValor() {
@@ -69,12 +82,23 @@ public class PagamentoRecorrente {
     }
 
     public String getDataInicio() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return this.dataInicio.format(formatter);
+    }
+    
+    public String getDataInicio2() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return this.dataInicio.format(formatter);
     }
 
     public void setDataInicio(String dataInicio) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.dataInicio = LocalDate.parse(dataInicio, formatter);
+        this.dataModificacao = Util.getDia();
+    }
+    
+    public void setDataInicio2(String dataInicio) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.dataInicio = LocalDate.parse(dataInicio, formatter);
         this.dataModificacao = Util.getDia();
     }
@@ -85,12 +109,16 @@ public class PagamentoRecorrente {
 
     public void setNumeroMeses(int numeroMeses) {
         this.numeroMeses = numeroMeses;
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = LocalDateTime.now();
     }
 
     public String getDataCriacao() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dataCriacao.format(formatter);
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public String getDataModificacao() {
@@ -99,7 +127,15 @@ public class PagamentoRecorrente {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = LocalDateTime.now();
+    }
+    
+    public PagamentoMensalidade getPagMensalidade() {
+        return pagMensalidade;
+    }
+
+    public void setPagMensalidade(PagamentoMensalidade pagMensalidade) {
+        this.pagMensalidade = pagMensalidade;
     }
 
     @Override
@@ -144,15 +180,16 @@ public class PagamentoRecorrente {
     public String toString() {
         return  "\n---------------------------------" +
                 "\n| Pagamento Recorrente: " + 
-                "\n| Id: " + id + 
-                "\n| Data: " + data + 
-                "\n| Cartao de Crédito: " + cartaoCredito + 
-                "\n| Valor: " + valor + 
-                "\n| Data de Início: " + dataInicio + 
-                "\n| Número de Meses Autotizados: " + numeroMeses + 
-                "\n| Data de Criação: " + getDataCriacao() + 
-                "\n| Data de Modificação: " + getDataModificacao() + 
-                "\n| " + (pessoa != null ? "\n|" + pessoa.toString() : "") + 
+                "\n| Id                   : " + id + 
+                "\n| Aluno                : " + this.pessoa.getNome() + 
+                "\n| Data                 : " + getData2() + 
+                "\n| Cartao de Credito    : " + cartaoCredito + 
+                "\n| Valor                : R$" + valor + 
+                "\n| Data de Inicio       : " + getDataInicio2() + 
+                "\n| Numero do Mes        : " + numeroMeses + 
+                (this.pagMensalidade != null ? "\n| Data Pag. Mensalidade: " + this.pagMensalidade.getDataPagamento2() : "")+
+                "\n| Data de Criação      : " + getDataCriacao() + 
+                "\n| Data de Modificação  : " + getDataModificacao() +
                 "\n---------------------------------";
     }
  

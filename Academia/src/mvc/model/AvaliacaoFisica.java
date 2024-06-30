@@ -11,7 +11,6 @@ Informações importantes: id, pessoa, ultimo treino, peso, altura, IMC,
 indice de satisfacao com resultado (0-10), dataCriacao, dataModificacao.
 */
 public class AvaliacaoFisica {
-    private static long aux = 0;
     private long id;
     private Pessoa pessoa;
     private LocalDate ultimoTreino;
@@ -22,10 +21,8 @@ public class AvaliacaoFisica {
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    public AvaliacaoFisica() {
-        this.id = ++AvaliacaoFisica.aux;
-        this.dataCriacao = Util.getDia();
-        this.dataModificacao = Util.getDia();
+    public void setId(long id){
+        this.id = id;
     }
 
     public long getId() {
@@ -38,18 +35,26 @@ public class AvaliacaoFisica {
     
     public void setPessoa(Pessoa p) {
         this.pessoa = p;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getUltimoTreino() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return this.ultimoTreino.format(formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return formatter.format(this.ultimoTreino);
     }
-
+    
+    public String getUltimoTreino2() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return formatter.format(this.ultimoTreino);
+    }
+    
     public void setUltimoTreino(String ultimoTreino) {
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.ultimoTreino = LocalDate.parse(ultimoTreino, formatter);
-        this.dataModificacao = Util.getDia();
+    }
+    
+    public void setUltimoTreino2(String ultimoTreino) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.ultimoTreino = LocalDate.parse(ultimoTreino, formatter);
     }
 
     public double getPeso() {
@@ -58,7 +63,6 @@ public class AvaliacaoFisica {
 
     public void setPeso(double peso) {
         this.peso = peso;
-        this.dataModificacao = Util.getDia();
     }
 
     public double getAltura() {
@@ -67,7 +71,6 @@ public class AvaliacaoFisica {
 
     public void setAltura(double altura) {
         this.altura = altura;
-        this.dataModificacao = Util.getDia();
     }
 
     public double getImc() {
@@ -77,7 +80,6 @@ public class AvaliacaoFisica {
 
     public void setImc(double imc) {
         this.imc = imc;
-        this.dataModificacao = Util.getDia();
     }
     
     public int getSatisfacao() {
@@ -86,12 +88,15 @@ public class AvaliacaoFisica {
 
     public void setSatisfacao(int satisfacao) {
         this.satisfacao = satisfacao;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getDataCriacao() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dataCriacao.format(formatter);
+    }
+    
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public String getDataModificacao() {
@@ -100,12 +105,11 @@ public class AvaliacaoFisica {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = dataModificacao;
     }
     
-    public double calcularIMC() {
+    private void calcularIMC() {
         this.imc = this.peso / (this.altura * this.altura);
-        return this.imc;
     }
     
     public double calcularIMC2(double altura, double peso) {
@@ -150,15 +154,16 @@ public class AvaliacaoFisica {
     @Override
     public String toString() {
         return "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
-               "\n| Avaliação Física: " + 
+               "\n| Avaliacao Fisica: " + 
                "\n| Id                 : " + this.id + 
-               "\n| Último Treino      : " + this.ultimoTreino + 
+               "\n| Aluno:             : " + this.pessoa.getNome() + 
+               "\n| Ultimo Treino      : " + getUltimoTreino2() + 
                "\n| Peso               : " + this.peso + 
                "\n| Altura             : " + this.altura + 
                "\n| Imc                : " + this.imc + 
-               "\n| Data de Criação    : " + getDataCriacao() + 
-               "\n| Data de Modificação: " + getDataModificacao() +
-                this.pessoa;
+               "\n| Data de Criacao    : " + getDataCriacao() + 
+               "\n| Data de Modificacao: " + getDataModificacao() +
+               "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
     
 }

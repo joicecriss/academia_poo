@@ -1,136 +1,122 @@
 package mvc.model;
 
-import java.time.LocalDate;
+import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MensalidadeVigenteDAO {
-    MensalidadeVigente[] mensVigente = new MensalidadeVigente[10];
-    
-    public MensalidadeVigenteDAO() {
-        MensalidadeVigente mv1 = new MensalidadeVigente();
-        mv1.setValor(99.90);
-        mv1.setInicio("14/02/2024");
-        mv1.setTermino("14/04/2024");
-        adiciona(mv1);
+
+    public boolean adiciona(MensalidadeVigente mensalidade) {
+        String sql = "INSERT INTO mensalidade_vigente (valor, inicio, termino, dataCriacao, dataModificacao) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setDouble(1, mensalidade.getValor());
+            stmt.setDate(2, java.sql.Date.valueOf(mensalidade.getInicio()));
+            stmt.setDate(3, java.sql.Date.valueOf(mensalidade.getTermino()));
+            stmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
+
+            stmt.executeUpdate();
+
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    //mensalidade.setId(rs.getLong(1));
+                    return true;
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao adicionar mensalidade vigente", e);
+        }
+
+        return false;
+    }
+
+    public MensalidadeVigente buscaPorId(long id) {
+        String sql = "SELECT * FROM mensalidade_vigente WHERE id = ?";
+        MensalidadeVigente mensalidade = null;
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    mensalidade = map(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar mensalidade vigente por ID", e);
+        }
+
+        return mensalidade;
+    }
+
+    public List<MensalidadeVigente> buscaTodas() {
+        String sql = "SELECT * FROM mensalidade_vigente";
+        List<MensalidadeVigente> mensalidades = new ArrayList<>();
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                mensalidades.add(map(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar todas as mensalidades vigentes", e);
+        }
+
+        return mensalidades;
+    }
+
+    public MensalidadeVigente altera(MensalidadeVigente mensalidade) {
+        String sql = "UPDATE mensalidade_vigente SET valor = ?, inicio = ?, termino = ?, dataModificacao = ? WHERE id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setDouble(1, mensalidade.getValor());
+            stmt.setDate(2, Date.valueOf(mensalidade.getInicio()));
+            stmt.setDate(3, Date.valueOf(mensalidade.getTermino()));
+            stmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setLong(5, mensalidade.getId());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao alterar mensalidade vigente", e);
+        }
+
+        return mensalidade;
+    }
+
+    public boolean exclui(long id) {
+        int excluir = 0;
+        String sql = "DELETE FROM mensalidade_vigente WHERE id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+            excluir = stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao excluir mensalidade vigente", e);
+        }
         
-        MensalidadeVigente mv2 = new MensalidadeVigente();
-        mv2.setValor(119.90);
-        mv2.setInicio("17/01/2024");
-        mv2.setTermino("25/03/2025");
-        adiciona(mv2);
-    } 
-    
-    public boolean adiciona(MensalidadeVigente mv) {
-        int proximaPosicaoLivre = this.proximaPosicaoLivre();
-        if (proximaPosicaoLivre != -1) {
-            mensVigente[proximaPosicaoLivre] = mv;
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    public boolean ehVazio() {
-        for (MensalidadeVigente mv : mensVigente) {
-            if (mv != null) {
-                return false;
-            }
-        }
-        return true;
+        return excluir > 0;
     }
 
-    private int proximaPosicaoLivre() {
-        for (int i = 0; i < mensVigente.length; i++) {
-            if (mensVigente[i] == null) {
-                return i;
-            }
-        }
-        return -1;
-
-    }
-    
-    public void mostrarTodos() {
-        boolean temMensalidade = false;
-        for (MensalidadeVigente mv : mensVigente) {
-            if (mv != null) {
-                System.out.println(mv);
-                temMensalidade = true;
-            }
-        }
-        if (!temMensalidade) {
-            System.out.println("Nao existe mensalidade vigente cadastrado!");
-        }
-    }
-    
-    public MensalidadeVigente[] mostrarTodosERetornar() {
-        // Conta quantas divisoes de treino existem para criar o array com o tamanho exato
-        int count = 0;
-        for (MensalidadeVigente mv : mensVigente) {
-            if (mv != null && mv.getValor() == 0) {
-                count++;
-            }
-        }
-        // Cria um array para armazenar as divisoes de treino existentes
-        MensalidadeVigente[] result = new MensalidadeVigente[count];
-        int index = 0;
-        for (MensalidadeVigente mv : mensVigente) {
-            if (mv != null && mv.getValor() == 0) {
-                result[index] = mv;
-                index++;
-            }
-        }
-        return result;
-    }
-    
-    public boolean alteraValor(Double valor, Double novoValor) {
-        for (MensalidadeVigente mv : mensVigente) {
-            if (mv != null && mv.getValor() == novoValor) {
-                mv.setValor(novoValor);
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean alteraInicio(LocalDate inicio, String novoInicio) {
-        for (MensalidadeVigente mv : mensVigente) {
-            if (mv != null && mv.getInicio().equals(novoInicio)) {
-                mv.setInicio(novoInicio);
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean alteraTermino(LocalDate termino, String novoTermino) {
-        for (MensalidadeVigente mv : mensVigente) {
-            if (mv != null && mv.getTermino().equals(novoTermino)) {
-                mv.setTermino(novoTermino);
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public MensalidadeVigente buscaPorId(Long id) {
-        for (MensalidadeVigente mv : mensVigente) {
-            if (mv != null && mv.getId() == id) {
-                return mv;
-            }
-        }
-        return null;
-    }
-    
-    public boolean remover(Long id) {
-        for (int i = 0; i < mensVigente.length; i++) {
-             if (mensVigente[i] != null && mensVigente[i].getId() == id) {
-                mensVigente[i] = null;
-                return true;
-            }
-        }
-        return false;
-
+    private MensalidadeVigente map(ResultSet rs) throws SQLException {
+        MensalidadeVigente mensalidade = new MensalidadeVigente();
+        mensalidade.setId(rs.getLong("id"));
+        mensalidade.setValor(rs.getDouble("valor"));
+        mensalidade.setInicio2(rs.getDate("inicio").toLocalDate().toString());
+        mensalidade.setTermino2(rs.getDate("termino").toLocalDate().toString());
+        mensalidade.setDataCriacao(rs.getTimestamp("dataCriacao").toLocalDateTime());
+        mensalidade.setDataModificacao(rs.getTimestamp("dataModificacao").toLocalDateTime());
+        return mensalidade;
     }
 }
-
-

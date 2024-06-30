@@ -1,126 +1,150 @@
 package mvc.model;
 
+import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
 public class DivisaoTreinoMusculacaoDAO {
-    
-    DivisaoTreinoMusculacao [] divisoesTreinosMusculacao = new DivisaoTreinoMusculacao[60];
-    
-    public DivisaoTreinoMusculacaoDAO() {
-        DivisaoTreino divisaoTreino = new DivisaoTreinoDAO().buscaPorId(Long.parseLong("0"));
-        
-        DivisaoTreinoMusculacao a = new DivisaoTreinoMusculacao();
-        a.setDescricao("PEITO, OMBRO, TRÍCEPS");
-        a.setPosicao("A");
-        a.setDivisaoTreino(divisaoTreino);
-        adiciona(a);
-        
 
-        DivisaoTreinoMusculacao b = new DivisaoTreinoMusculacao();
-        b.setDescricao("COSTAS, BÍCEPS");
-        b.setPosicao("B");
-        b.setDivisaoTreino(divisaoTreino);
-        adiciona(b);
+    public boolean adiciona(DivisaoTreinoMusculacao divisaoTreino) {
+        String sql = "INSERT INTO divisao_treino_musculacao (descricao, posicao, divisao_treino_id, idMusculacao, dataCriacao, dataModificacao) VALUES (?, ?, ?, ?, ?, ?)";
 
-        DivisaoTreinoMusculacao c = new DivisaoTreinoMusculacao();
-        c.setDescricao("PERNA");
-        c.setPosicao("C");
-        c.setDivisaoTreino(divisaoTreino);
-        adiciona(c);
-        
-        DivisaoTreinoMusculacao [] dtm = new DivisaoTreinoMusculacao[3];
-        dtm[0] = a;
-        dtm[1] = b;
-        dtm[2] = c;
-        //divisaoTreino.setMusculacao(dtm);
-    }
-    
-    public boolean adiciona(DivisaoTreinoMusculacao dtm) {
-        int proximaPosicaoLivre = this.proximaPosicaoLivre();
-        if (proximaPosicaoLivre != -1) {
-            divisoesTreinosMusculacao[proximaPosicaoLivre] = dtm;
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    public boolean adicionaArray(DivisaoTreinoMusculacao[] dtms) {
-        int proximaPosicaoLivre = this.proximaPosicaoLivre();
-        if (proximaPosicaoLivre != -1 && proximaPosicaoLivre < divisoesTreinosMusculacao.length) {
-            for (int i = 0; i < dtms.length; i++) {
-                divisoesTreinosMusculacao[proximaPosicaoLivre + i] = dtms[i];
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setString(1, divisaoTreino.getDescricao());
+            stmt.setString(2, divisaoTreino.getPosicao());
+            stmt.setLong(3, divisaoTreino.getDivisaoTreino().getId());
+            stmt.setLong(4, divisaoTreino.getIdMusculacao());
+            stmt.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+
+            stmt.executeUpdate();
+
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    //divisaoTreino.setId(rs.getLong(1));
+                    return true;
+                }
             }
-            return true;
-        } else {
-            return false;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao adicionar divisão de treino de musculação", e);
         }
-    }
-    
-    private int proximaPosicaoLivre() {
-        for (int i = 0; i < divisoesTreinosMusculacao.length; i++) {
-            if (divisoesTreinosMusculacao[i] == null) {
-                return i;
-            }
-        }
-        return -1;
-    }
-    
-    public void mostrarTodos() {
-        boolean temDivisaoTreinoMusculacao = false;
-        for (DivisaoTreinoMusculacao dtm : divisoesTreinosMusculacao) {
-            if (dtm != null) {
-                System.out.println(dtm);
-                temDivisaoTreinoMusculacao = true;
-            }
-        }
-        if (!temDivisaoTreinoMusculacao) {
-            System.out.println("Nao existe divisoes de treino musculacao cadastrado!");
-        }
-    }
-    
-    public DivisaoTreinoMusculacao[] mostrarTodosERetornar() {
-        int count = 0;
-        for (DivisaoTreinoMusculacao dt : divisoesTreinosMusculacao) {
-            if (dt != null) {
-                count++;
-            }
-        }
-        DivisaoTreinoMusculacao[] result = new DivisaoTreinoMusculacao[count];
-        int index = 0;
-        for (DivisaoTreinoMusculacao dt : divisoesTreinosMusculacao) {
-            if (dt != null) {
-                result[index] = dt;
-                index++;
-            }
-        }
-        return result;
-    }
-    
-    public boolean alterarDescricao(Long id, String novaDescricao) {
-        for (DivisaoTreinoMusculacao dtm : divisoesTreinosMusculacao) {
-            if (dtm != null && dtm.getId() == id) {
-                dtm.setDescricao(novaDescricao);
-                return true;
-            }
-        }
+
         return false;
     }
-    
-    public DivisaoTreinoMusculacao buscaPorId(Long id) {
-        for (DivisaoTreinoMusculacao dtm : divisoesTreinosMusculacao) {
-            if (dtm != null && dtm.getId() == id) {
-                return dtm;
+
+    public DivisaoTreinoMusculacao buscaPorId(long id) {
+        String sql = "SELECT * FROM divisao_treino_musculacao WHERE id = ?";
+        DivisaoTreinoMusculacao divisaoTreino = null;
+
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    divisaoTreino = map(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar divisão de treino de musculação por ID", e);
+        }
+
+        return divisaoTreino;
+    }
+
+    public List<DivisaoTreinoMusculacao> buscaTodos() {
+        String sql = "SELECT * FROM divisao_treino_musculacao";
+        List<DivisaoTreinoMusculacao> divisoes = new ArrayList<>();
+
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                divisoes.add(map(rs));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar todas as divisões de treino de musculação", e);
+        }
+
+        return divisoes;
+    }
+
+    public DivisaoTreinoMusculacao altera(DivisaoTreinoMusculacao divisaoTreino) {
+        String sql = "UPDATE divisao_treino_musculacao SET descricao = ?, posicao = ?, divisao_treino_id = ?, idMusculacao = ?, dataModificacao = ? WHERE id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, divisaoTreino.getDescricao());
+            stmt.setString(2, divisaoTreino.getPosicao());
+            stmt.setLong(3, divisaoTreino.getDivisaoTreino().getId());
+            stmt.setLong(4, divisaoTreino.getIdMusculacao());
+            stmt.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setLong(6, divisaoTreino.getId());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao alterar divisão de treino de musculação", e);
+        }
+
+        return divisaoTreino;
+    }
+
+    public boolean exclui(long id) {
+        int excluiu = 0;
+        String sql = "DELETE FROM divisao_treino_musculacao WHERE id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+            excluiu = stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao excluir divisão de treino de musculação", e);
+        }
+        
+        return excluiu > 0;
+    }
+
+    private DivisaoTreinoMusculacao map(ResultSet rs) throws SQLException {
+        DivisaoTreinoMusculacao divisaoTreino = new DivisaoTreinoMusculacao();
+        divisaoTreino.setId(rs.getLong("id"));
+        divisaoTreino.setDescricao(rs.getString("descricao"));
+        divisaoTreino.setPosicao(rs.getString("posicao"));
+        divisaoTreino.setDivisaoTreino(new DivisaoTreinoDAO().buscaPorId(rs.getLong("divisao_treino_id")));
+        divisaoTreino.setIdMusculacao(rs.getLong("idMusculacao"));
+        divisaoTreino.setDataCriacao(rs.getTimestamp("dataCriacao").toLocalDateTime());
+        divisaoTreino.setDataModificacao(rs.getTimestamp("dataModificacao").toLocalDateTime());
+        return divisaoTreino;
+    }
+
+    public void excluiPorDivisaoTreinoId(long idDivisaoTreino) throws SQLException {
+        String sql = "DELETE FROM divisao_treino_musculacao WHERE divisao_treino_id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setLong(1, idDivisaoTreino);
+            stmt.executeUpdate();
+        }
+    }
+
+    public List<DivisaoTreinoMusculacao> buscaPorDivisaoTreinoId(long idDivisaoTreino) throws SQLException {
+        String sql = "SELECT * FROM divisao_treino_musculacao WHERE idMusculacao = ?";
+        List<DivisaoTreinoMusculacao> musculacoes = new ArrayList<>();
+
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setLong(1, idDivisaoTreino);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    musculacoes.add(map(rs));
+                }
             }
         }
-        return null;
+
+        return musculacoes;
     }
-    
-    public boolean remover(long id) {
-        for (int i = 0; i < divisoesTreinosMusculacao.length; i++) {
-            if (divisoesTreinosMusculacao[i] != null && divisoesTreinosMusculacao[i].getId() == id) {
-                divisoesTreinosMusculacao[i] = null;
-                return true;
-            }
-        }
-        return false;
-    }
+
 }

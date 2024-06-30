@@ -12,7 +12,6 @@ A pessoa pode ser um aluno, professor ou administrador.
 */
 public class Pessoa {
     private long id;
-    private static long aux;
     private String nome;
     private String sexo;
     private LocalDate nascimento;
@@ -23,10 +22,9 @@ public class Pessoa {
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
     
-    public Pessoa() {
-        this.id = Pessoa.aux++;
-        this.dataCriacao = Util.getDia();
-        this.dataModificacao = Util.getDia();
+
+    public void setId(long id){
+        this.id = id;
     }
     
     public long getId() {
@@ -39,7 +37,6 @@ public class Pessoa {
 
     public void setNome(String nome) {
         this.nome = nome;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getSexo() {
@@ -48,18 +45,30 @@ public class Pessoa {
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getNascimento() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return this.nascimento.format(formatter);
+        return formatter.format(this.nascimento);
+    }
+    
+    public LocalDate getNascimento2() {
+        return this.nascimento;
+    }
+    
+    public String getNascimento3() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return formatter.format(this.nascimento);
     }
 
     public void setNascimento(String nascimento) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.nascimento = LocalDate.parse(nascimento, formatter);
+    }
+    
+    public void setNascimento2(String nascimento) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.nascimento = LocalDate.parse(nascimento, formatter);
-        this.dataModificacao = Util.getDia();
     }
 
     public String getLogin() {
@@ -68,7 +77,6 @@ public class Pessoa {
 
     public void setLogin(String login) {
         this.login = login;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getSenha() {
@@ -77,7 +85,6 @@ public class Pessoa {
 
     public void setSenha(String senha) {
         this.senha = senha;
-        this.dataModificacao = Util.getDia();
     }
 
     public int getTipoUsuario() {
@@ -86,7 +93,6 @@ public class Pessoa {
 
     public void setTipoUsuario(int tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getCpf() {
@@ -95,21 +101,41 @@ public class Pessoa {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-        this.dataModificacao = Util.getDia();
     }
 
     public String getDataCriacao() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dataCriacao.format(formatter);
     }
+    
+    public LocalDateTime getDataCriacao2() {
+        return this.dataCriacao;
+    }
+    
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
 
     public String getDataModificacao() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return this.dataModificacao.format(formatter);
     }
+    
+    public LocalDateTime getDataModificacao2() {
+        return this.dataModificacao;
+    }
+    
+    public String getDataModificacao3() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        return this.dataModificacao.format(formatter);
+    }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = Util.getDia();
+        this.dataModificacao = dataModificacao;
+    }
+    
+    public void setDataModificacao2(LocalDateTime dataModificacao) {
+        this.dataModificacao = dataModificacao;
     }
     
     public String tipoUsuario(int tipo) {
@@ -121,7 +147,7 @@ public class Pessoa {
             case 3:
                 return "Administrador";
             default:
-                return "Usuï¿½rio sem tipo.";
+                return "Usuário sem tipo.";
         }
     }
 
@@ -147,12 +173,12 @@ public class Pessoa {
         return  "\n|-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" +
                 "\n| Este é seu perfil " + this.nome +
                 "\n|" + "\n|" +
-                "\n| ID                 : " + this.id + 
-                "\n| Sexo               : " + this.sexo + 
-                "\n| Nascimento         : " + getNascimento() + 
-                "\n| Email              : " + this.login +
-                "\n| Tipo de Usuario    : " + tipoUsuario(this.tipoUsuario) +
-                "\n| CPF                : " + this.cpf +
+                "\n| ID             : " + this.id + 
+                "\n| Sexo           : " + this.sexo + 
+                "\n| Nascimento     : " + getNascimento() + 
+                "\n| Email          : " + this.login +
+                "\n| Tipo de Usuario: " + tipoUsuario(this.tipoUsuario) +
+                "\n| CPF            : " + this.cpf +
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
 
@@ -201,6 +227,5 @@ public class Pessoa {
         }
         return Objects.equals(this.nascimento, other.nascimento);
     }
-    
     
 }
