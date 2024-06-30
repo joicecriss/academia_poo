@@ -197,8 +197,8 @@ public class PagamentoMensalidade {
                "\n| Pagamento de Mensalidade" + 
                "\n| Id                 : " + this.id + 
                "\n| Aluno              : " + this.pessoa.getNome() + 
-               "\n| Data de Vencimento : " + getDataVencimento2() + 
-               "\n| Data de Pagamento  : " + getDataPagamento2() + 
+               "\n| Data de Vencimento : " + getDataVencimento2() +
+               (this.dataPagamento != null ? "\n| Data de Pagamento  :" + getDataPagamento2() : "\n| Data de Pagamento  :" + this.dataPagamento) +
                "\n| Valor Pago         : R$" + this.valorPago + 
                "\n| Modalidade         : " + tipoModalidade(this.modalidade) + 
                "\n| Data               : " + getData2() + 

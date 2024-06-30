@@ -720,6 +720,16 @@ public class Main {
                         System.out.println("\n Divisao de Treino Musculacao nao exclui­da!");
                     }
                     break;
+                case 6:
+                    System.out.println("\n Digite o id musculacao da Divisao de Treino Musculacao: ");
+                    Long id2 = Long.parseLong(s.nextLine());
+                    DivisaoTreinoMusculacao achou2 = divisaoTreinoMusculacaoDAO.buscaPorIdMusculacao(id2);
+                    if(achou2 != null) {
+                        System.out.println(achou2.toString());
+                    } else {
+                        System.out.println("Divisao de Treino Musculacao nao encontrada!");
+                    }
+                    break;
                 case 0:
                     System.out.println("Saindo do modulo Divisao de Treino Musculacao!");
                     break;

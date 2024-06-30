@@ -106,6 +106,7 @@ public class DivisaoTreinoMusculacao {
         return "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
                 + "\n| Divisao Treino Musculacao"
                 + "\n| Id              : " + this.id
+                + "\n| Id Musculacao   : " + this.idMusculacao
                 + "\n| Descricao       : " + this.descricao
                 + "\n| Treino          : " + this.posicao
                 + "\n| Data Criacao    : " + getDataCriacao()

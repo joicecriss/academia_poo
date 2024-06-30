@@ -174,7 +174,12 @@ public class PagamentoMensalidadeDAO {
         pagamento.setId(rs.getLong("id"));
         pagamento.setMensalidadeVigente(new MensalidadeVigenteDAO().buscaPorId(rs.getLong("mensalidade_id")));
         pagamento.setDataVencimento2(rs.getDate("dataVencimento").toLocalDate().toString());
-        pagamento.setDataPagamento2(rs.getDate("dataPagamento").toLocalDate().toString());
+        Date data = rs.getDate("data");
+        if (data != null) {
+            pagamento.setData2(data.toLocalDate().toString());
+        } else {
+            pagamento.setData2(""); // Ou utilize outro valor padrão adequado
+        }
         pagamento.setValorPago(rs.getDouble("valorPago"));
         pagamento.setData2(rs.getDate("data").toLocalDate().toString());
         pagamento.setPessoa(new PessoaDAO().buscaPorId(rs.getLong("pessoa_id")));

@@ -223,6 +223,7 @@ public class GUI {
         builder.append("\n|   3 - Buscar pelo id                   |");
         builder.append("\n|   4 - Alterar uma Divisao              |");
         builder.append("\n|   5 - Excluir pelo id                  |");
+        builder.append("\n|   6 - Buscar pelo id  musculacao       |");
         builder.append("\n|   0 - Sair                             |");
         builder.append("\n|                                        |");
         builder.append("\n-----------------------------------------");
@@ -653,7 +654,7 @@ public class GUI {
         int dindice = scanner.nextInt();
         scanner.nextLine();
         DivisaoTreino div = divisoes.get(dindice);
-        tA.setDivisaoTreino(div); //Divisao Treino Adicionada
+        tA.setDivisaoTreino(div);
         
         DivisaoTreino divisaoSelecionada = divisoes.get(dindice);
         int numPosicoes = divisaoSelecionada.getNome().length();
@@ -706,9 +707,14 @@ public class GUI {
         PagamentoMensalidade pgm = new PagamentoMensalidade();
         MensalidadeVigente mv = new MensalidadeVigente();
         
-        System.out.println(mensDAO.buscaTodas());
-        
         System.out.println("Digite o ID da mensalidade vigente que deseja : ");
+        List<MensalidadeVigente> mensalidades = mensDAO.buscaTodas();
+        for (MensalidadeVigente mensalidade : mensalidades) {
+            System.out.println("- ID: " + mensalidade.getId()      + " - Data Inicio: " 
+                                        + mensalidade.getInicio2() + " - Data Termino: " 
+                                        + mensalidade.getInicio2() + " - Valor: R$"
+                                        + mensalidade.getValor());
+        }
         Long opc = Long.parseLong(scanner.nextLine());
         mv = mensDAO.buscaPorId(opc);
         pgm.setMensalidadeVigente(mv);
@@ -740,7 +746,10 @@ public class GUI {
         pgm.setPessoa(aluno);
         
         System.out.println("Modalidade: ");
-        System.out.println("\n1 - Dinheiro\n" + "2 - Pix\n" + "3 - Debito Automatico\n" + "4 - Pagamento Recorrente\n");
+        System.out.println("\n1 - Dinheiro\n" 
+                           + "2 - Pix\n" 
+                           + "3 - Debito Automatico\n" 
+                           + "4 - Pagamento Recorrente\n");
         int modalidade = Integer.parseInt( scanner.nextLine());
         pgm.setModalidade(modalidade);
         
@@ -755,14 +764,16 @@ public class GUI {
     
     public PagamentoRecorrente criaPagRecorrente() {
         PagamentoRecorrente pr = new PagamentoRecorrente();
-        Pessoa p = new Pessoa();
         
-        System.out.println(pDAO.buscaTodas());
-        
-        System.out.println("Escolha uma pessoa (por ID) : ");
-        Long opc = Long.parseLong(scanner.nextLine());
-        p = pDAO.buscaPorId(opc);
-        pr.setPessoa(p);
+        System.out.println("Digite o ID do aluno que deseja criar o pagamento recorrente: ");
+        List<Pessoa> pessoas = pDAO.buscaTodosAlunos(); 
+        for (int i = 0; i < pessoas.size(); i++) {
+            System.out.println(pessoas.get(i).getNome() + " - ID: " + (i));
+        }
+        int pIndice = scanner.nextInt();
+        scanner.nextLine(); 
+        Pessoa aluno = pessoas.get(pIndice); 
+        pr.setPessoa(aluno);
         
         System.out.println("Data: ");
         String data = scanner.nextLine();

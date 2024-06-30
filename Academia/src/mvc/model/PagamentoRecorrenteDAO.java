@@ -167,10 +167,13 @@ public class PagamentoRecorrenteDAO {
                         pagMen.setValorPago(pRecorrente.getValor());
                         pRecorrente.setPagMensalidade(pagMen);
                         pmDAO.adiciona(pagMen);
+                        pRecorrente.setPagMensalidade(pagMen);
                         altera(pRecorrente);
                         System.out.println("Mensalidade paga com sucesso!");
                     } else {
                         pmDAO.adicionaSemPagamento(pagMen);
+                        pRecorrente.setPagMensalidade(pagMen);
+                        altera(pRecorrente);
                     }
                 } else {
                     System.out.println("\nAluno: " + pRecorrente.getPessoa().getNome());
@@ -185,6 +188,7 @@ public class PagamentoRecorrenteDAO {
                         pagMen.setValorPago(pRecorrente.getValor());
                         pRecorrente.setPagMensalidade(pagMen);
                         pmDAO.adiciona(pagMen);
+                        pRecorrente.setPagMensalidade(pagMen);
                         altera(pRecorrente);
                         System.out.println("Mensalidade paga com sucesso!");
                     }
@@ -211,8 +215,9 @@ public class PagamentoRecorrenteDAO {
                     pagMen.setData2(pRecorrente.getData());
                     pagMen.setPessoa(pRecorrente.getPessoa());
                     pagMen.setModalidade(4);
-
+                    pRecorrente.setPagMensalidade(pagMen);
                     pmDAO.adicionaSemPagamento(pagMen);
+                    altera(pRecorrente);
                 }
             }
         }

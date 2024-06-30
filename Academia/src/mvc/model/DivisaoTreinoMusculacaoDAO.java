@@ -54,6 +54,25 @@ public class DivisaoTreinoMusculacaoDAO {
 
         return divisaoTreino;
     }
+    
+    public DivisaoTreinoMusculacao buscaPorIdMusculacao(long id) {
+        String sql = "SELECT * FROM divisao_treino_musculacao WHERE idMusculacao = ?";
+        DivisaoTreinoMusculacao divisaoTreino = null;
+
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    divisaoTreino = map(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar divisão de treino de musculação por id musculacao", e);
+        }
+
+        return divisaoTreino;
+    }
 
     public List<DivisaoTreinoMusculacao> buscaTodos() {
         String sql = "SELECT * FROM divisao_treino_musculacao";
