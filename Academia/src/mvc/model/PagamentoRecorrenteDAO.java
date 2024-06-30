@@ -191,7 +191,7 @@ public class PagamentoRecorrenteDAO {
                 }
             }
         } else {
-            System.out.println("Não há mensalidades vencidas nesta data ou anteriormente!");
+            System.out.println("Nï¿½o hï¿½ mensalidades vencidas nesta data ou anteriormente!");
         }
         
     }
