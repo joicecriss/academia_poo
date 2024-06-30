@@ -96,7 +96,7 @@ public class PagamentoRecorrenteDAO {
 
     }
            
-    public void verificarMensalidadesVencidas(PagamentoMensalidadeDAO pgm, LocalDate dataAtual, Scanner scanner) {
+    public void verificarMensalidadesVencidas(PagamentoMensalidade pgm, LocalDate dataAtual, Scanner scanner) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println("Verificando mensalidades vencidas em " + dtf.format(dataAtual));
         String dataAtualString = dtf.format(dataAtual);
