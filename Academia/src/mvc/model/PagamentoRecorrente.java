@@ -131,7 +131,7 @@ public class PagamentoRecorrente {
     }
     
     public PagamentoMensalidade getPagMensalidade() {
-        return pagMensalidade;
+        return this.pagMensalidade;
     }
 
     public void setPagMensalidade(PagamentoMensalidade pagMensalidade) {

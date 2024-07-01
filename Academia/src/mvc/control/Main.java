@@ -1102,7 +1102,7 @@ public class Main {
                     String cpf = s.nextLine();
                     Pessoa p = pessoaDAO.buscaPessoa(cpf);
                     
-                    if(p.getCpf().length() > 0) {
+                    if(p != null) {
                         System.out.println("\n Digite o ID do pagamento que deseja efetuar: ");
                         Long idPg = Long.parseLong(s.nextLine());
 
