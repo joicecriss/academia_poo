@@ -27,22 +27,8 @@ RELATÓRIOS
 =>Exiba a ficha de treino do aluno.
  */
 public class Relatorios {
-
-    public static void main(String[] args) {
-        LocalDate dataAtual = LocalDate.now(); // ou use uma data específica
-        PagamentoMensalidadeDAO pagMensalidade = new PagamentoMensalidadeDAO();
-        MovimentacaoFinanceiraDAO movimentacao = new MovimentacaoFinanceiraDAO();
-        int nroDias = 5;
-        try {
-            criarRelatorioPDFAdimplentes(pagMensalidade.buscaTodosComPagamento(dataAtual.plusDays(nroDias)), "RelatorioAdimplentesSimples.pdf", dataAtual, nroDias);
-            criarRelatorioPDFInadimplentes(pagMensalidade.buscaTodosSemPagamento(dataAtual.plusDays(nroDias)), "RelatorioInadimplentesSimples.pdf", dataAtual, nroDias);
-            criarRelatorioPDFMovimentacao(movimentacao.buscaTodas(), "RelatorioMovimentacaoFinanceira.pdf");
-        } catch (FileNotFoundException | DocumentException e) {
-            e.printStackTrace();
-        }
-    }
     
-    public static void criarRelatorioPDFAdimplentes(List<PagamentoMensalidade> adimplentes, String dest, LocalDate dataAtual, int nroDias) throws FileNotFoundException, DocumentException {
+    public void criarRelatorioPDFAdimplentes(List<PagamentoMensalidade> adimplentes, String dest, LocalDate dataAtual, int nroDias) throws FileNotFoundException, DocumentException {
         Document document = new Document(PageSize.A4);
         PdfWriter.getInstance(document, new FileOutputStream(dest));
         document.open();
@@ -110,7 +96,7 @@ public class Relatorios {
         System.out.println("Relatório PDF criado com sucesso!");
     }
 
-    public static void criarRelatorioPDFInadimplentes(List<PagamentoMensalidade> inadimplentes, String dest, LocalDate dataAtual, int nroDias) throws FileNotFoundException, DocumentException {
+    public void criarRelatorioPDFInadimplentes(List<PagamentoMensalidade> inadimplentes, String dest, LocalDate dataAtual, int nroDias) throws FileNotFoundException, DocumentException {
         Document document = new Document(PageSize.A4);
         PdfWriter.getInstance(document, new FileOutputStream(dest));
         document.open();
@@ -173,7 +159,7 @@ public class Relatorios {
         System.out.println("Relatório PDF criado com sucesso!");
     }
     
-    public static void criarRelatorioPDFMovimentacao(List<MovimentacaoFinanceira> movimentacao, String dest) throws FileNotFoundException, DocumentException {
+    public void criarRelatorioPDFMovimentacao(List<MovimentacaoFinanceira> movimentacao, String dest) throws FileNotFoundException, DocumentException {
         Document document = new Document(PageSize.A4);
         PdfWriter.getInstance(document, new FileOutputStream(dest));
         document.open();

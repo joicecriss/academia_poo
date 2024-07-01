@@ -1,6 +1,8 @@
 package mvc.control;
 
 //Importacoes dos models
+import com.itextpdf.text.DocumentException;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -37,6 +39,7 @@ import mvc.model.TreinoAplicacao;
 import mvc.model.TreinoAplicacaoDAO;
 import mvc.model.Util;
 import java.util.List;
+import mvc.model.Relatorios;
 
 //Importacoes das views
 import mvc.view.GUI;
@@ -52,11 +55,13 @@ public class Main {
     DivisaoTreinoMusculacaoDAO divisaoTreinoMusculacaoDAO = new DivisaoTreinoMusculacaoDAO();
     TreinoDAO treinoDAO = new TreinoDAO();
     TreinoAplicacaoDAO treinoAplicacaoDAO = new TreinoAplicacaoDAO();
-    PagamentoMensalidadeDAO pagMensalidadeDAO = new PagamentoMensalidadeDAO();
+    PagamentoMensalidadeDAO pagMensalidadeDAO = new PagamentoMensalidadeDAO(); //
     PagamentoRecorrenteDAO pagRecorrenteDAO = new PagamentoRecorrenteDAO();
     EntradaAlunoDAO entradaAlunoDAO = new EntradaAlunoDAO();
     AvaliacaoFisicaDAO avaliacaoFisicaDAO = new AvaliacaoFisicaDAO();
-    MovimentacaoFinanceiraDAO movimentacaoFDAO = new MovimentacaoFinanceiraDAO();
+    MovimentacaoFinanceiraDAO movimentacaoFDAO = new MovimentacaoFinanceiraDAO(); //
+    Relatorios relatorios = new Relatorios();
+    
     Scanner s = new Scanner(System.in);
     JFrame frame = new JFrame();
     
@@ -64,6 +69,7 @@ public class Main {
         int opcao = 0;
         
         pagRecorrenteDAO.verificarMensalidadesVencidasAoRodarSistema(LocalDate.now());
+        LocalDate dataAtual = LocalDate.now();
         
         while(opcao != 3) {
             opcao = gui.menuBoasVindas();
@@ -1023,6 +1029,7 @@ public class Main {
     
     public void menuPagMensalidade() {
         int op = 10;
+        LocalDate dataAtual = LocalDate.now();
         do {
             op = gui.opPagamentoMensalidade();
             switch (op) {
@@ -1143,6 +1150,29 @@ public class Main {
                         System.out.println("Não existe esta pessoa para efetuar pagamento.");
                     }
 
+                    break;
+                case 7:
+                    System.out.println("Qual periodo deseja buscar?");
+                    System.out.println("EX: Se digitar 30 dias, o sistema buscara na data atual ate 30 dias a mais.");
+                    System.out.println("-> ");
+                    int nroDias = s.nextInt();
+                    
+                    try {
+                        relatorios.criarRelatorioPDFAdimplentes(pagMensalidadeDAO.buscaTodosComPagamento(dataAtual.plusDays(nroDias)), "RelatorioAdimplentesSimples.pdf", dataAtual, nroDias);
+                    } catch (FileNotFoundException | DocumentException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 8:
+                    System.out.println("Qual periodo deseja buscar?");
+                    System.out.println("EX: Se digitar 30 dias, o sistema buscara na data atual ate 30 dias a mais.");
+                    int nroDias2 = s.nextInt();
+                    
+                    try {
+                        relatorios.criarRelatorioPDFInadimplentes(pagMensalidadeDAO.buscaTodosSemPagamento(dataAtual.plusDays(nroDias2)), "RelatorioInadimplentesSimples.pdf", dataAtual, nroDias2);
+                    } catch (FileNotFoundException | DocumentException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 0:
                     System.out.println("Saindo do modulo Pagamento Mensalidade!");
@@ -1499,6 +1529,13 @@ public class Main {
                         System.out.println("\n Movimentacao Financeira excluida!");
                     } else {
                         System.out.println("\n Movimentacao Financeira nao excluida!");
+                    }
+                    break;
+                case 6:             
+                    try {
+                        relatorios.criarRelatorioPDFMovimentacao(movimentacaoFDAO.buscaTodas(), "RelatorioMovimentacaoFinanceira.pdf");
+                    } catch (FileNotFoundException | DocumentException e) {
+                        e.printStackTrace();
                     }
                     break;
                 case 0:

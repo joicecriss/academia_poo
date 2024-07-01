@@ -313,6 +313,7 @@ public class GUI {
         builder.append("\n|  3 - Buscar pelo id                   |");
         builder.append("\n|  4 - Alterar                          |");
         builder.append("\n|  5 - Excluir pelo id                  |");
+        builder.append("\n|  6 - Gerar relatorio                  |");
         builder.append("\n|  0 - Sair                             |");
         builder.append("\n|                                       |");
         builder.append("\n-----------------------------------------");
@@ -368,6 +369,8 @@ public class GUI {
         builder.append("\n|  4 - Alterar um Pagamento             |");
         builder.append("\n|  5 - Excluir pelo ID                  |");
         builder.append("\n|  6 - Aluno Pagar                      |");
+        builder.append("\n|  7 - Relatorio de Adimplentes         |");
+        builder.append("\n|  8 - Relatorio de Inadimplentes       |");
         builder.append("\n|  0 - Sair                             |");
         builder.append("\n|                                       |");
         builder.append("\n----------------------------------------");
