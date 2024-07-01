@@ -13,7 +13,7 @@ import mvc.model.Pessoa;
 import mvc.model.DivisaoTreino;
 import mvc.model.DivisaoTreinoDAO;
 import mvc.model.DivisaoTreinoMusculacao;
-//import mvc.model.DivisaoTreinoMusculacaoDAO;
+import mvc.model.DivisaoTreinoMusculacaoDAO;
 import mvc.model.EntradaAluno;
 import mvc.model.MovimentacaoFinanceira;
 import mvc.model.Exercicio;
@@ -46,6 +46,7 @@ public class GUI {
     MovimentacaoFinanceiraDAO mFinDAO = new MovimentacaoFinanceiraDAO();
     AcademiaDAO academiaDAO = new AcademiaDAO();
     DivisaoTreinoDAO divTreinoDAO = new DivisaoTreinoDAO();
+    DivisaoTreinoMusculacaoDAO divTreinoMuscDAO = new DivisaoTreinoMusculacaoDAO();
     ExercicioDAO exeDAO = new ExercicioDAO();
     ExercicioAplicacaoDAO exeADAO = new ExercicioAplicacaoDAO();
     TreinoDAO treinoDAO = new TreinoDAO();
@@ -665,6 +666,9 @@ public class GUI {
         int numPosicoes = divisaoSelecionada.getNome().length();
 
         List<DivisaoTreinoMusculacao> dtms = new ArrayList<>();
+        List<Exercicio> exercicios = new ArrayList<>();
+        List<ExercicioAplicacao> exerciciosAplicacao = new ArrayList<>();
+        List<String> posicoes = new ArrayList<>();
         System.out.println("Voce escolheu a divisao de treino: " + divisaoSelecionada.getNome());
         for (int i = 0; i < numPosicoes; i++) {
             System.out.println("Digite a descricao da Posicao " + (char) ('A' + i) + ":");
@@ -677,8 +681,7 @@ public class GUI {
             
             System.out.println("\nQuantos exercicios voce deseja inserir para esta divisao de treino? ");
             int eIndice= scanner.nextInt();
-            List<Exercicio> exercicios = new ArrayList<>();
-            List<ExercicioAplicacao> exerciciosAplicacao = new ArrayList<>();
+            
             for(int o = 0; o < eIndice; o++) {
                 System.out.println("Digite o ID do exercicio que deseja adicionar: ");
                 List<Exercicio> exercicios2 = exeDAO.buscaTodos(); 
@@ -699,12 +702,28 @@ public class GUI {
                 scanner.nextLine();
                 ExercicioAplicacao exeA = exerciciosA.get(eAIndice);
                 exerciciosAplicacao.add(o, exeA);
+                
+                posicoes.add(o, dtm.getPosicao());
             }
-            tA.setExercicio((ArrayList<Exercicio>)exercicios); //Adiciona Exercicio
-            tA.setExercicioAplicacao((ArrayList<ExercicioAplicacao>)exerciciosAplicacao); //Adiciona Aplicacao do Exercicio
             dtms.add(i, dtm);
         }
-        tA.setDivisaoTreinoMusculacao((ArrayList<DivisaoTreinoMusculacao>)dtms); //Adiciona Divisao Treino Musculacao
+        
+        Long adicionou = null;
+        for (DivisaoTreinoMusculacao dtm : dtms) {
+            adicionou = divTreinoMuscDAO.adiciona(dtm);
+        }
+        
+        if(adicionou != null) {
+            DivisaoTreinoMusculacao dm = divTreinoMuscDAO.buscaPorId(adicionou);
+            tA.setDivisaoTreinoMusculacao(dm); //Adiciona Divisao Treino Musculacao
+        } else {
+            System.out.println("\n Erro ao adicionar a Divisão de Treino Musculacao!");
+        }
+        
+        tA.setExercicio((List<Exercicio>)exercicios); //Adiciona Exercicio
+        tA.setExercicioAplicacao((List<ExercicioAplicacao>)exerciciosAplicacao); //Adiciona Aplicacao do Exercicio
+        tA.setPosicao((List<String>)posicoes); //Adiciona Posicao
+        
         return tA;
     }
     
@@ -740,7 +759,7 @@ public class GUI {
         String data = scanner.nextLine();
         pgm.setData(data);
         
-        System.out.println("Digite o ID do aluno que deseja criar a avaliacao fisica: ");
+        System.out.println("Digite o ID do aluno que deseja criar o pagamento: ");
         List<Pessoa> pessoas = pDAO.buscaTodosAlunos(); 
         for (int i = 0; i < pessoas.size(); i++) {
             System.out.println(pessoas.get(i).getNome() + " - ID: " + (i));
@@ -759,7 +778,7 @@ public class GUI {
         pgm.setModalidade(modalidade);
         
         MovimentacaoFinanceira mF = new MovimentacaoFinanceira();
-        mF.setValor(20);
+        mF.setValor(pgm.getValorPago());
         mF.setTipo(1);
         mF.setDescricao("Pagamento Mensalidade Aluno: " + aluno.getNome());
         mFinDAO.adiciona(mF);

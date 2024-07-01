@@ -201,7 +201,7 @@ public class Relatorios {
       
         for (MovimentacaoFinanceira movimentacaoFinanceira : movimentacao) {
             table.addCell(new PdfPCell(new Phrase(String.format("%.2f", movimentacaoFinanceira.getValor()), fontNormal)));
-            table.addCell(new PdfPCell(new Phrase(String.valueOf(movimentacaoFinanceira.getTipo()), fontNormal)));
+            table.addCell(new PdfPCell(new Phrase(String.valueOf(movimentacaoFinanceira.tipo(movimentacaoFinanceira.getTipo())), fontNormal)));
             table.addCell(new PdfPCell(new Phrase(String.valueOf(movimentacaoFinanceira.getDescricao()))));
             table.addCell(new PdfPCell(new Phrase(String.valueOf(movimentacaoFinanceira.getDataCriacao()), fontNormal)));
         }

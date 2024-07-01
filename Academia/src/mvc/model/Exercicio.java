@@ -13,10 +13,10 @@ public class Exercicio {
     private long id;
     private String nome;
     private String descricao;
+    private String posicao;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataModificacao;
 
-    
     public long getId() {
         return id;
     }
@@ -25,6 +25,13 @@ public class Exercicio {
         this.id = id;
     }
     
+    public String getPosicao() {
+        return posicao;
+    }
+
+    public void setPosicao(String posicao) {
+        this.posicao = posicao;
+    }
 
     public String getNome() {
         return nome;

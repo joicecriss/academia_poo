@@ -19,8 +19,9 @@ public class TreinoAplicacao {
   private Treino treino;
   private List<Exercicio> exercicio;
   private List<ExercicioAplicacao> exercicioAplicacao;
+  private List<String> posicao;
   private DivisaoTreino divisaoTreino;
-  private ArrayList<DivisaoTreinoMusculacao> divisaoTreinoMusculacao;
+  private DivisaoTreinoMusculacao divisaoTreinoMusculacao;
   private LocalDateTime dataCriacao;
   private LocalDateTime dataModificacao;
 
@@ -39,7 +40,6 @@ public class TreinoAplicacao {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
-        this.dataModificacao = LocalDateTime.now();
     }
     
     public Academia getAcademia() {
@@ -48,7 +48,6 @@ public class TreinoAplicacao {
 
     public void setAcademia(Academia academia) {
         this.academia = academia;
-        this.dataModificacao = LocalDateTime.now();
     }
 
     public Treino getTreino() {
@@ -57,27 +56,31 @@ public class TreinoAplicacao {
 
     public void setTreino(Treino treino) {
         this.treino = treino;
-        this.dataModificacao = LocalDateTime.now();
     }
 
     public List<Exercicio> getExercicio() {
         return exercicio;
     }
 
-    public void setExercicio(ArrayList<Exercicio> exercicio) {
+    public void setExercicio(List<Exercicio> exercicio) {
         this.exercicio = exercicio;
-        this.dataModificacao = LocalDateTime.now();
     }
 
     public List<ExercicioAplicacao> getExercicioAplicacao() {
         return exercicioAplicacao;
     }
 
-    public void setExercicioAplicacao(ArrayList<ExercicioAplicacao> exercicioAplicacao) {
+    public void setExercicioAplicacao(List<ExercicioAplicacao> exercicioAplicacao) {
         this.exercicioAplicacao = exercicioAplicacao;
-        this.dataModificacao = LocalDateTime.now();
+    }
+    
+    public List<String> getPosicao() {
+        return posicao;
     }
 
+    public void setPosicao(List<String> posicao) {
+        this.posicao = posicao;
+    }
 
     public DivisaoTreino getDivisaoTreino() {
         return divisaoTreino;
@@ -85,19 +88,15 @@ public class TreinoAplicacao {
 
     public void setDivisaoTreino(DivisaoTreino divisaoTreino) {
         this.divisaoTreino = divisaoTreino;
-        this.dataModificacao = Util.getDia();
     }
 
-    public ArrayList<DivisaoTreinoMusculacao> getDivisaoTreinoMusculacao() {
+    public DivisaoTreinoMusculacao getDivisaoTreinoMusculacao() {
         return divisaoTreinoMusculacao;
     }
 
-    public void setDivisaoTreinoMusculacao(ArrayList<DivisaoTreinoMusculacao> divisaoTreinoMusculacao) {
+    public void setDivisaoTreinoMusculacao(DivisaoTreinoMusculacao divisaoTreinoMusculacao) {
         this.divisaoTreinoMusculacao = divisaoTreinoMusculacao;
-        this.dataModificacao = LocalDateTime.now();
     }
-
-    
 
     public String getDataCriacao() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -106,7 +105,6 @@ public class TreinoAplicacao {
 
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
-        this.dataModificacao = LocalDateTime.now();
     }
 
     public String getDataModificacao() {
@@ -115,7 +113,7 @@ public class TreinoAplicacao {
     }
 
     public void setDataModificacao(LocalDateTime dataModificacao) {
-        this.dataModificacao = LocalDateTime.now();
+        this.dataModificacao = dataModificacao;
     }
     
     public String calcularSemana(LocalDate dataInicio, LocalDate dataTermino) {
@@ -178,7 +176,7 @@ public class TreinoAplicacao {
                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
     }
   
-    public void visualizaTreinoAplicacao(TreinoAplicacao tA) {
+    public void visualizaTreinoAplicacao2(TreinoAplicacao tA) {
         System.out.println("ACADEMIA: " + tA.getAcademia().getNome());
         System.out.println("FICHA DE TREINO");
         System.out.println("Aluno(a): " + tA.getPessoa().getNome());
@@ -192,6 +190,39 @@ public class TreinoAplicacao {
                 System.out.println(tA.getExercicio()[i].getNome() + " - " + tA.getExercicioAplicacao()[i].getDescricao());
             }
         }*/
+    }
+    
+    public void visualizaTreinoAplicacao(TreinoAplicacao tA) {
+        System.out.println("=============================================");
+        System.out.println("        TREINO DE APLICAÇÃO        ");
+        System.out.println("=============================================");
+
+        System.out.println("Academia: " + tA.getAcademia().getNome());
+        System.out.println("Ficha de Treino: ");
+        System.out.println("Aluno(a): " + tA.getPessoa().getNome());
+        System.out.println("Divisão de Treino: " + tA.getDivisaoTreino().getNome());
+        System.out.println("Data de Início: " + tA.getTreino().getDataInicio());
+        System.out.println("Data de Término: " + tA.getTreino().getDataTermino());
+        System.out.println("Duração: " + calcularSemana(tA.getTreino().getDataInicioDate(), tA.getTreino().getDataTerminoDate()) + " semanas");
+
+        System.out.println("\nDetalhes do Treino:");
+        for (int i = 0; i < tA.getExercicio().size(); i++) {
+            Exercicio exercicio = tA.getExercicio().get(i);
+            ExercicioAplicacao exercicioAplicacao = tA.getExercicioAplicacao().get(i);
+            String posicao = tA.getPosicao().get(i);
+
+            System.out.println("\n - " + (i + 1) + ". " + exercicio.getNome() + " (" + posicao + ")");
+            System.out.println("    Séries: " + exercicioAplicacao.getDescricao());
+            //System.out.println("    Repetições: " + exercicioAplicacao.getRepeticoes());
+            //System.out.println("    Descanso: " + exercicioAplicacao.getDescanso() + " segundos");
+        }
+
+        System.out.println("\n=============================================");
+    }
+
+    private String formatarData(LocalDateTime data) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return data.format(formatter);
     }
 
 }

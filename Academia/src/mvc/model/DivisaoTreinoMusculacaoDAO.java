@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DivisaoTreinoMusculacaoDAO {
 
-    public boolean adiciona(DivisaoTreinoMusculacao divisaoTreino) {
+    public Long adiciona(DivisaoTreinoMusculacao divisaoTreino) {
         String sql = "INSERT INTO divisao_treino_musculacao (descricao, posicao, divisao_treino_id, idMusculacao, dataCriacao, dataModificacao) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -24,16 +24,15 @@ public class DivisaoTreinoMusculacaoDAO {
 
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    //divisaoTreino.setId(rs.getLong(1));
-                    return true;
+                    divisaoTreino.setId(rs.getLong(1));
+                    return divisaoTreino.getId();
                 }
             }
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar divisão de treino de musculação", e);
         }
-
-        return false;
+        return null;
     }
 
     public DivisaoTreinoMusculacao buscaPorId(long id) {

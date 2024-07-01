@@ -675,8 +675,8 @@ public class Main {
                     List<DivisaoTreinoMusculacao> divisoes = gui.criaDivisaoTreinoMusculacao();
 
                     for (DivisaoTreinoMusculacao dtm : divisoes) {
-                        boolean adicionou = divisaoTreinoMusculacaoDAO.adiciona(dtm);
-                        if(adicionou) {
+                        Long adicionou = divisaoTreinoMusculacaoDAO.adiciona(dtm);
+                        if(adicionou != null) {
                             System.out.println("\n Divisão de Treino Musculacao " + dtm.getPosicao() + " inserida com sucesso!");
                         } else {
                             System.out.println("\n Erro ao adicionar a Divisão de Treino Musculacao " + dtm.getPosicao() + "!");
@@ -984,7 +984,7 @@ public class Main {
             switch (op) {
                 case 1:
                     TreinoAplicacao tA = gui.criaTreinoAplicacao();
-
+                    
                     boolean treinoInserido = treinoAplicacaoDAO.adiciona(tA);
                     if (treinoInserido) {
                         System.out.println("\n Treino Aplicacao inserido com sucesso!");
@@ -1000,12 +1000,12 @@ public class Main {
                 case 3:
                     System.out.println("\n Digite o id do Treino Aplicacao: ");
                     Long id = Long.parseLong(s.nextLine());
-                    /*TreinoAplicacao achou = treinoAplicacaoDAO.buscaPorId(id);
+                    TreinoAplicacao achou = treinoAplicacaoDAO.buscaPorId(id);
                     if(achou != null) {
-                        System.out.println(achou.toString());
+                        achou.visualizaTreinoAplicacao(achou);
                     } else {
                         System.out.println("Treino Aplicacao nao encontrada!");
-                    }*/
+                    }
                     break;
                 case 4:
                     System.out.println("\n Digite o id do Treino Aplicacao que deseja excluir: ");
