@@ -121,12 +121,13 @@ public class PagamentoRecorrenteDAO {
     }
     
     public List<PagamentoRecorrente> buscaTodosSemPagMensalidade(LocalDate dataAtual) {
-        String sql = "SELECT * FROM pagamento_recorrente WHERE data <= ? AND pagamento_mensalidade_id IS NULL";
+        String sql = "SELECT * FROM pagamento_recorrente WHERE data <= ? OR data >= ? AND pagamento_mensalidade_id IS NULL"; //"OR data > ?" foi colocado para testar o relatorio
         List<PagamentoRecorrente> pagamentos = new ArrayList<>();
 
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql);) {
                 stmt.setDate(1, Date.valueOf(dataAtual));
+                stmt.setDate(2, Date.valueOf(dataAtual.plusDays(30))); //Coloquei essa linha para testar o relatorio, pode ser retirada depois
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
                     pagamentos.add(map(rs));
