@@ -259,6 +259,7 @@ public class GUI {
         builder.append("\n|  1 - Criar Treino                      |");
         builder.append("\n|  2 - Mostrar por id                    |");
         builder.append("\n|  3 - Buscar pelo id                    |");
+        builder.append("\n|  4 - Excluir pelo id                   |");
         builder.append("\n|  0 - Sair                              |");
         builder.append("\n|                                        |");
         builder.append("\n------------------------------------------");

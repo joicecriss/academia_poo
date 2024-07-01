@@ -213,6 +213,8 @@ public class TreinoAplicacao {
 
             System.out.println("\n - " + (i + 1) + ". " + exercicio.getNome() + " (" + posicao + ")");
             System.out.println("    Séries: " + exercicioAplicacao.getDescricao());
+            //System.out.println("    Repetições: " + exercicioAplicacao.getRepeticoes());
+            //System.out.println("    Descanso: " + exercicioAplicacao.getDescanso() + " segundos");
         }
 
         System.out.println("\n=============================================");

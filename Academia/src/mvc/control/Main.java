@@ -131,7 +131,7 @@ public class Main {
                         EntradaAluno entrada = new EntradaAluno();
                         entrada.setPessoa(Util.getPessoaLogada());
                         LocalDateTime diaHora = LocalDateTime.now();
-                        entrada.setEntrada(diaHora);
+                        entrada.setEntrada3(diaHora.toString());
                         boolean entrou = entradaAlunoDAO.adiciona(entrada);
                         
                         if(entrou) {
@@ -141,21 +141,16 @@ public class Main {
                         }
                         break;
                     case 3:
-                        
-                        TreinoAplicacao achou2 = treinoAplicacaoDAO.buscaPorAluno(Util.getPessoaLogada().getId());
-                        if(achou2 != null) {
-                            achou2.visualizaTreinoAplicacao(achou2);
-                        } else {
-                            System.out.println("Treino Aplicacao nao encontrada!");
+                        boolean treino1 =false;// treinoAplicacaoDAO.mostrarPorAluno(Util.getPessoaLogada());
+                        if(!treino1) {
+                            System.out.println("Voce nao tem treino, peca ao instrutor!");
                         }
                         break;
                     case 4:
-                        
-                        TreinoAplicacao achou3 = treinoAplicacaoDAO.buscaPorAluno(Util.getPessoaLogada().getId());
-                        if(achou3 != null) {
-                            achou3.visualizaTreinoAplicacao(achou3);
-                        } else {
-                            System.out.println("Treino Aplicacao nao encontrada!");
+                        boolean treino2 = false;//treinoAplicacaoDAO.mostrarPorAluno(Util.getPessoaLogada());
+                        if(treino2) {
+                            System.out.println("Fixa de Treino Imprimida!!"
+                                + "\nPegue na impressora!");
                         }
                         break;
                     case 5:
@@ -1000,12 +995,7 @@ public class Main {
                 case 2:
                     System.out.println("\n Digite o id do Treino Aplicacao: ");
                     Long idMostrar = Long.parseLong(s.nextLine());
-                    TreinoAplicacao achou2 = treinoAplicacaoDAO.buscaPorId(idMostrar);
-                    if(achou2 != null) {
-                        achou2.visualizaTreinoAplicacao(achou2);
-                    } else {
-                        System.out.println("Treino Aplicacao nao encontrada!");
-                    }
+                    //treinoAplicacaoDAO.mostrarPorId(idMostrar);
                     break;
                 case 3:
                     System.out.println("\n Digite o id do Treino Aplicacao: ");
@@ -1016,6 +1006,16 @@ public class Main {
                     } else {
                         System.out.println("Treino Aplicacao nao encontrada!");
                     }
+                    break;
+                case 4:
+                    System.out.println("\n Digite o id do Treino Aplicacao que deseja excluir: ");
+                    Long idExcluir = Long.parseLong(s.nextLine());
+
+                    /*if (treinoAplicacaoDAO.remover(idExcluir)) {
+                        System.out.println("\n Treino Aplicacao excluido!");
+                    } else {
+                        System.out.println("\n Treino Aplicacao nao excluido!");
+                    }*/
                     break;
                 case 0:
                     System.out.println("Saindo do modulo Treino Aplicacao!");
