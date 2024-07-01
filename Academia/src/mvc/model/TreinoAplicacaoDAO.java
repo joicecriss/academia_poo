@@ -1,112 +1,64 @@
 package mvc.model;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TreinoAplicacaoDAO {
-    TreinoAplicacao[] treinosAplicao = new TreinoAplicacao[60];
-    
-    
-    /*public TreinoAplicacaoDAO() {
-        TreinoAplicacao t1 = new TreinoAplicacao();
-        Academia a1 = new AcademiaDAO().buscaPorNome("Biotech Prime");
-        t1.setAcademia(a1);
-        DivisaoTreino d1 = new DivisaoTreinoDAO().buscaPorId(Long.parseLong("0"));
-        t1.setDivisaoTreino(d1);
-        
-        DivisaoTreinoMusculacao [] dtms = new DivisaoTreinoMusculacao[3];
-        dtms[0] = new DivisaoTreinoMusculacaoDAO().buscaPorId(Long.parseLong("0"));
-        dtms[1] =  new DivisaoTreinoMusculacaoDAO().buscaPorId(Long.parseLong("1"));
-        dtms[2] =  new DivisaoTreinoMusculacaoDAO().buscaPorId(Long.parseLong("2"));
-        
-        t1.setDivisaoTreinoMusculacao(divisaoTreinoMusculacao);
-        t1.setExercicio(exercicio);
-        t1.setExercicioAplicacao(exercicioAplicacao);
-        Pessoa p1 = new PessoaDAO().buscaPessoa("870.517.920-32");
-        t1.setPessoa(p1);
-        Treino tr1 = new TreinoDAO().buscaPorId(Long.parseLong("0"));
-        t1.setTreino(tr1);
-    }*/
     
     public boolean adiciona(TreinoAplicacao tA) {
-        int proximaPosicaoLivre = this.proximaPosicaoLivre();
-        if (proximaPosicaoLivre != -1) {
-            treinosAplicao[proximaPosicaoLivre] = tA;
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    private int proximaPosicaoLivre() {
-        for (int i = 0; i < treinosAplicao.length; i++) {
-            if (treinosAplicao[i] == null) {
-                return i;
-            }
-        }
-        return -1;
-    }
-    
-    public void mostrarTodos() {
-        boolean temTreino = false;
-        for (TreinoAplicacao tA : treinosAplicao) {
-            if (tA != null) {
-                System.out.println(tA);
-                temTreino = true;
-            }
-        }
-        if (!temTreino) {
-            System.out.println("Nao existe treinos aplicacao cadastrado!");
-        }
-    }
-    
-    public void mostrarPorId(Long id) {
-        boolean temTreino = false;
-        for (TreinoAplicacao tA : treinosAplicao) {
-            if (tA != null && tA.getId() == id) {
-                tA.visualizaTreinoAplicacao(tA);
-                temTreino = true;
-            }
-        }
-        if (!temTreino) {
-            System.out.println("Nao existe treinos aplicacao cadastrado!");
-        }
-    }
-    
-    public boolean mostrarPorAluno(Pessoa p) {
-        boolean temTreino = false;
-        for (TreinoAplicacao tA : treinosAplicao) {
-            if (tA != null && tA.getPessoa().getCpf().equals(p.getCpf()) ) {
-                tA.visualizaTreinoAplicacao(tA);
-                temTreino = true;
-            }
-        }
-        if (!temTreino) {
-            System.out.println("Nao existe treinos para voce, peca para algum instrutor!");
-            return false;
-        }
-        return true;
-    }
-    
-    public TreinoAplicacao buscaPorId(Long id) {
-        for (TreinoAplicacao tA : treinosAplicao) {
-            if (tA != null && tA.getId() == id) {
-                return tA;
-            }
-        }
-        return null;
-    }
+        String sql = "INSERT INTO treino_aplicacao (id_pessoa, id_academia, id_treino, id_divisao_treino, data_criacao, data_modificacao) VALUES (?, ?, ?, ?, NOW(), NOW())";
+        // Conexão com o banco de dados
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmtTreinoAplicacao = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+             ) {
 
-    public boolean remover(long id) {
-        for (int i = 0; i < treinosAplicao.length; i++) {
-            if (treinosAplicao[i] != null && treinosAplicao[i].getId() == id) {
-                treinosAplicao[i] = null;
-                return true;
+            // Inserindo dados na tabela treino_aplicacao
+            stmtTreinoAplicacao.setLong(1, tA.getPessoa().getId());
+            stmtTreinoAplicacao.setLong(2, tA.getAcademia().getId());
+            stmtTreinoAplicacao.setLong(3, tA.getTreino().getId());
+            stmtTreinoAplicacao.setLong(4, tA.getDivisaoTreino().getId());
+            stmtTreinoAplicacao.executeUpdate();
+            
+            ResultSet rs = stmtTreinoAplicacao.getGeneratedKeys();
+            tA.setId(rs.getLong(1));
+            
+            
+            // Obtendo IDs dos exercícios e exercícios aplicações
+            List<Long> exercicioIds = new ArrayList<>();
+            for (Exercicio exercicio : tA.getExercicio()) {
+                exercicioIds.add(exercicio.getId());
             }
+
+            List<Long> exercicioAplicacaoIds = new ArrayList<>();
+            for (ExercicioAplicacao aplicacao : tA.getExercicioAplicacao()) {
+                exercicioAplicacaoIds.add(aplicacao.getId());
+            }
+            
+            // Inserindo registros na tabela treino_aplicacao_exercicio
+            adicionaTreinoAplicacaoExercicios(tA, exercicioIds, exercicioAplicacaoIds);
+
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao adicionar treino de aplicação", e);
         }
-        return false;
     }
+    
+    public void adicionaTreinoAplicacaoExercicios(TreinoAplicacao tA, List<Long> exercicioIds, List<Long> exercicioAplicacaoIds) {
+    // Conexão com o banco de dados
+    try (Connection connection = new ConnectionFactory().getConnection();
+         PreparedStatement stmtTreinoAplicacaoExercicio = connection.prepareStatement("INSERT INTO treino_aplicacao_exercicio (id_treino_aplicacao, id_exercicio, id_exercicio_aplicacao) VALUES (?, ?, ?)")) {
+
+        // Inserindo registros na tabela treino_aplicacao_exercicio
+        for (int i = 0; i < exercicioIds.size(); i++) {
+            stmtTreinoAplicacaoExercicio.setLong(1, tA.getId()); // ID do treino aplicado
+            stmtTreinoAplicacaoExercicio.setLong(2, exercicioIds.get(i)); // ID do exercício
+            stmtTreinoAplicacaoExercicio.setLong(3, exercicioAplicacaoIds.get(i)); // ID do exercício aplicação
+            stmtTreinoAplicacaoExercicio.executeUpdate();
+        }
+    } catch (SQLException e) {
+        throw new RuntimeException("Erro ao adicionar treino de aplicação exercicios", e);
+    }
+}
     
 }

@@ -639,7 +639,9 @@ public class GUI {
         System.out.println("Digite o ID do treino que deseja: ");
         List<Treino> treinos = treinoDAO.buscaTodos(); 
         for (int i = 0; i < treinos.size(); i++) {
-            System.out.println("Data inicio: " + treinos.get(i).getDataInicio() + "Data termino: " + treinos.get(i).getDataTermino() + " - ID: " + (treinos.get(i).getId()));
+            System.out.println("Data inicio: " + treinos.get(i).getDataInicio() 
+                    + "- Data termino: " + treinos.get(i).getDataTermino() 
+                    + " - ID: " + (i));
         }
         int tIndice = scanner.nextInt();
         //scanner.nextLine(); 
@@ -683,7 +685,7 @@ public class GUI {
                 int eIndice2 = scanner.nextInt();
                 scanner.nextLine();
                 Exercicio exe = exercicios2.get(eIndice2);
-                exercicios.set(o, exe);
+                exercicios.add(o, exe);
                 
                 System.out.println("Digite o ID da aplicao que deseja adicionar neste exercicio: ");
                 List<ExercicioAplicacao> exerciciosA = exeADAO.buscaTodos(); 
@@ -693,11 +695,11 @@ public class GUI {
                 int eAIndice = scanner.nextInt();
                 scanner.nextLine();
                 ExercicioAplicacao exeA = exerciciosA.get(eAIndice);
-                exerciciosAplicacao.set(o, exeA);
+                exerciciosAplicacao.add(o, exeA);
             }
             tA.setExercicio((ArrayList<Exercicio>)exercicios); //Adiciona Exercicio
             tA.setExercicioAplicacao((ArrayList<ExercicioAplicacao>)exerciciosAplicacao); //Adiciona Aplicacao do Exercicio
-            dtms.set(i, dtm);
+            dtms.add(i, dtm);
         }
         tA.setDivisaoTreinoMusculacao((ArrayList<DivisaoTreinoMusculacao>)dtms); //Adiciona Divisao Treino Musculacao
         return tA;
