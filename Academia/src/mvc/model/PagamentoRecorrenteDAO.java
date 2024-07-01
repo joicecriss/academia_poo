@@ -82,7 +82,7 @@ public class PagamentoRecorrenteDAO {
     }
 
     public PagamentoRecorrente altera(PagamentoRecorrente pagamento) {
-        String sql = "UPDATE pagamento_recorrente SET pessoa_id = ?, data = ?, cartaoCredito = ?, valor = ?, dataInicio = ?, numeroMeses = ?, dataModificacao = ? WHERE id = ?";
+        String sql = "UPDATE pagamento_recorrente SET pessoa_id = ?, data = ?, cartaoCredito = ?, valor = ?, dataInicio = ?, numeroMeses = ?, dataModificacao = ?, pagamento_mensalidade_id = ? WHERE id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -93,7 +93,8 @@ public class PagamentoRecorrenteDAO {
             stmt.setDate(5, Date.valueOf(pagamento.getDataInicio()));
             stmt.setInt(6, pagamento.getNumeroMeses());
             stmt.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
-            stmt.setLong(8, pagamento.getId());
+            stmt.setLong(8, pagamento.getPagMensalidade().getId());
+            stmt.setLong(9, pagamento.getId());
 
             stmt.executeUpdate();
 
@@ -121,7 +122,7 @@ public class PagamentoRecorrenteDAO {
     }
     
     public List<PagamentoRecorrente> buscaTodosSemPagMensalidade(LocalDate dataAtual) {
-        String sql = "SELECT * FROM pagamento_recorrente WHERE data <= ? AND pagamento_mensalidade_id IS NULL";
+        String sql = "SELECT * FROM pagamento_recorrente WHERE data <= ?";
         List<PagamentoRecorrente> pagamentos = new ArrayList<>();
 
         try (Connection connection = new ConnectionFactory().getConnection();
@@ -171,8 +172,9 @@ public class PagamentoRecorrenteDAO {
                         altera(pRecorrente);
                         System.out.println("Mensalidade paga com sucesso!");
                     } else {
-                        pmDAO.adicionaSemPagamento(pagMen);
-                        pRecorrente.setPagMensalidade(pagMen);
+                        Long id = pmDAO.adicionaSemPagamento(pagMen);
+                        PagamentoMensalidade pg = new PagamentoMensalidadeDAO().buscaPorId(id);
+                        pRecorrente.setPagMensalidade(pg);
                         altera(pRecorrente);
                     }
                 } else {
@@ -186,8 +188,6 @@ public class PagamentoRecorrenteDAO {
                         PagamentoMensalidade pagMen = new PagamentoMensalidadeDAO().buscaPorId(pRecorrente.getPagMensalidade().getId());
                         pagMen.setDataPagamento2(LocalDate.now().toString());
                         pagMen.setValorPago(pRecorrente.getValor());
-                        pRecorrente.setPagMensalidade(pagMen);
-                        pmDAO.adiciona(pagMen);
                         pRecorrente.setPagMensalidade(pagMen);
                         altera(pRecorrente);
                         System.out.println("Mensalidade paga com sucesso!");
@@ -215,8 +215,9 @@ public class PagamentoRecorrenteDAO {
                     pagMen.setData2(pRecorrente.getData());
                     pagMen.setPessoa(pRecorrente.getPessoa());
                     pagMen.setModalidade(4);
-                    pRecorrente.setPagMensalidade(pagMen);
-                    pmDAO.adicionaSemPagamento(pagMen);
+                    Long id = pmDAO.adicionaSemPagamento(pagMen);
+                    PagamentoMensalidade pg = new PagamentoMensalidadeDAO().buscaPorId(id);
+                    pRecorrente.setPagMensalidade(pg);
                     altera(pRecorrente);
                 }
             }
@@ -231,6 +232,7 @@ public class PagamentoRecorrenteDAO {
         pagamento.setCartaoCredito(rs.getString("cartaoCredito"));
         pagamento.setValor(rs.getDouble("valor"));
         pagamento.setDataInicio2(rs.getDate("dataInicio").toLocalDate().toString());
+        pagamento.setPagMensalidade(new PagamentoMensalidadeDAO().buscaPorId(rs.getLong("pagamento_mensalidade_id")));
         pagamento.setNumeroMeses(rs.getInt("numeroMeses"));
         pagamento.setDataCriacao(rs.getTimestamp("dataCriacao").toLocalDateTime());
         pagamento.setDataModificacao(rs.getTimestamp("dataModificacao").toLocalDateTime());

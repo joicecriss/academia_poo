@@ -40,7 +40,7 @@ public class PagamentoMensalidadeDAO {
         return false;
     }
     
-     public boolean adicionaSemPagamento(PagamentoMensalidade pagamento) {
+     public Long adicionaSemPagamento(PagamentoMensalidade pagamento) {
         String sql = "INSERT INTO pagamento_mensalidade (mensalidade_id, dataVencimento, data, pessoa_id, modalidade, dataCriacao, dataModificacao) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
@@ -58,16 +58,16 @@ public class PagamentoMensalidadeDAO {
 
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    //pagamento.setId(rs.getLong(1));
-                    return true;
+                    pagamento.setId(rs.getLong(1));
+                    return pagamento.getId();
                 }
             }
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar pagamento de mensalidade", e);
         }
+        return null;
 
-        return false;
     }
 
     public PagamentoMensalidade buscaPorId(long id) {
