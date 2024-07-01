@@ -110,7 +110,26 @@ public class PagamentoMensalidadeDAO {
     }
     
     public List<PagamentoMensalidade> buscaTodosSemPagamento(LocalDate dataAtual) {
-        String sql = "SELECT * FROM pagamento_mensalidade WHERE dataVencimento <= ? AND dataPagamento = NULL AND valorPago = NULL";
+        String sql = "SELECT * FROM pagamento_mensalidade WHERE dataVencimento <= ? AND dataPagamento IS NULL AND valorPago IS NULL";
+        List<PagamentoMensalidade> pagamentos = new ArrayList<>();
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql);) {
+                stmt.setDate(1, Date.valueOf(dataAtual));
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    pagamentos.add(map(rs));
+                }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar todos os pagamentos de mensalidade", e);
+        }
+
+        return pagamentos;
+    }
+    
+    public List<PagamentoMensalidade> buscaTodosComPagamento(LocalDate dataAtual) {
+        String sql = "SELECT * FROM pagamento_mensalidade WHERE dataVencimento <= ? AND dataPagamento IS NOT NULL AND valorPago IS NOT NULL";
         List<PagamentoMensalidade> pagamentos = new ArrayList<>();
 
         try (Connection connection = new ConnectionFactory().getConnection();

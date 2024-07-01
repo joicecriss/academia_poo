@@ -5,13 +5,11 @@ import java.util.Properties;
 
 public class ConnectionFactory {
 
-   
-    
     public Connection getConnection() {
         try {
             Properties properties = new Properties();
             properties.setProperty("user", "root");
-            properties.setProperty("password", "1234");
+            properties.setProperty("password", "123456");
             properties.setProperty("useSSL", "false");
             properties.setProperty("useTimezone", "true");
             properties.setProperty("serverTimezone", "UTC");

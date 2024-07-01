@@ -30,17 +30,87 @@ public class Relatorios {
 
     public static void main(String[] args) {
         LocalDate dataAtual = LocalDate.now(); // ou use uma data específica
-        PagamentoRecorrenteDAO inadimplentes = new PagamentoRecorrenteDAO();
+        PagamentoMensalidadeDAO pagMensalidade = new PagamentoMensalidadeDAO();
         MovimentacaoFinanceiraDAO movimentacao = new MovimentacaoFinanceiraDAO();
+        int nroDias = 5;
         try {
-            criarRelatorioPDFInadimplentes(inadimplentes.buscaTodosSemPagMensalidade(dataAtual), "RelatorioInadimplentesSimples.pdf", dataAtual);
+            criarRelatorioPDFAdimplentes(pagMensalidade.buscaTodosComPagamento(dataAtual.plusDays(nroDias)), "RelatorioAdimplentesSimples.pdf", dataAtual, nroDias);
+            criarRelatorioPDFInadimplentes(pagMensalidade.buscaTodosSemPagamento(dataAtual.plusDays(nroDias)), "RelatorioInadimplentesSimples.pdf", dataAtual, nroDias);
             criarRelatorioPDFMovimentacao(movimentacao.buscaTodas(), "RelatorioMovimentacaoFinanceira.pdf");
         } catch (FileNotFoundException | DocumentException e) {
             e.printStackTrace();
         }
     }
+    
+    public static void criarRelatorioPDFAdimplentes(List<PagamentoMensalidade> adimplentes, String dest, LocalDate dataAtual, int nroDias) throws FileNotFoundException, DocumentException {
+        Document document = new Document(PageSize.A4);
+        PdfWriter.getInstance(document, new FileOutputStream(dest));
+        document.open();
 
-    public static void criarRelatorioPDFInadimplentes(List<PagamentoRecorrente> inadimplentes, String dest, LocalDate dataAtual) throws FileNotFoundException, DocumentException {
+        // Fonte personalizada
+        Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14);
+        Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 12);
+
+        // Adicionando título
+        Paragraph title = new Paragraph("Relatório de Alunos Adimplentes", font);
+        title.setAlignment(Element.ALIGN_CENTER);
+        document.add(title);
+
+        Paragraph date = new Paragraph("Periodo: de: " + dataAtual.toString(), fontNormal);
+        Paragraph date2 = new Paragraph("até: " + dataAtual.plusDays(nroDias).toString(), fontNormal);
+        
+        date.setAlignment(Element.ALIGN_CENTER);
+        document.add(date);
+        date2.setAlignment(Element.ALIGN_CENTER);
+        document.add(date2);
+
+        document.add(new Paragraph("\n"));
+
+        // Adicionando tabela de adimplentes
+        PdfPTable table = new PdfPTable(new float[]{1, 3, 3, 2/*, 2*/});
+        table.setWidthPercentage(100);
+
+        // Cabeçalho
+        PdfPCell cell = new PdfPCell(new Phrase("ID", font));
+        cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        table.addCell(cell);
+
+        cell = new PdfPCell(new Phrase("Nome", font));
+        cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        table.addCell(cell);
+        
+        cell = new PdfPCell(new Phrase("Data de vencimento", font));
+        cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        table.addCell(cell);
+
+        cell = new PdfPCell(new Phrase("Valor (R$)", font));
+        cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        table.addCell(cell);
+        
+        /*cell = new PdfPCell(new Phrase("Data de pagamento", font));
+        cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        table.addCell(cell);*/
+        
+       
+        // Dados
+      
+        for (PagamentoMensalidade pagamento : adimplentes) {
+            table.addCell(new PdfPCell(new Phrase(String.valueOf(pagamento.getId()), fontNormal)));
+            table.addCell(new PdfPCell(new Phrase(String.valueOf(pagamento.getPessoa().getNome()), fontNormal)));
+            table.addCell(new PdfPCell(new Phrase(String.valueOf(pagamento.getData()))));
+            table.addCell(new PdfPCell(new Phrase(String.format("%.2f", pagamento.getValorPago()), fontNormal)));
+            //table.addCell(new PdfPCell(new Phrase(String.valueOf(pagamento.getDataPagamento()))));
+        }
+
+        document.add(table);
+
+        // Fechando o documento
+        document.close();
+
+        System.out.println("Relatório PDF criado com sucesso!");
+    }
+
+    public static void criarRelatorioPDFInadimplentes(List<PagamentoMensalidade> inadimplentes, String dest, LocalDate dataAtual, int nroDias) throws FileNotFoundException, DocumentException {
         Document document = new Document(PageSize.A4);
         PdfWriter.getInstance(document, new FileOutputStream(dest));
         document.open();
@@ -54,8 +124,8 @@ public class Relatorios {
         title.setAlignment(Element.ALIGN_CENTER);
         document.add(title);
 
-        Paragraph date = new Paragraph("Data: de: " + dataAtual.toString(), fontNormal);
-        Paragraph date2 = new Paragraph("até: " + dataAtual.plusDays(30).toString(), fontNormal);
+        Paragraph date = new Paragraph("Periodo: de: " + dataAtual.toString(), fontNormal);
+        Paragraph date2 = new Paragraph("até: " + dataAtual.plusDays(nroDias).toString(), fontNormal);
         
         date.setAlignment(Element.ALIGN_CENTER);
         document.add(date);
@@ -88,11 +158,11 @@ public class Relatorios {
        
         // Dados
       
-        for (PagamentoRecorrente pagamento : inadimplentes) {
+        for (PagamentoMensalidade pagamento : inadimplentes) {
             table.addCell(new PdfPCell(new Phrase(String.valueOf(pagamento.getId()), fontNormal)));
             table.addCell(new PdfPCell(new Phrase(String.valueOf(pagamento.getPessoa().getNome()), fontNormal)));
-            table.addCell(new PdfPCell(new Phrase(String.valueOf(pagamento.getData()))));
-            table.addCell(new PdfPCell(new Phrase(String.format("%.2f", pagamento.getValor()), fontNormal)));
+            table.addCell(new PdfPCell(new Phrase(String.valueOf(pagamento.getDataVencimento()), fontNormal)));
+            table.addCell(new PdfPCell(new Phrase(String.format("%.2f", pagamento.getMensalidadeVigente().getValor()), fontNormal)));
         }
 
         document.add(table);
@@ -144,7 +214,7 @@ public class Relatorios {
         // Dados
       
         for (MovimentacaoFinanceira movimentacaoFinanceira : movimentacao) {
-            table.addCell(new PdfPCell(new Phrase(String.valueOf(movimentacaoFinanceira.getValor()), fontNormal)));
+            table.addCell(new PdfPCell(new Phrase(String.format("%.2f", movimentacaoFinanceira.getValor()), fontNormal)));
             table.addCell(new PdfPCell(new Phrase(String.valueOf(movimentacaoFinanceira.getTipo()), fontNormal)));
             table.addCell(new PdfPCell(new Phrase(String.valueOf(movimentacaoFinanceira.getDescricao()))));
             table.addCell(new PdfPCell(new Phrase(String.valueOf(movimentacaoFinanceira.getDataCriacao()), fontNormal)));

@@ -122,7 +122,7 @@ public class PagamentoRecorrenteDAO {
     }
     
     public List<PagamentoRecorrente> buscaTodosSemPagMensalidade(LocalDate dataAtual) {
-        String sql = "SELECT * FROM pagamento_recorrente WHERE data <= ?";
+        String sql = "SELECT * FROM pagamento_recorrente WHERE data <= ? AND pagamento_mensalidade_id IS NULL";
         List<PagamentoRecorrente> pagamentos = new ArrayList<>();
 
         try (Connection connection = new ConnectionFactory().getConnection();
