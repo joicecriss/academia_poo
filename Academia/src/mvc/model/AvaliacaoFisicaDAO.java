@@ -76,7 +76,7 @@ public class AvaliacaoFisicaDAO {
     }
     
     public List<AvaliacaoFisica> mostrarTodosPorAluno(Pessoa p) {
-        String sql = "SELECT * FROM avaliacao_fisica WHERE id_pessoa = ?";
+        String sql = "SELECT * FROM avaliacao_fisica WHERE pessoa_id = ?";
         List<AvaliacaoFisica> avaliacoes = new ArrayList<>();
 
         try (Connection connection = new ConnectionFactory().getConnection();

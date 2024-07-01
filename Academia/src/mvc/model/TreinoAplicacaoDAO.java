@@ -94,6 +94,28 @@ public class TreinoAplicacaoDAO {
         return treino;
     }
     
+    public TreinoAplicacao buscaPorAluno(long id) {
+        String sql = "select * from treino_aplicacao ta\n" +
+                     "left join treino_aplicacao_exercicio tae on tae.id_treino_aplica = ta.id_treino_aplicacao\n" +
+                     "where ta.id_pessoa = ?";
+
+        TreinoAplicacao treino = null;
+        try (Connection connection = new ConnectionFactory().getConnection(); 
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    treino = map(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar divisão de treino de musculação por ID", e);
+        }
+
+        return treino;
+    }
+    
     
     private TreinoAplicacao map(ResultSet rs) throws SQLException {
         TreinoAplicacao treino = new TreinoAplicacao();
@@ -111,7 +133,7 @@ public class TreinoAplicacaoDAO {
         treino.setDataModificacao(rs.getTimestamp("data_modificacao").toLocalDateTime());
 
         // Mapeando exercícios e aplicações
-        while (rs.next()) {
+        do {
             long idExercicio = rs.getLong("id_exercicio");
             Exercicio exercicio = new ExercicioDAO().buscaPorId(idExercicio);
             exercicios.add(exercicio);
@@ -122,7 +144,7 @@ public class TreinoAplicacaoDAO {
 
             String posicao = rs.getString("posicao");
             posicoes.add(posicao);
-        }
+        }while (rs.next());
 
         treino.setExercicio(exercicios);
         treino.setExercicioAplicacao(exercicioAplicacoes);
