@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /*
@@ -16,8 +17,8 @@ public class TreinoAplicacao {
   private Pessoa pessoa;
   private Academia academia;
   private Treino treino;
-  private ArrayList<Exercicio> exercicio;
-  private ArrayList<ExercicioAplicacao> exercicioAplicacao;
+  private List<Exercicio> exercicio;
+  private List<ExercicioAplicacao> exercicioAplicacao;
   private DivisaoTreino divisaoTreino;
   private ArrayList<DivisaoTreinoMusculacao> divisaoTreinoMusculacao;
   private LocalDateTime dataCriacao;
@@ -59,7 +60,7 @@ public class TreinoAplicacao {
         this.dataModificacao = LocalDateTime.now();
     }
 
-    public ArrayList<Exercicio> getExercicio() {
+    public List<Exercicio> getExercicio() {
         return exercicio;
     }
 
@@ -68,7 +69,7 @@ public class TreinoAplicacao {
         this.dataModificacao = LocalDateTime.now();
     }
 
-    public ArrayList<ExercicioAplicacao> getExercicioAplicacao() {
+    public List<ExercicioAplicacao> getExercicioAplicacao() {
         return exercicioAplicacao;
     }
 

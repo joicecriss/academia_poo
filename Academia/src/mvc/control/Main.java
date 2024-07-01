@@ -135,13 +135,13 @@ public class Main {
                         }
                         break;
                     case 3:
-                        boolean treino1 = treinoAplicacaoDAO.mostrarPorAluno(Util.getPessoaLogada());
+                        boolean treino1 =false;// treinoAplicacaoDAO.mostrarPorAluno(Util.getPessoaLogada());
                         if(!treino1) {
                             System.out.println("Voce nao tem treino, peca ao instrutor!");
                         }
                         break;
                     case 4:
-                        boolean treino2 = treinoAplicacaoDAO.mostrarPorAluno(Util.getPessoaLogada());
+                        boolean treino2 = false;//treinoAplicacaoDAO.mostrarPorAluno(Util.getPessoaLogada());
                         if(treino2) {
                             System.out.println("Fixa de Treino Imprimida!!"
                                 + "\nPegue na impressora!");
@@ -989,27 +989,27 @@ public class Main {
                 case 2:
                     System.out.println("\n Digite o id do Treino Aplicacao: ");
                     Long idMostrar = Long.parseLong(s.nextLine());
-                    treinoAplicacaoDAO.mostrarPorId(idMostrar);
+                    //treinoAplicacaoDAO.mostrarPorId(idMostrar);
                     break;
                 case 3:
                     System.out.println("\n Digite o id do Treino Aplicacao: ");
                     Long id = Long.parseLong(s.nextLine());
-                    TreinoAplicacao achou = treinoAplicacaoDAO.buscaPorId(id);
+                    /*TreinoAplicacao achou = treinoAplicacaoDAO.buscaPorId(id);
                     if(achou != null) {
                         System.out.println(achou.toString());
                     } else {
                         System.out.println("Treino Aplicacao nao encontrada!");
-                    }
+                    }*/
                     break;
                 case 4:
                     System.out.println("\n Digite o id do Treino Aplicacao que deseja excluir: ");
                     Long idExcluir = Long.parseLong(s.nextLine());
 
-                    if (treinoAplicacaoDAO.remover(idExcluir)) {
+                    /*if (treinoAplicacaoDAO.remover(idExcluir)) {
                         System.out.println("\n Treino Aplicacao excluido!");
                     } else {
                         System.out.println("\n Treino Aplicacao nao excluido!");
-                    }
+                    }*/
                     break;
                 case 0:
                     System.out.println("Saindo do modulo Treino Aplicacao!");
