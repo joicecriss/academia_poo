@@ -58,7 +58,7 @@ public class PagamentoMensalidadeDAO {
 
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    pagamento.setId(rs.getLong("id"));
+                    pagamento.setId(rs.getLong(1));
                     return pagamento.getId();
                 }
             }
