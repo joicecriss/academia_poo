@@ -111,7 +111,7 @@ public class TreinoAplicacaoDAO {
         treino.setDataModificacao(rs.getTimestamp("data_modificacao").toLocalDateTime());
 
         // Mapeando exercícios e aplicações
-        while (rs.next()) {
+        do {
             long idExercicio = rs.getLong("id_exercicio");
             Exercicio exercicio = new ExercicioDAO().buscaPorId(idExercicio);
             exercicios.add(exercicio);
@@ -122,7 +122,7 @@ public class TreinoAplicacaoDAO {
 
             String posicao = rs.getString("posicao");
             posicoes.add(posicao);
-        }
+        } while (rs.next());
 
         treino.setExercicio(exercicios);
         treino.setExercicioAplicacao(exercicioAplicacoes);
