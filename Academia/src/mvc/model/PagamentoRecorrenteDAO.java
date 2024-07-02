@@ -122,7 +122,9 @@ public class PagamentoRecorrenteDAO {
     }
     
     public List<PagamentoRecorrente> buscaTodosSemPagMensalidade(LocalDate dataAtual) {
-        String sql = "SELECT * FROM pagamento_recorrente WHERE data <= ? AND pagamento_mensalidade_id IS NULL";
+        String sql = "SELECT * FROM pagamento_recorrente pr\n" +
+                     "LEFT JOIN pagamento_mensalidade pm ON pm.id = pr.pagamento_mensalidade_id\n" +
+                     "WHERE pm.dataPagamento IS NULL AND pm.valorPago IS NULL AND pr.data <= ?";
         List<PagamentoRecorrente> pagamentos = new ArrayList<>();
 
         try (Connection connection = new ConnectionFactory().getConnection();
