@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `academia`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `academia` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `endereco` varchar(200) NOT NULL,
   `cnpj` varchar(25) NOT NULL,
@@ -127,7 +127,7 @@ CREATE TABLE `divisao_treino_musculacao` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `divisao_treino_id_idx` (`divisao_treino_id`),
   CONSTRAINT `divisao_treino_id` FOREIGN KEY (`divisao_treino_id`) REFERENCES `divisao_treino` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +136,7 @@ CREATE TABLE `divisao_treino_musculacao` (
 
 LOCK TABLES `divisao_treino_musculacao` WRITE;
 /*!40000 ALTER TABLE `divisao_treino_musculacao` DISABLE KEYS */;
-INSERT INTO `divisao_treino_musculacao` VALUES (4,'PEITO, OMBRO, TRICEPS','A',1,'2024-06-23 19:58:09','2024-06-23 21:59:31',0),(5,'COSTAS, BICEPS','B',1,'2024-06-23 19:58:09','2024-06-23 22:00:03',0),(6,'PERNA','C',1,'2024-06-23 19:58:09','2024-06-23 19:58:09',0),(7,'Posterior, Quadriceps, Gluteo, Cardio','A',1,'2024-06-23 23:55:03','2024-06-23 23:55:03',657),(8,'Costa, Ombro, Biceps, Cardio, Abdominal','B',1,'2024-06-23 23:55:03','2024-06-23 23:55:03',657),(9,'Peito, Triceps, Cardio','C',1,'2024-06-23 23:55:03','2024-06-24 00:05:16',657);
+INSERT INTO `divisao_treino_musculacao` VALUES (4,'PEITO, OMBRO, TRICEPS','A',1,'2024-06-23 19:58:09','2024-06-23 21:59:31',0),(5,'COSTAS, BICEPS','B',1,'2024-06-23 19:58:09','2024-06-23 22:00:03',0),(6,'PERNA','C',1,'2024-06-23 19:58:09','2024-06-23 19:58:09',0),(7,'Posterior, Quadriceps, Gluteo, Cardio','A',1,'2024-06-23 23:55:03','2024-06-23 23:55:03',657),(8,'Costa, Ombro, Biceps, Cardio, Abdominal','B',1,'2024-06-23 23:55:03','2024-06-23 23:55:03',657),(9,'Peito, Triceps, Cardio','C',1,'2024-06-23 23:55:03','2024-06-24 00:05:16',657),(10,'Perna','A',1,'2024-07-01 21:26:24','2024-07-01 21:26:24',0),(11,'Peito','B',1,'2024-07-01 21:26:24','2024-07-01 21:26:24',0),(12,'Costa','C',1,'2024-07-01 21:26:24','2024-07-01 21:26:24',0),(13,'Perna','A',1,'2024-07-01 21:28:45','2024-07-01 21:28:45',0),(14,'Peito','B',1,'2024-07-01 21:28:45','2024-07-01 21:28:45',0),(15,'Costa','C',1,'2024-07-01 21:28:45','2024-07-01 21:28:45',0),(16,'Perna','A',1,'2024-07-01 21:43:35','2024-07-01 21:43:35',0),(17,'Costa','B',1,'2024-07-01 21:43:35','2024-07-01 21:43:35',0),(18,'Ombro','C',1,'2024-07-01 21:43:35','2024-07-01 21:43:35',0);
 /*!40000 ALTER TABLE `divisao_treino_musculacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,7 +157,7 @@ CREATE TABLE `entrada_aluno` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `pessoa_id_idx` (`pessoa_id`),
   CONSTRAINT `entrada_pessoa_id` FOREIGN KEY (`pessoa_id`) REFERENCES `pessoa` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,7 +166,7 @@ CREATE TABLE `entrada_aluno` (
 
 LOCK TABLES `entrada_aluno` WRITE;
 /*!40000 ALTER TABLE `entrada_aluno` DISABLE KEYS */;
-INSERT INTO `entrada_aluno` VALUES (1,'2024-06-24 21:20:00','2024-06-27 01:27:22','2024-06-27 01:27:22',3),(2,'2024-06-28 23:30:02','2024-06-29 21:03:41','2024-06-29 21:03:41',3);
+INSERT INTO `entrada_aluno` VALUES (1,'2024-06-24 21:20:00','2024-06-27 01:27:22','2024-06-27 01:27:22',3),(2,'2024-06-28 23:30:02','2024-06-29 21:03:41','2024-06-29 21:03:41',3),(5,'2024-07-01 23:52:30','2024-07-01 23:52:30','2024-07-01 23:52:30',3);
 /*!40000 ALTER TABLE `entrada_aluno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +185,7 @@ CREATE TABLE `exercicio` (
   `dataModificacao` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,7 +194,7 @@ CREATE TABLE `exercicio` (
 
 LOCK TABLES `exercicio` WRITE;
 /*!40000 ALTER TABLE `exercicio` DISABLE KEYS */;
-INSERT INTO `exercicio` VALUES (1,'Supino reto','Barra com pesos tipo anilha','2024-06-23 15:28:55','2024-06-23 15:28:55');
+INSERT INTO `exercicio` VALUES (1,'Supino reto','Barra com pesos tipo anilha','2024-06-23 15:28:55','2024-06-23 15:28:55'),(3,'Agachamento livre','Agachamento utilizando barra com pesos tipo anilha','2024-07-01 18:38:38','2024-07-01 18:38:38'),(4,'Supino inclinado','Barra com pesos tipo anilha em um banco inclinado','2024-07-01 18:38:38','2024-07-01 18:38:38'),(5,'Crucifixo','Dois halteres','2024-07-01 18:38:38','2024-07-01 18:38:38'),(6,'Peck deck','Máquina de peck deck','2024-07-01 18:38:38','2024-07-01 18:38:38'),(7,'Puxada frontal','Máquina de puxada com barra','2024-07-01 18:38:38','2024-07-01 18:38:38'),(8,'Remada curvada','DBarra com pesos tipo anilha','2024-07-01 18:38:38','2024-07-01 18:38:38'),(9,'Remada unilateral','Haltere','2024-07-01 18:38:38','2024-07-01 18:38:38'),(10,'Levantamento terra','Barra com pesos tipo anilha','2024-07-01 18:38:38','2024-07-01 18:38:38'),(11,'Desenvolvimento com halteres','Dois halteres','2024-07-01 18:38:38','2024-07-01 18:38:38'),(12,'Elevação lateral','Dois halteres','2024-07-01 18:38:38','2024-07-01 18:38:38'),(13,'Elevação frontal','Dois halteres','2024-07-01 18:38:38','2024-07-01 18:38:38'),(14,'Remada em pé','Dois halteres','2024-07-01 18:38:38','2024-07-01 18:38:38'),(15,'Rosca direta','Barra com pesos tipo anilha ou dois halteres','2024-07-01 18:38:38','2024-07-01 18:38:38'),(16,'Rosca martelo','Dois halteres','2024-07-01 18:38:38','2024-07-01 18:38:38'),(17,'Tríceps na polia','Máquina de cabo com barra','2024-07-01 18:38:38','2024-07-01 18:38:38'),(18,'Tríceps testa','Barra com pesos tipo anilha ou dois halteres','2024-07-01 18:38:38','2024-07-01 18:38:38'),(19,'Agachamento','Barra com pesos tipo anilha','2024-07-01 18:38:38','2024-07-01 18:38:38'),(20,'Leg press','Máquina de leg press','2024-07-01 18:38:38','2024-07-01 18:38:38'),(21,'Extensora','Máquina extensora','2024-07-01 18:38:38','2024-07-01 18:38:38'),(22,'Flexora','Máquina flexora','2024-07-01 18:38:38','2024-07-01 18:38:38'),(23,'Panturrilha em pé','Máquina de panturrilha ou barra com pesos tipo anilha','2024-07-01 18:38:38','2024-07-01 18:38:38'),(24,'Abdominal supra','Sem equipamento, apenas o peso do corpo','2024-07-01 18:38:38','2024-07-01 18:38:38'),(25,'Abdominal infra','Sem equipamento, apenas o peso do corpo','2024-07-01 18:38:38','2024-07-01 18:38:38'),(26,'Abdominal oblíquo','Sem equipamento, apenas o peso do corpo','2024-07-01 18:38:38','2024-07-01 18:38:38'),(27,'Prancha','Sem equipamento, apenas o peso do corpo','2024-07-01 18:38:38','2024-07-01 18:38:38');
 /*!40000 ALTER TABLE `exercicio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,7 +279,7 @@ CREATE TABLE `movimentacao_financeira` (
 
 LOCK TABLES `movimentacao_financeira` WRITE;
 /*!40000 ALTER TABLE `movimentacao_financeira` DISABLE KEYS */;
-INSERT INTO `movimentacao_financeira` VALUES (1,250,'2','Conta de Agua - mes 05 de 2024','2024-06-29 23:16:59','2024-06-29 23:24:58'),(2,262,'2','Conta de Agua - mes 04 de 2024','2024-06-29 23:21:28','2024-06-29 23:25:18'),(3,20,'1','Pagamento Mensalidade Aluno: Douglas da Silva','2024-06-30 02:55:31','2024-06-30 02:55:31'),(4,20,'1','Pagamento Mensalidade Aluno: Douglas da Silva','2024-06-30 03:02:51','2024-06-30 03:02:51'),(5,20,'1','Pagamento Mensalidade Aluno: Douglas da Silva','2024-06-30 03:13:54','2024-06-30 03:13:54'),(6,20,'1','Pagamento Mensalidade Aluno: Douglas da Silva','2024-06-30 03:19:54','2024-06-30 03:19:54');
+INSERT INTO `movimentacao_financeira` VALUES (1,250,'2','Conta de Agua - mes 05 de 2024','2024-06-29 23:16:59','2024-06-29 23:24:58'),(2,262,'2','Conta de Agua - mes 04 de 2024','2024-06-29 23:21:28','2024-06-29 23:25:18'),(3,99.99,'1','Pagamento Mensalidade Aluno: Douglas da Silva','2024-06-30 02:55:31','2024-06-30 02:55:31'),(4,99.99,'1','Pagamento Mensalidade Aluno: Douglas da Silva','2024-06-30 03:02:51','2024-06-30 03:02:51'),(5,99.99,'1','Pagamento Mensalidade Aluno: Douglas da Silva','2024-06-30 03:13:54','2024-06-30 03:13:54'),(6,99.99,'1','Pagamento Mensalidade Aluno: Douglas da Silva','2024-06-30 03:19:54','2024-06-30 03:19:54');
 /*!40000 ALTER TABLE `movimentacao_financeira` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,7 +307,7 @@ CREATE TABLE `pagamento_mensalidade` (
   KEY `pessoa_id_pagamento_idx` (`pessoa_id`),
   CONSTRAINT `mensalidade_vingente_id` FOREIGN KEY (`mensalidade_id`) REFERENCES `mensalidade_vigente` (`id`),
   CONSTRAINT `pagamento_pessoa_id` FOREIGN KEY (`pessoa_id`) REFERENCES `pessoa` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -316,7 +316,7 @@ CREATE TABLE `pagamento_mensalidade` (
 
 LOCK TABLES `pagamento_mensalidade` WRITE;
 /*!40000 ALTER TABLE `pagamento_mensalidade` DISABLE KEYS */;
-INSERT INTO `pagamento_mensalidade` VALUES (1,'2024-07-01','2024-07-01',102,'2024-07-01','1','2024-06-30 03:19:54','2024-06-30 03:19:54',1,3),(2,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-06-30 21:33:58','2024-06-30 21:33:58',1,3),(3,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-06-30 21:34:04','2024-06-30 21:34:04',1,3),(4,'2024-08-04',NULL,NULL,'2024-08-04','4','2024-06-30 21:34:06','2024-06-30 21:34:06',1,3),(5,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-06-30 21:42:50','2024-06-30 21:42:50',1,3),(6,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-06-30 21:42:57','2024-06-30 21:42:57',1,3),(7,'2024-08-04',NULL,NULL,'2024-08-04','4','2024-06-30 21:43:02','2024-06-30 21:43:02',1,3),(8,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-06-30 21:43:40','2024-06-30 21:43:40',1,3),(9,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-06-30 21:43:42','2024-06-30 21:43:42',1,3);
+INSERT INTO `pagamento_mensalidade` VALUES (1,'2024-07-01','2024-07-01',102,'2024-07-01','1','2024-06-30 03:19:54','2024-06-30 03:19:54',1,3),(2,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-06-30 21:33:58','2024-06-30 21:33:58',1,3),(3,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-06-30 21:34:04','2024-06-30 21:34:04',1,3),(4,'2024-08-04',NULL,NULL,'2024-08-04','4','2024-06-30 21:34:06','2024-06-30 21:34:06',1,3),(5,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-06-30 21:42:50','2024-06-30 21:42:50',1,3),(6,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-06-30 21:42:57','2024-06-30 21:42:57',1,3),(7,'2024-08-04',NULL,NULL,'2024-08-04','4','2024-06-30 21:43:02','2024-06-30 21:43:02',1,3),(8,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-06-30 21:43:40','2024-06-30 21:43:40',1,3),(9,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-06-30 21:43:42','2024-06-30 21:43:42',1,3),(10,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-07-01 00:03:14','2024-07-01 00:03:14',1,3),(11,'2024-07-04',NULL,NULL,'2024-07-04','4','2024-07-01 00:03:16','2024-07-01 00:03:16',1,3),(12,'2024-08-04',NULL,NULL,'2024-08-04','4','2024-07-01 00:03:17','2024-07-01 00:03:17',1,3),(13,'2024-07-03',NULL,NULL,'2024-07-03','4','2024-07-01 00:05:04','2024-07-01 00:05:04',1,3),(14,'2024-07-03',NULL,NULL,'2024-07-03','4','2024-07-01 00:05:05','2024-07-01 00:05:05',1,3),(15,'2024-08-03',NULL,NULL,'2024-08-03','4','2024-07-01 00:05:05','2024-07-01 00:05:05',1,3),(16,'2024-07-02',NULL,NULL,'2024-07-02','4','2024-07-01 00:10:30','2024-07-01 00:10:30',1,3),(17,'2024-07-02',NULL,NULL,'2024-07-02','4','2024-07-01 00:26:20','2024-07-01 00:26:20',1,3),(18,'2024-07-02',NULL,NULL,'2024-07-02','4','2024-07-01 00:30:48','2024-07-01 00:30:48',1,3),(19,'2024-07-02',NULL,NULL,'2024-07-02','4','2024-07-01 00:37:36','2024-07-01 00:37:36',1,3),(20,'2024-07-02',NULL,NULL,'2024-07-02','4','2024-07-01 00:37:37','2024-07-01 00:37:37',1,3),(21,'2024-08-02',NULL,NULL,'2024-08-02','4','2024-07-01 00:37:38','2024-07-01 00:37:38',1,3),(22,'2024-07-01',NULL,NULL,'2024-07-01','4','2024-07-01 00:40:35','2024-07-01 00:40:35',1,3),(23,'2024-07-01',NULL,NULL,'2024-07-01','4','2024-07-01 00:40:36','2024-07-01 00:40:36',1,3),(24,'2024-08-01',NULL,NULL,'2024-08-01','4','2024-07-01 00:40:37','2024-07-01 00:40:37',1,3),(25,'2024-06-30',NULL,NULL,'2024-06-30','4','2024-07-01 00:47:50','2024-07-01 00:47:50',1,3),(26,'2024-06-30',NULL,NULL,'2024-06-30','4','2024-07-01 00:47:51','2024-07-01 00:47:51',1,3),(27,'2024-07-31',NULL,NULL,'2024-07-31','4','2024-07-01 00:47:52','2024-07-01 00:47:52',1,3),(28,'2024-09-04',NULL,NULL,'2024-09-04','4','2024-07-02 02:45:19','2024-07-02 02:45:19',1,3),(29,'2024-09-04',NULL,NULL,'2024-09-04','4','2024-07-02 02:53:29','2024-07-02 02:53:29',1,3);
 /*!40000 ALTER TABLE `pagamento_mensalidade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,7 +353,7 @@ CREATE TABLE `pagamento_recorrente` (
 
 LOCK TABLES `pagamento_recorrente` WRITE;
 /*!40000 ALTER TABLE `pagamento_recorrente` DISABLE KEYS */;
-INSERT INTO `pagamento_recorrente` VALUES (1,'2024-07-05','1111.1111.1111',99.99,'2024-07-05',1,'2024-06-30 05:46:11','2024-06-30 05:46:11',3,NULL),(2,'2024-07-05','1111.1111.1111.1111',99.99,'2024-07-05',1,'2024-06-30 06:15:23','2024-06-30 06:15:23',3,NULL),(3,'2024-08-05','1111.1111.1111.1111',99.99,'2024-07-05',2,'2024-06-30 06:15:23','2024-06-30 06:15:23',3,NULL),(4,'2024-09-05','1111.1111.1111.1111',99.99,'2024-07-05',3,'2024-06-30 06:15:23','2024-06-30 06:15:23',3,NULL),(5,'2024-10-05','1111.1111.1111.1111',99.99,'2024-07-05',4,'2024-06-30 06:15:23','2024-06-30 06:15:23',3,NULL),(6,'2024-11-05','1111.1111.1111.1111',99.99,'2024-07-05',5,'2024-06-30 06:15:23','2024-06-30 06:15:23',3,NULL);
+INSERT INTO `pagamento_recorrente` VALUES (1,'2024-06-30','1111.1111.1111',99.99,'2024-06-30',1,'2024-06-30 05:46:11','2024-07-01 00:47:50',3,25),(2,'2024-06-30','1111.1111.1111.1111',99.99,'2024-06-30',1,'2024-06-30 06:15:23','2024-07-01 00:47:51',3,26),(3,'2024-07-31','1111.1111.1111.1111',99.99,'2024-06-30',2,'2024-06-30 06:15:23','2024-07-01 00:47:52',3,27),(4,'2024-09-04','1111.1111.1111.1111',99.99,'2024-07-04',3,'2024-06-30 06:15:23','2024-07-02 02:53:29',3,29),(5,'2024-10-05','1111.1111.1111.1111',99.99,'2024-07-05',4,'2024-06-30 06:15:23','2024-06-30 06:15:23',3,NULL),(6,'2024-11-05','1111.1111.1111.1111',99.99,'2024-07-05',5,'2024-06-30 06:15:23','2024-06-30 06:15:23',3,NULL);
 /*!40000 ALTER TABLE `pagamento_recorrente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -418,6 +418,79 @@ LOCK TABLES `treino` WRITE;
 INSERT INTO `treino` VALUES (1,'Ganhar massa muscular','2024-05-18','2024-06-29','2024-06-24 00:59:35','2024-06-24 01:11:44');
 /*!40000 ALTER TABLE `treino` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `treino_aplicacao`
+--
+
+DROP TABLE IF EXISTS `treino_aplicacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `treino_aplicacao` (
+  `id_treino_aplicacao` int NOT NULL AUTO_INCREMENT,
+  `id_pessoa` int NOT NULL,
+  `id_academia` int NOT NULL,
+  `id_treino` int NOT NULL,
+  `id_divisao_treino` int NOT NULL,
+  `data_criacao` datetime NOT NULL,
+  `data_modificacao` datetime NOT NULL,
+  PRIMARY KEY (`id_treino_aplicacao`),
+  KEY `fk_treino_aplicacao_pessoa` (`id_pessoa`),
+  KEY `fk_treino_aplicacao_academia` (`id_academia`),
+  KEY `fk_treino_aplicacao_treino` (`id_treino`),
+  KEY `fk_treino_aplicacao_divisao_treino` (`id_divisao_treino`),
+  CONSTRAINT `fk_treino_aplicacao_academia` FOREIGN KEY (`id_academia`) REFERENCES `academia` (`id`),
+  CONSTRAINT `fk_treino_aplicacao_divisao_treino` FOREIGN KEY (`id_divisao_treino`) REFERENCES `divisao_treino` (`id`),
+  CONSTRAINT `fk_treino_aplicacao_pessoa` FOREIGN KEY (`id_pessoa`) REFERENCES `pessoa` (`id`),
+  CONSTRAINT `fk_treino_aplicacao_treino` FOREIGN KEY (`id_treino`) REFERENCES `treino` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `treino_aplicacao`
+--
+
+LOCK TABLES `treino_aplicacao` WRITE;
+/*!40000 ALTER TABLE `treino_aplicacao` DISABLE KEYS */;
+INSERT INTO `treino_aplicacao` VALUES (18,3,1,1,1,'2024-07-01 18:43:34','2024-07-01 18:43:34');
+/*!40000 ALTER TABLE `treino_aplicacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `treino_aplicacao_exercicio`
+--
+
+DROP TABLE IF EXISTS `treino_aplicacao_exercicio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `treino_aplicacao_exercicio` (
+  `id_treino_aplicacao_exercicio` int NOT NULL AUTO_INCREMENT,
+  `id_treino_aplica` int NOT NULL,
+  `id_exercicio` int NOT NULL,
+  `id_exercicio_aplicacao` int NOT NULL,
+  `id_divisao_treino_musc` int NOT NULL,
+  `posicao` varchar(4) NOT NULL,
+  PRIMARY KEY (`id_treino_aplicacao_exercicio`),
+  KEY `fk_treino_aplicacao_exercicio_exercicio` (`id_exercicio`),
+  KEY `fk_treino_aplicacao_exercicio_exercicio_aplicacao` (`id_exercicio_aplicacao`),
+  KEY `fk_treino_aplicacao_divisao_treino_musc` (`id_divisao_treino_musc`),
+  KEY `fk_treino_aplicacao_exercicio_treino_aplicacao` (`id_treino_aplica`),
+  CONSTRAINT `fk_treino_aplicacao_divisao_treino_musc` FOREIGN KEY (`id_divisao_treino_musc`) REFERENCES `divisao_treino_musculacao` (`id`),
+  CONSTRAINT `fk_treino_aplicacao_exercicio_exercicio` FOREIGN KEY (`id_exercicio`) REFERENCES `exercicio` (`id`),
+  CONSTRAINT `fk_treino_aplicacao_exercicio_exercicio_aplicacao` FOREIGN KEY (`id_exercicio_aplicacao`) REFERENCES `exercicio_aplicacao` (`id`),
+  CONSTRAINT `fk_treino_aplicacao_exercicio_treino_aplicacao` FOREIGN KEY (`id_treino_aplica`) REFERENCES `treino_aplicacao` (`id_treino_aplicacao`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `treino_aplicacao_exercicio`
+--
+
+LOCK TABLES `treino_aplicacao_exercicio` WRITE;
+/*!40000 ALTER TABLE `treino_aplicacao_exercicio` DISABLE KEYS */;
+INSERT INTO `treino_aplicacao_exercicio` VALUES (4,18,12,1,18,'C'),(5,18,13,1,18,'C'),(6,18,7,1,18,'B'),(7,18,8,1,18,'B'),(8,18,3,1,18,'A'),(9,18,19,1,18,'A'),(10,18,20,1,18,'A');
+/*!40000 ALTER TABLE `treino_aplicacao_exercicio` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -428,4 +501,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-30 19:03:54
+-- Dump completed on 2024-07-03 18:00:28
